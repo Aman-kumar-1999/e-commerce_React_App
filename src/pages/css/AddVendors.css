@@ -1,0 +1,32 @@
+.add{
+    margin-top: 50px;
+    /* margin-left: 300px;
+    margin-right: 300px; */
+    /* width: 50%; */
+    justify-content: center;
+
+}
+
+.btn2{
+    background-color:rgb(234, 72, 13) ;
+    width: 80px;
+    color: white;
+    border-color:white ;
+    border-radius: 10px;
+
+    /* margin-left: -110px; */
+}
+
+@media screen and (max-width: 768px) {
+    .add {
+      width: 100%; /* Adjust the width for smaller screens */
+    }
+  }
+  
+  /* For screens with a maximum width of 480px */
+  @media screen and (max-width: 480px) {
+    .add {
+        width: 100%;
+      /* Apply additional styling for smaller screens if needed */
+    }
+  }

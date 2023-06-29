@@ -1,0 +1,41 @@
+
+#imgslide1{
+    padding-top: 20px; 
+    padding-bottom: 20px; 
+    padding-left: 0px;
+    padding-right: 0px; 
+  }
+  .prevbutton{
+    position: absolute;
+    /* z-index: -1; */
+    top: 100px;
+    left: 15px;
+    border-radius: 300px;
+    border-style: solid;
+    border-color: white;
+    background-color: white;
+  }
+  .nextbutton{
+    position: absolute;
+    /* z-index: -1; */
+    top: 100px;
+    right: 30px;
+    border-radius: 300px;
+    border-style: solid;
+    border-color: white;
+    background-color:white; 
+  }
+  .prevIcon{
+    width: 10px;
+    height: 15px;
+  }
+  .homePage{
+    margin-left: -10px;
+    padding-right: 0px;
+    
+  }
+  .imageSliderCSS{
+    border-radius: 10px;
+    z-index: 0;
+  }
+  

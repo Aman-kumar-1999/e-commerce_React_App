@@ -1,0 +1,140 @@
+.eqippedFooterLogo {
+  position: relative;
+  
+  /* left: 110px; */
+  /* right: 74.21%; */
+  /* top: 0.9%; */
+  /* bottom: 97.81%; */
+  margin-top: 0px;
+  /* margin-left: 110px; */
+  font-family: 'Ubuntu';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 32.5099px;
+  line-height: 37px;
+  display: flex;
+  align-items: center;
+  text-transform: uppercase;
+  margin-right: -30px;
+
+  color: #EF0C72;
+}
+
+.hrFooter {
+  /* color: white; */
+  background-color: #a70cef;
+  padding: 1px;
+  margin-left: 120px;
+  margin-right: 120px;
+}
+
+.eqippedFooterLogo1 {
+
+  position: absolute;
+  width: 200px;
+  height: 58.39px;
+  left: 130px;
+  /* top: -50px; */
+  bottom: 0px;
+  /* float: left; */
+
+}
+
+.first{
+ 
+
+  display: block;
+  margin-left: 120px;
+  float: left;
+}
+
+/* Footer CSS */
+example-form {
+  /* min-width: 150px;
+    max-width: 500px;
+    width: 100%; */
+
+}
+
+.example-full-width {
+  /* width: 100%; */
+}
+
+h4 {
+  margin-top: 20px;
+}
+
+.footer {
+  margin-right: 0px;
+  
+  /* background-color: black; */
+  /* background: linear-gradient(to right ,#6b6f70,#89a8b3,#9babb1,#6b6f70);
+    color: rgb(78, 63, 63); */
+  background-color: black;
+  color: wheat;
+  padding-top: 0px;
+  /* box-shadow: 5px 20px 50px #000; */
+  /* margin-left: 70px; */
+  margin-top: 50px;
+  /* border: 2px solid white; */
+  /* border-radius: 50px; */
+  /* position: absolute; */
+
+}
+
+.logoFooter {
+  width: 90%;
+}
+
+ul {
+  list-style-type: none;
+}
+
+.copyright-bar {
+  display: inline;
+}
+
+.module-title {
+  text-transform: uppercase;
+}
+
+.anker {
+  text-decoration: none;
+  color: rgb(117, 109, 109);
+  display: block;
+  margin: 20px 20px 0px 0px;
+  /* font-size: medium; */
+
+}
+
+.anker:hover {
+  text-decoration: none;
+  color: rgb(185, 88, 8)
+}
+
+.list-unstyled {
+  position: relative;
+  display: inline;
+  float: right;
+  margin-top: 0px;
+}
+
+.module-body {
+  display: inline;
+}
+
+.socil-media {
+  display: inline;
+  font-size: x-large;
+  
+}
+
+
+.loginFormBackground {
+  background: linear-gradient(to right, #1c86c4, #3c90aa, #80d1e9, #80d1e9);
+}
+
+.cardHeader {
+  background: linear-gradient(to right, #094263, #20505f, #3b6572, #5b95a7);
+  color: wheat;
+}

@@ -1,0 +1,261 @@
+.graph {
+    margin-top: 25px;
+    font-size: 20px;
+    font-weight: bold;
+    font-style: oblique;
+    margin-bottom: 10px;
+    margin-left: 55px;
+}
+
+.adiv {
+    background: linear-gradient(to right, rgb(227, 106, 30), rgb(225, 116, 44), rgb(224, 141, 68), rgb(218, 115, 51));
+    margin-bottom: 20px;
+    margin-top: 20px;
+    height: 70px;
+    margin-right: 20px;
+    margin-left: 170px;
+    position: relative;
+    display: block;
+    border-radius: 15px;
+}
+
+.adiv h5 {
+    padding-top: 15px;
+    color: #0b789a;
+    font-weight: bold;
+    font-size: 15px;
+    margin-left: -50px;
+}
+
+.adiv p {
+    font-weight: bold;
+    font-size: 15px;
+    padding-right: 50%;
+    margin-top: -10px;
+    color: green;
+}
+
+.adiv h4 {
+    color: #fff;
+    margin-top: -45px;
+    padding-left: 100px;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.adiv2 {
+    background: linear-gradient(to right, rgb(227, 106, 30), rgb(225, 116, 44), rgb(224, 141, 68), rgb(218, 115, 51));
+    margin-bottom: 20px;
+    margin-top: 20px;
+    height: 70px;
+    margin-right: 20px;
+    position: relative;
+    display: block;
+    border-radius: 15px;
+}
+
+.adiv2 p {
+    font-weight: bold;
+    font-size: 15px;
+    padding-right: 75%;
+    margin-top: -10px;
+    color: green;
+}
+
+.adiv2 h5 {
+    padding-top: 15px;
+    color: #0b789a;
+    font-weight: bold;
+    font-size: 15px;
+    margin-left: -80px;
+}
+
+.adiv2 h4 {
+    color: #fff;
+    margin-top: -45px;
+    padding-left: 75px;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+
+.adiv3 {
+    background: linear-gradient(to right, rgb(227, 106, 30), rgb(225, 116, 44), rgb(224, 141, 68), rgb(218, 115, 51));
+    margin-bottom: 20px;
+    margin-top: 20px;
+    height: 70px;
+    position: relative;
+    display: block;
+    width: 250px;
+    border-radius: 15px;
+}
+
+.adiv3 p {
+    font-weight: bold;
+    font-size: 15px;
+    padding-right: 75%;
+    margin-top: -10px;
+    color: green;
+}
+
+
+.adiv3 h5 {
+    padding-top: 15px;
+    color: #0b789a;
+    font-weight: bold;
+    font-size: 15px;
+    margin-left: -80px;
+}
+
+.adiv3 h4 {
+    color: #fff;
+    margin-top: -45px;
+    padding-left: 75px;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+
+.holder {
+    width: 200px;
+    margin-top: 50px;
+    margin-left: 20px;
+    list-style: none;
+}
+
+.holder a {
+    margin: 10px 10px;
+    font-weight: bold;
+}
+
+.holder a1 {
+    /* color: linear-gradient(to right ,#1c86c4,#3c90aa,#80d1e9,#80d1e9); */
+    color: #1c86c4;
+    font-weight: bold;
+}
+
+.graphborder {
+    margin-top: 50px;
+    border: 2px solid orange;
+    border-radius: 15px;
+}
+
+.longdiv {
+    background: linear-gradient(to right, #0e8ed8, #3c90aa, #00789c, #056481);
+    color: #fff;
+    width: 100%;
+    /* margin-left: 270px; */
+    margin-top: 40px;
+    height: 60px;
+    border-radius: 10px;
+}
+
+.longdiv h5 {
+    padding-top: 20px;
+    margin-left: -800px;
+    font-size: 18px;
+}
+
+.longdiv li {
+    float: left;
+    list-style: none;
+    padding-left: 35px;
+    padding-top: 20px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.longdiv nav {
+    padding-left: 620px;
+    margin-top: -55px;
+}
+
+.largediv {
+    background-color: #b9b9b9;
+    /* margin-left: 275px; */
+    width: 100%;
+    height: 400px;
+    margin-top: 20px;
+    border-radius: 10px;
+    outline: auto orange;
+}
+
+.largediv li {
+    float: left;
+    list-style: none;
+    margin: 10px 15px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.a1 {
+    color: rgb(238, 160, 15);
+}
+
+.newh5 {
+    padding-left: 60px;
+}
+
+
+.newspace li {
+    margin: 10px 16px;
+    font-size: 15px;
+}
+
+.bigcard {
+    margin-top: 65px;
+    background: linear-gradient(to right, rgb(205, 193, 193), rgb(194, 180, 180), rgb(215, 209, 209), rgb(201, 191, 191));
+    height: 450px;
+    width: 600px;
+    border-radius: 15px;
+}
+
+.bigcard h5 {
+    margin-left: -420px;
+    padding-top: 10px;
+    font-weight: bold;
+    font-size: 18px;
+    color: #056481
+}
+
+.smalldiv {
+    margin-bottom: 10px;
+    height: 70px;
+    margin-right: 20px;
+    margin-left: 170px;
+    position: relative;
+    display: block;
+}
+
+.longcard {
+    background-color: #056481;
+    margin-left: 55px;
+    margin-top: 69px;
+    border-radius: 10px;
+}
+
+.longcard h5 {
+    font-weight: bold;
+    color: rgb(233, 170, 51);
+    padding-top: 10px;
+    margin-left: -55px;
+}
+
+.longcard li {
+    float: left;
+    list-style: none;
+    padding-left: 35px;
+    color: rgb(233, 170, 51);
+    font-weight: bold;
+}
+
+.dash1 {
+    text-align: center;
+    color: #b30000;
+    font-weight: bold;
+}
+
+.dash2 {
+    text-align: center;
+    font-weight: bold
+}

@@ -1,0 +1,470 @@
+.orcard1 {
+    background: linear-gradient(to right ,rgb(227, 106, 30), rgb(225, 116, 44), rgb(224, 141, 68), rgb(218, 115, 51));
+    border-radius: 10px;
+    height: 65px;
+    margin-top: 20px;
+    margin-left: 10px;
+}
+
+.orcard1 h4{
+    margin-top: -10px;
+    color: #24709c;
+    margin-left: -70px;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.orcard1 p{
+    color: green;
+    font-weight: bold;
+    margin-top: -10px;
+    margin-left: -150px;
+}
+
+.orcard1 h5{
+    width: 10px;
+    color: #f2eded;
+    /* margin-top: -40px; */
+    padding-left: 140px;
+    font-weight: bold;
+}
+
+.orcard2 {
+    background: linear-gradient(to right ,rgb(227, 106, 30), rgb(225, 116, 44), rgb(224, 141, 68), rgb(218, 115, 51));
+    border-radius: 10px;
+    height: 65px;
+    margin-top: 20px;
+    margin-left: 10px;
+}
+
+.orcard2 h4{
+    margin-top: -10px;
+    color: #1b6691;
+    margin-left: -85px;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.orcard2 p{
+    color: green;
+    font-weight: bold;
+    margin-top: -10px;
+    margin-left: -140px;
+}
+
+.orcard2 h5{
+    width: 10px;
+    color: #eae6e6;
+    margin-top: -50px;
+    padding-left: 150px;
+    font-weight: bold;
+}
+
+.orcard3{
+    background: linear-gradient(to right ,rgb(227, 106, 30), rgb(225, 116, 44), rgb(224, 141, 68), rgb(218, 115, 51));
+    border-radius: 10px;
+    height: 65px;
+    margin-top: 20px;
+    margin-left: 10px;
+}
+
+.orcard3 h4{
+    margin-top: -10px;
+    color: #0e5b88;
+    margin-left: -75px;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.orcard3 p{
+    color: red;
+    font-weight: bold;
+    margin-top: -10px;
+    margin-left: -140px;
+}
+
+.orcard3 h5{
+    width: 10px;
+    color: #f5f1f1;
+    margin-top: -50px;
+    padding-left: 150px;
+    font-weight: bold;
+}
+
+.addproduct{
+    background: linear-gradient(to right ,rgb(227, 106, 30), rgb(225, 116, 44), rgb(224, 141, 68), rgb(218, 115, 51));
+    border-radius: 10px;
+    height: 65px;
+    margin-top: 20px;
+    margin-left: 10px;
+}
+
+.addproduct h4{
+    width: 110px;
+    margin-left: 50px;
+    margin-top: -24px;
+    color: #dcd9d9;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.addproduct:hover{
+    text-decoration: none;
+    background-color: orangered;
+}
+
+.addproduct h4:hover{
+    color: #a8dae9;
+}
+
+.addproduct i{
+    background-color: #fff;
+    margin-left: -163px;
+    /* margin-top: -30px; */
+    padding: 22px 25px;
+    padding-bottom: 25px;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 15px;
+    color: orange;
+}
+
+
+
+.longdiv1 {
+    background: linear-gradient(to right ,#1c86c4,#076e8d,#136983,#026e8f);
+    color: #fff;
+    width: 100%;
+    margin-top: 40px;
+    height: 60px;
+    border-radius: 10px;
+}
+
+.longdiv1 h5 {
+    padding-top: 20px;
+    /* margin-left: -820px; */
+    font-size: 18px;
+    float: left;
+    margin-left: 5%;
+}
+.longdiv1 select{
+    /* width: fit-content; */
+    /* margin-top: 40px; */
+    height: 60px;
+    border-radius: 10px;
+    font-size: 18px;
+    margin-top: 0px;
+    margin-right: 35px;
+    background-color: inherit;
+    color: #fff;;
+    float: right;
+    border: none;
+    /* border-radius: 0%; */
+}
+.longdiv1 select option{
+    padding-top: 20px;
+    /* margin-left: -820px; */
+    font-size: 18px;
+    /* margin-top: -55px; */
+    color: red;
+}
+
+.longdiv1 li {
+    float: left;
+    list-style: none;
+    padding-left: 35px;
+    padding-top: 20px;
+    font-size: 18px;
+}
+
+.longdiv1 nav {
+    padding-left: 620px;
+    margin-top: -55px;
+}
+
+.largediv1 {
+    background-color: #b9b9b9;
+    width: 100%;
+    height: 1000px;
+    margin-top: 20px;
+    border-radius: 10px;
+    border: 2px solid orange;
+    /* overflow: hidden;
+    overflow-y: scroll; */
+}
+
+.largediv1 li {
+    float: left;
+    list-style: none;
+    margin: 10px 10px;
+    font-size: 17px;
+    font-weight: bold;
+}
+
+
+.navdiv li{
+    float: left;
+    list-style: none;
+    margin: 10px 15px;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.navdiv2 li{
+    float: left;
+    list-style: none;
+    margin: 10px 20px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+
+.adduser i{
+    background-color: #fff;
+    padding-left: 162px;
+    padding: 22px 25px;
+    padding-bottom: 25px;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 15px;
+    color: orange;
+}
+
+
+.newlongdiv{
+    background: linear-gradient(to right ,#1c86c4,#076e8d,#136983,#026e8f);
+    color: #fff;
+    width: 100%;
+    margin-top: 40px;
+    height: 60px;
+    border-radius: 10px;
+}
+
+.newlongdiv h5{
+    padding-top: 20px;
+    margin-left: -820px;
+    font-size: 18px;
+}
+
+.newlongdiv nav {
+    padding-left: 450px;
+    margin-top: -50px;
+}
+
+.newlongdiv li{
+    float: left;
+    font-weight: bold;
+    list-style: none;
+    padding-left: 20px;
+    padding-top: 20px;
+    font-size: 18px;
+}
+
+
+.newlargediv{
+    background-color: #b9b9b9;
+    width: 100%;
+    height: 450px;
+    margin-top: 20px;
+    border-radius: 10px;
+    border: 2px solid orange;
+    /* overflow: hidden;
+    overflow-y: scroll; */
+}
+
+.newlargediv li{
+    float: left;
+    list-style: none;
+    margin-top: 5px;
+    padding-left: 50px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+
+.shipcard{
+    background: linear-gradient(to right ,rgb(227, 106, 30), rgb(225, 116, 44), rgb(224, 141, 68), rgb(218, 115, 51));
+    border-radius: 10px;
+    height: 65px;
+    margin-top: 20px;
+    margin-left: 10px;
+}
+
+.shipcard h4{
+    margin-top: -10px;
+    color: #1b6691;
+    margin-left: -120px;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.shipcard p{
+    color: green;
+    font-weight: bold;
+    margin-top: -5px;
+    margin-left: -140px;
+}
+
+.shipcard h5{
+    width: 10px;
+    color: #eae6e6;
+    margin-top: -50px;
+    padding-left: 150px;
+    font-weight: bold;
+}
+
+.shipcard2{
+    background: linear-gradient(to right ,rgb(227, 106, 30), rgb(225, 116, 44), rgb(224, 141, 68), rgb(218, 115, 51));
+    border-radius: 10px;
+    height: 65px;
+    margin-top: 20px;
+    margin-left: 10px;
+}
+
+.shipcard2 h4{
+    margin-top: -1px;
+    color: #1b6691;
+    margin-left: -40px;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.shipcard2 h5{
+    width: 10px;
+    color: #eae6e6;
+    margin-top: -30px;
+    padding-left: 170px;
+    font-weight: bold;
+}
+
+.shipcard3{
+    background: linear-gradient(to right ,rgb(227, 106, 30), rgb(225, 116, 44), rgb(224, 141, 68), rgb(218, 115, 51));
+    border-radius: 10px;
+    height: 65px;
+    margin-top: 20px;
+    margin-left: 10px;
+}
+
+.shipcard3 h4{
+    margin-top: -1px;
+    color: #1b6691;
+    margin-left: -130px;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.shipcard3 h5{
+    width: 10px;
+    color: #eae6e6;
+    margin-top: -30px;
+    padding-left: 150px;
+    font-weight: bold;
+}
+
+.adduser h4{
+    font-weight: bold;
+    font-size: 18px;
+    padding-left: 220px;
+    margin-top: -25px;
+}
+
+.adduser{
+    background: linear-gradient(to right ,rgb(227, 106, 30), rgb(225, 116, 44), rgb(224, 141, 68), rgb(218, 115, 51));
+    width: 250px;
+    margin-top: 45px;
+    /* margin-left: 370px; */
+    height: 70px;
+    border-radius: 10px;
+}
+
+.adduser h4{
+    margin-left: -110px;
+    padding-top: 10px;
+    margin-right: 10px;
+    color: white;
+    padding-right: 30px;
+}
+.addIcon{
+    float: left;
+}
+.addProducth4{
+    font-size: small;
+    color: blue;
+    font-family: 'Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif';
+    padding-top: 10px;
+}
+
+.adduser i{
+    float: left;
+    padding-bottom: 26px;
+}
+
+.adduser:hover{
+    text-decoration: none;
+    background-color: orangered;
+}
+
+
+.cartdiv{
+    height: 25px;
+    padding-left: 1100px;
+    width: 20px;
+}
+
+@media screen and (min-width: 941px){
+  
+    .card-body1 h5{
+        margin-top: -45px;
+    }
+  }
+  
+  @media screen and (max-width: 940px){
+    .card-body1 h5{
+        margin-top: -45px;
+    }
+    
+  }
+/* @media screen and (min-width: 666px){
+  
+    .card-body1 h5{
+        margin-top: -25px;
+    }
+  }
+  
+  @media screen and (max-width: 667px){
+    .card-body1 h5{
+        margin-top: -45px;
+    }
+    
+  } */
+
+  @media (max-width: 768px) {
+    /* Styles for screens up to 768px wide */
+    .card-body1 h5{
+        margin-top: -15px;
+    }
+    /* html{
+        width: 50%
+    } */
+
+  }
+  
+  @media (max-width: 480px) {
+    /* Styles for screens up to 480px wide */
+    .card-body1 h5{
+        margin-top: -15px;
+    }
+    .addproduct i{
+        margin-left: -175px;
+        /* position: absolute; */
+       color: cyan;
+    }
+    
+    /* html{
+        width: 100%
+    } */
+  }
+
+
+
+

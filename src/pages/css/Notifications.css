@@ -1,0 +1,44 @@
+.order1{
+    margin-top: -10px;
+    font-size: 15px;
+    font-weight: bold;
+    margin-left: -850px;
+}
+
+.date1{
+    margin-top: -25px;
+    margin-left: 430px;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.btn1{
+    background-color: rgb(225, 94, 46);
+    color: white;
+    margin-left: 500px;
+    width: 110px;
+    height: 50px;
+    font-weight: bold;
+    margin-top: 10px;
+    border-radius: 5px;
+    border-color: white;
+}
+
+.card{
+    /* height: 120px; */
+}
+
+.img{
+    border: 1px solid ;
+    margin-left: -200px;
+    width: 100px;
+    height: 110px;
+    margin-top: 5px;
+}
+
+.newh4{
+    font-size: 20px;
+    font-weight: bold;
+    margin-left: -910px;
+    padding-bottom: 20px;
+}

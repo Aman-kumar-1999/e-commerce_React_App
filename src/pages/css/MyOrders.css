@@ -1,0 +1,49 @@
+.order{
+    margin-left: -1220px;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.product{
+    margin-top: -30px;
+    margin-left: -500px;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.date{
+    margin-top: -30px;
+    margin-left: 200px;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.status{
+    padding-top: 25px;
+    margin-left: -500px;
+    font-size: 15px;
+    font-weight: bold;
+    color: rgb(232, 172, 60);
+}
+
+.btn{
+    background-color: rgb(232, 172, 60);
+    color: white;
+    margin-left: 400px;
+    width: 100px;
+    font-weight: bold;
+}
+
+.card{
+    /* border-radius: 5px;
+    background:  linear-gradient(to bottom, #98a0a3, #dbe4e7, #d2dee2, #98a0a3);
+    padding-bottom: 20px; */
+}
+
+.bigh1{
+    font-weight: bold;
+    font-size: 25px;
+    padding: 25px;
+    margin-left: -800px;
+    color: rgb(232, 172, 60);
+}
