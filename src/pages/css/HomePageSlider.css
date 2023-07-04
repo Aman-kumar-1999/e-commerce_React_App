@@ -36,6 +36,19 @@
   }
   .imageSliderCSS{
     border-radius: 10px;
+    /* padding-left: 200px; */
+    width: 200px;
+    height: 220px;
+    /* height:220; */
     z-index: 0;
   }
-  
+
+  @media (max-width: 480px) {
+
+    .imageSliderCSS{
+      
+      height:120;
+      
+    }
+    
+  }

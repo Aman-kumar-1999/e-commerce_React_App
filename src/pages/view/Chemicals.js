@@ -8,6 +8,7 @@ import baseUrl from '../../helper/helper';
 import HomeCategory from './HomeCategory';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 function Chemicals(props) {
 
@@ -81,13 +82,22 @@ function Chemicals(props) {
 
     const fetchData = async () => {
         let eqi = 'Chemicals'
+        let dataLimit = 10;
+
+        let pageNo = Math.ceil(data.length/dataLimit) + 1
+        console.log("Page No : "+pageNo)
+
         try {
-            const response = await axios.get(`${baseUrl}/product/category/${eqi}`);
+            // const response = await fetch(`http://localhost:5005/product/category/${eqi}/${pageNo}/${dataLimit}`);
+            const response = await fetch(`${baseUrl}/product/category/${eqi}/${pageNo}/${dataLimit}`);
 
 
-            const jsonData = await response.data;
+            let jsonproduct = await response.json();
 
-            setData(jsonData);
+            let apidata = [...data, ...jsonproduct];
+
+            // listproduct = jsonproduct;
+            setData(apidata);
         } catch (error) {
             console.log('Error:', error);
         }
@@ -182,7 +192,7 @@ function Chemicals(props) {
     console.log(data)
     const checkout = async (items1) => {
         try {
-            console.log("item : "+items1)
+            console.log("item : " + items1)
             const items = await getProductByProductId(items1.productId)
             console.log("Product Id  : " + JSON.stringify(items))
             const response = null;
@@ -250,7 +260,7 @@ function Chemicals(props) {
         <div className='carasouldiv'>
 
 
-<ul class="nav nav-tabs mb-3">
+            <ul class="nav nav-tabs mb-3">
                 <li class="nav-item">
                     <Link to={'/equipments'} class="nav-link" aria-current="page" data-bs-target="#nav-home">Equipments</Link>
                 </li>
@@ -273,13 +283,25 @@ function Chemicals(props) {
 
 
 
-            {
+            <InfiniteScroll
+                dataLength={data.length}
+                next={fetchData}
+                hasMore={true}
+                loader={<div className='text-center loading1'>
+
+                <img style={{ width: 50, height: 50 }} src='spinner.gif' />
+
+            </div>}
+                // scrollableTarget="scrollableDiv"
+            >
+                {
                 (data.length == 0) ? (<>
-                    <p> No Equipments are Present</p>
+                    
+                    {/* <p> No Equipments are Present</p> */}
                 </>) : (
                     <>
                         <div className="row row-cols-1 row-cols-md-7 g-8">
-                        {data.map(item => (
+                            {data.map(item => (
                                 <>
 
 
@@ -349,6 +371,8 @@ function Chemicals(props) {
                     </>
                 )
             }
+                
+            </InfiniteScroll>
 
 
 

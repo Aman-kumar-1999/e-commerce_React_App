@@ -19,13 +19,13 @@ const HomePageSlider = () => {
 
   return (
     <>
-      <div className='container-fluid homePage'>
+      <div className='container-fluid'>
         <div id="carouselExampleDark" className="carousel carousel-dark slide" data-bs-ride="carousel">
           <div className="carousel-inner">
             {imgCollection.map(item => (
-              <div className="carousel-item active" data-bs-interval="2000">
+              <div className="carousel-item active" data-bs-interval="4000">
 
-                <img src={item.image} style={{height:220}}className="d-block w-100 imageSliderCSS" alt="..." />
+                <img src={item.image} className="d-block w-100 imageSliderCSS" alt="..." />
 
               </div>
             ))}

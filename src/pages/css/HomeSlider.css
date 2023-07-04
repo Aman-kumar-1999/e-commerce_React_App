@@ -10,6 +10,11 @@
   margin-left: 20px;
 
 }
+.searchBoxCSS{
+  /* margin-top: -50px;
+  overflow: hidden; */
+
+}
 
 .equimementscard:hover {
   box-shadow: 3px 3px 3px 3px rgba(36, 34, 34, 0.2);
@@ -53,12 +58,19 @@
 }
 
 .off {
-
+  /* position: absolute;
+  border: 2px solid white;
+  border-radius: 6px;
+  background: linear-gradient(90.18deg, #197A34 6.69%, #27B74F 50.02%, #1B963E 95.19%);
+  display: inline;
+  margin-top: -194px;
+  color: white;
+  margin-left: 10px; */
   position: absolute;
   margin-top: -194px;
   margin-left: 140px;
   border-top-right-radius: 5px;
-  /* border-bottom-right-radius: 5px; */
+ 
   border-top-left-radius: 20px;
   border-bottom-left-radius: 5px;
   margin-right: -200px;
@@ -67,6 +79,9 @@
   color: white;
   justify-content: center;
   background: linear-gradient(90.18deg, #197A34 6.69%, #27B74F 50.02%, #1B963E 95.19%);
+
+
+
 
   /* position: absolute;
   margin-top: -90px;
@@ -105,6 +120,9 @@
   font-size: 14px;
   transform: skew(-60deg); */
 
+}
+.off:hover{
+   border-bottom-right-radius: 5px;
 }
 .offCategory {
 
@@ -207,7 +225,8 @@
 }
 
 .cart-button:hover {
-  background-color: #94cdce;
+  background-color: #116D6E;
+  color: white;
 }
 
 
@@ -223,13 +242,14 @@
   border-radius: 5px;
   margin-top: -20px;
   margin-left: 130px;
-  color: #CD1818;
+  /* color: #CD1818; */
   text-decoration: none;
 }
 
 .cart-button1:hover {
-  background-color: #d39a9a;
+  background-color: #CD1818;
   text-decoration: none;
+  color: white;
 
 }
 .cart-button-category {
@@ -248,7 +268,8 @@
 }
 
 .cart-button-category:hover {
-  background-color: #94cdce;
+  background-color: #116D6E;
+  color: white;
 }
 
 
@@ -269,8 +290,9 @@
 }
 
 .cart-button1-category:hover {
-  background-color: #d39a9a;
+  background-color: #CD1818;
   text-decoration: none;
+  color: white;
 
 }
 

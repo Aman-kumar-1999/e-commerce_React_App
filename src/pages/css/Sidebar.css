@@ -1,6 +1,6 @@
 .sidenav {
    
-    position: fixed;
+    /* position: fixed; */
     box-shadow: 5px 10px 50px #706e6e;
     /* overflow: hidden; */
     z-index: 1;
@@ -13,7 +13,7 @@
     /* size: 500px; */    
 }
 .side-body{
-    margin-bottom: 0px;
+    margin-bottom: -20px;
     margin-left : -30px;
     /* float: left; */
     background: transparent;
@@ -120,18 +120,35 @@
     padding-bottom: 100px;
 }
 
-@media (max-width: 800px){
-    /* .mar-gin{
-        padding-bottom: 1920px;
-    } */
-    .side-body{
-        margin-bottom: 120px;
-        margin-left : -15px;
-        margin-top: -400px;
-        /* background: transparent; */
+@media (max-width: 480px){
     
-        background: linear-gradient(to bottom, #d2dee2, #98a0a3, #98a0a3, #d2dee2);
+    .side-body{
+        margin-bottom: 180px;
+        margin-left : -29px;
+        margin-top: -400px;
+       
+    
+        /* background: linear-gradient(to bottom, #d2dee2, #98a0a3, #98a0a3, #d2dee2); */
     }
+
+    .side-body-user{
+        margin-bottom: 335px;
+        margin-left : -30px;
+        /* float: left; */
+        background: transparent;
+    
+        /* background: linear-gradient(to bottom, #d2dee2, #98a0a3, #98a0a3, #d2dee2); */
+    }
+
+    .side-body-vendor{
+        margin-bottom: 345px;
+        margin-left : -30px;
+        /* float: left; */
+        background: transparent;
+    
+        /* background: linear-gradient(to bottom, #d2dee2, #98a0a3, #98a0a3, #d2dee2); */
+    }
+    
 
     .mar-gin{
         padding-bottom: 0px;

@@ -6,9 +6,9 @@ import 'react-multi-carousel/lib/styles.css';
 import '../css/HomeSlider.css'
 import 'react-toastify/dist/ReactToastify.css';
 import baseUrl from '../../helper/helper';
-import HomeCategory from './HomeCategory';
+import InfiniteScroll from 'react-infinite-scroll-component';
 import axios from 'axios';
-import Navbar from '../../components/view/Navbar';
+
 function Equipments(props) {
 
     const responsive = {
@@ -32,16 +32,15 @@ function Equipments(props) {
     };
 
 
-
-
     const [data, setData] = useState([]);
+
+
 
     const userData = JSON.parse(localStorage.getItem('userData'))
     var isLoggedIn = localStorage.getItem('isLoggedIn');
 
     const cart =
     {
-
         "productId": '',
         "vendorId": '',
         "vendorName": null,
@@ -76,27 +75,45 @@ function Equipments(props) {
 
 
     useEffect(() => {
+
         fetchData();
+
     }, []);
+
+
 
     const fetchData = async () => {
         let eqi = 'Equipments'
+        let dataLimit = 10;
+
+        let pageNo = Math.ceil(data.length/dataLimit) + 1
+        console.log("Page No : "+pageNo)
+
         try {
-            const response = await axios.get(`${baseUrl}/product/category/${eqi}`);
+            // const response = await fetch(`http://localhost:5005/product/category/${eqi}/${pageNo}/${dataLimit}`);
+            const response = await fetch(`${baseUrl}/product/category/${eqi}/${pageNo}/${dataLimit}`);
 
 
-            const jsonData = await response.data;
+            let jsonproduct = await response.json();
 
-            setData(jsonData);
+            let apidata = [...data, ...jsonproduct];
+
+            // listproduct = jsonproduct;
+            setData(apidata);
         } catch (error) {
             console.log('Error:', error);
         }
     };
+
+
+
+
+
     const getProductByProductId = async (productId) => {
 
         try {
             // const response = axios.get(`http://localhost:5005/product/productId/${productId}`).then(
-            const response = axios.get(`${baseUrl}/product/productId/${productId}`).then(
+            const response = await axios.get(`${baseUrl}/product/productId/${productId}`).then(
                 (response) => {
                     console.log('product Data By Id : ' + response.data)
                     return response.data
@@ -171,15 +188,12 @@ function Equipments(props) {
                 });
 
 
-
-
-
         } catch (error) {
             console.error(error);
 
         }
     };
-    console.log(data)
+    // console.log(data)
     const checkout = async (items1) => {
         try {
             console.log("item : " + items1)
@@ -357,12 +371,10 @@ function Equipments(props) {
 
     }
 
-
     return (
-        <div id="equipment" className='carasouldiv'>
+        <div className='carasouldiv'>
 
 
-            {/* <HomeCategory /> */}
             <ul class="nav nav-tabs mb-3">
                 <li class="nav-item">
                     <Link to={'/equipments'} class="nav-link" aria-current="page" data-bs-target="#nav-home">Equipments</Link>
@@ -383,12 +395,20 @@ function Equipments(props) {
                     <Link to={'/chart'} class="nav-link " >Chart & Model</Link>
                 </li>
             </ul>
+            <InfiniteScroll
+                dataLength={data.length}
+                next={fetchData}
+                hasMore={true}
+                loader={<div className='text-center loading1'>
 
-            {/* <hr style={{ paddingTop: 1, background: '#a70cef', marginLeft: '10px' }} /> */}
+                            <img style={{ width: 50, height: 50 }} src='spinner.gif' />
 
-
-            {
+                        </div>}
+               
+            >
+                {
                 (data.length == 0) ? (<>
+                    
                     {/* <p> No Equipments are Present</p> */}
                 </>) : (
                     <>
@@ -463,8 +483,8 @@ function Equipments(props) {
                     </>
                 )
             }
-
-
+                
+            </InfiniteScroll>
 
 
         </div>

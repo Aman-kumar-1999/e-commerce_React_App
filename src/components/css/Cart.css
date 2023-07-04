@@ -211,14 +211,22 @@
 }
 
 .total-amount {
-  font-size: 36px;
+  font-size: 18px;
   font-family: "Open Sans";
-  font-weight: 900;
+  font-weight: 400;
   color: #202020;
 }
 
 .button {
-  margin-top: 5px;
+
+  border: 1px solid #116D6E;
+  color: #116D6E;
+  border-radius: 5px;
+  font-family: Poppins;
+  font-size: 17px;
+  font-weight: 700;
+
+  /* margin-top: 5px;
   width: 100%;
   height: 40px;
   border: none;
@@ -228,7 +236,13 @@
   font-size: 16px;
   font-family: "Open Sans";
   font-weight: 600;
-  color: #202020;
+  color: #202020; */
+}
+.button:hover {
+
+  background-color: #116D6E;
+  color: white;
+  
 }
 
 .img9{

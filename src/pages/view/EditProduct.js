@@ -51,10 +51,10 @@ function EditProduct() {
         
         try {
             // const response = axios.get(`http://localhost:5005/product/productId/${productId}`).then(
-            const response = axios.get(`${baseUrl}/product/productId/${productId}`).then(
+            const response = fetch(`${baseUrl}/product/productId/${productId}`).then(
                 (response) =>{
-                    setProducts(response.data)
-                    console.log('product Data By Id : '+response.data)
+                    setProducts(response.json())
+                    console.log('product Data By Id : '+response.json())
                     toast.success('Your are ready to update product Data')
                 },(error)=>{
                     console.log(error);

@@ -75,3 +75,30 @@
   /* background-color: red; */
   /* padding-top: 5px; */
 }
+
+.categoryResponsive{
+  margin-right: 0px;
+}
+.homeSidebar{
+  /* margin-right: 100px; */
+}
+
+@media (max-width: 480px) {
+  .categoryResponsive{
+    margin-right: 200px;
+  }
+  .responsiveCategory{
+   margin-left: 90px;
+  }
+  .categoryGrid{
+    width: 65px;
+    margin-left: 10px;
+  }
+  .categoryGrid p{
+   margin-left: -30px;
+  }
+  .homeSidebar{
+    
+  }
+  
+}

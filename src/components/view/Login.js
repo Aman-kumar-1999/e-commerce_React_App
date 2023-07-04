@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '../css/Login.css'
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import baseUrl from '../../helper/helper';
 import ForgetPassword from '../../pages/view/ForgetPassword';
 import axios from 'axios';
@@ -13,6 +13,10 @@ const Login = () => {
     username: '',
     password: ''
   });
+
+  useEffect(()=>{
+    
+  },[])
 
 
 
@@ -37,8 +41,8 @@ const Login = () => {
       }
       else {
 
-        const response = await axios.post(`${baseUrl}/user/api/login`, 
-         
+        const response = await axios.post(`${baseUrl}/user/api/login`,
+
           formData
         );
         // if (response.status == 503) {
@@ -52,37 +56,37 @@ const Login = () => {
         // }
         // else if (response.ok) {
 
-          const jsonData = await response.data;
-          console.log('Json Data '+typeof jsonData);
-          console.log('response Json '+typeof response.data)
+        const jsonData = await response.data;
+        console.log('Json Data ' + typeof jsonData);
+        console.log('response Json ' + typeof response.data)
 
-          // Handle successful login response
+        // Handle successful login response
 
-          console.log(jsonData);
-          if (jsonData.STATUS == "SUCCESS") {
-            // setIsLoggedIn(true);
-            localStorage.setItem('userData', JSON.stringify(jsonData.USER));
-            isLoggedIn = true
-            localStorage.setItem('isLoggedIn', isLoggedIn);
-            console.log('is logged In : ' + localStorage.getItem('userData'));
-            console.log('is logged In : ' + localStorage.getItem('isLoggedIn'));
-            // if (
-            //   jsonData.USER.role.roleName == 'Admin'
-            // ) {
-            //   navigate('/dashboard',JSON.stringify(jsonData.USER))
-            // } else {
-            //   navigate('/',JSON.stringify(jsonData.USER))
-            // }
-            navigate('/')
-            window.location.reload();
-            // localStorage.clear();
-            // localStorage.getItem('isLoggedIn');
-          }
-          else {
-            toast('Password is Invalid', {
-              position: 'top-center'
-            });
-          }
+        console.log(jsonData);
+        if (jsonData.STATUS == "SUCCESS") {
+          // setIsLoggedIn(true);
+          localStorage.setItem('userData', JSON.stringify(jsonData.USER));
+          isLoggedIn = true
+          localStorage.setItem('isLoggedIn', isLoggedIn);
+          console.log('is logged In : ' + localStorage.getItem('userData'));
+          console.log('is logged In : ' + localStorage.getItem('isLoggedIn'));
+          // if (
+          //   jsonData.USER.role.roleName == 'Admin'
+          // ) {
+          //   navigate('/dashboard',JSON.stringify(jsonData.USER))
+          // } else {
+          //   navigate('/',JSON.stringify(jsonData.USER))
+          // }
+          navigate('/')
+          window.location.reload();
+          // localStorage.clear();
+          // localStorage.getItem('isLoggedIn');
+        }
+        else {
+          toast('Password is Invalid', {
+            position: 'top-center'
+          });
+        }
         // } else {
 
         //   throw new Error('Failed to login');
@@ -106,11 +110,41 @@ const Login = () => {
     }));
   }
 
+  
+
 
   return (
     <div>
 
-      <div className="body">
+      <div className='container-fluid '>
+
+        <div className='row'>
+          <div className='col mt-5'>
+            <img className="mb-4" src='https://eqipped.com/eqippedLogo.png' />
+            <h1 className='mb-4'>Welcome to Eqipped </h1>
+            <h6>Already have an account ? <Link to={'/signup'}>signup</Link></h6>
+            <h6>Continue as guest</h6>
+          </div>
+          {/* <div className='col mr-5 ml-2'>
+            <div className='loginVertical'></div>
+          </div> */}
+          <div className='col'>
+            <form onSubmit={handleFormSubmit}>
+              <img src='https://eqipped.com/image/defaultProfileImage.png' />
+              <label className="label1" aria-hidden="true">Login Page</label>
+
+              <input required name="username" type="text" id="username"
+                value={formData.username} onChange={handleInputChange} className='form-control' placeholder='Email Id' />
+              <input required="" name="password" type="password" id="password" value={formData.password}
+                onChange={handleInputChange} className='form-control' placeholder='Password' />
+              <button className='button mt-5 form-control'>Login</button>
+              <button type="reset" className='button mt-3 form-control'  >Clear</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      {/* <div className="body">
 
         <div className="main">
           <input type="checkbox" id="chk" aria-hidden="true" />
@@ -143,7 +177,7 @@ const Login = () => {
 
 
         </div>
-      </div>
+      </div> */}
 
 
     </div>

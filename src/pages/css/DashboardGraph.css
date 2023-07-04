@@ -129,7 +129,7 @@
 }
 
 .holder a1 {
-    /* color: linear-gradient(to right ,#1c86c4,#3c90aa,#80d1e9,#80d1e9); */
+   
     color: #1c86c4;
     font-weight: bold;
 }
@@ -241,6 +241,14 @@
     margin-left: -55px;
 }
 
+.sear{
+    display: inline;
+    position: relative;
+    border: 2px solid #00789c;
+    /* margin-top: -13px;
+    margin-left: -130px; */
+    float: right;
+}
 .longcard li {
     float: left;
     list-style: none;

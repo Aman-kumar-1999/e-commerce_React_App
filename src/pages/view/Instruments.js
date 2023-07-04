@@ -8,6 +8,7 @@ import baseUrl from '../../helper/helper';
 import HomeCategory from './HomeCategory';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 function Instruments(props) {
     const responsive = {
@@ -34,6 +35,7 @@ function Instruments(props) {
 
 
     const [data, setData] = useState([]);
+    const [totalCount, setTotalCount] = useState(true);
 
     const userData = JSON.parse(localStorage.getItem('userData'))
     var isLoggedIn = localStorage.getItem('isLoggedIn');
@@ -78,15 +80,29 @@ function Instruments(props) {
         fetchData();
     }, []);
 
+
+
     const fetchData = async () => {
         let eqi = 'Instruments'
+
+        let dataLimit = 10;
+
+        let pageNo = Math.ceil(data.length / dataLimit) + 1
+        console.log("Page No : " + pageNo)
+
         try {
-            const response = await axios.get(`${baseUrl}/product/category/${eqi}`);
+            // const response = await fetch(`http://localhost:5005/product/category/${eqi}/${pageNo}/${dataLimit}`);
+            const response = await fetch(`${baseUrl}/product/category/${eqi}/${pageNo}/${dataLimit}`);
 
 
-            const jsonData = await response.data;
+            let jsonproduct = await response.json();
 
-            setData(jsonData);
+            let apidata = [...data, ...jsonproduct];
+
+
+            // listproduct = jsonproduct;
+            setData(apidata);
+            setTotalCount(data.length)
         } catch (error) {
             console.log('Error:', error);
         }
@@ -181,7 +197,7 @@ function Instruments(props) {
     console.log(data)
     const checkout = async (items1) => {
         try {
-            console.log("item : "+items1)
+            console.log("item : " + items1)
             const items = await getProductByProductId(items1.productId)
             console.log("Product Id  : " + JSON.stringify(items))
             const response = null;
@@ -271,83 +287,100 @@ function Instruments(props) {
                 </li>
             </ul>
 
+            <InfiniteScroll
+                dataLength={data.length}
+                next={fetchData}
+                hasMore={true}
+                loader={<div className='text-center loading1'>
 
-            {
-                (data.length == 0) ? (<>
-                    <p> No Equipments are Present</p>
-                </>) : (
-                    <>
-                        <div className="row row-cols-1 row-cols-md-7 g-8">
-                        {data.map(item => (
-                                <>
+                            <img style={{ width: 50, height: 50 }} src='spinner.gif' />
+
+                        </div>
+                }
+            
+            >
+                {
+                    (data.length == 0) ? (<>
+
+                        
+                    </>) : (
+                        <>
+                            <div className="row row-cols-1 row-cols-md-7 g-8">
+                                {data.map((item, index) => (
+                                    <>
 
 
-                                    <Link to={'/productDetails/' + item.productId} className="col text-decoration-none">
+                                        <Link to={'/productDetails/' + item.productId} className="col text-decoration-none">
 
-                                        <div className="" key={item.id} >
-                                            {
-                                                (item.imagePath != "No") ? (
-                                                    <div>
-                                                        <img className="productImage" src={item.imagePath} alt="...." />
+                                            <div className="" key={index} >
+                                                {
+                                                    (item.imagePath != "No") ? (
+                                                        <div>
+                                                            <img className="productImage" src={item.imagePath} alt="...." />
 
+                                                        </div>
+                                                    ) : (<><div>
+                                                        <img className="productImage" src='productImage.png' alt="...." />
                                                     </div>
-                                                ) : (<><div>
-                                                    <img className="productImage" src='productImage.png' alt="...." />
-                                                </div>
-                                                </>)
-                                            }
+                                                    </>)
+                                                }
 
-                                            <div className='card-body'>
-                                                <p className='productName' >{
-                                                    item.productName.length >= 10 ? (<>{item.productName.toUpperCase().slice(0, 10)} ....</>) : (<>{item.productName.toUpperCase()}</>)
-                                                }</p>
-                                                <p className='offCategory'>{item.discountPercentage} % off</p>
-                                                <p className='natePriceWithDiscount'><span id='productIcon' className="material-symbols-outlined">
-                                                    currency_rupee
-                                                </span> {item.natePriceWithDiscount}</p>
-                                                <p className='brandName'>{item.brandName}</p>
-                                                <p className='individualProductPrice'><span id='productIcon' className="material-symbols-outlined">
-                                                    currency_rupee
-                                                </span> {item.individualProductPrice}</p>
-                                                {/* <p className='' >{item.productName}</p>
+                                                <div className='card-body'>
+                                                    <p className='productName' >{
+                                                        item.productName.length >= 10 ? (<>{item.productName.toUpperCase().slice(0, 10)} ....</>) : (<>{item.productName.toUpperCase()}</>)
+                                                    }</p>
+                                                    <p className='offCategory'>{item.discountPercentage} % off</p>
+                                                    <p className='natePriceWithDiscount'><span id='productIcon' className="material-symbols-outlined">
+                                                        currency_rupee
+                                                    </span> {item.natePriceWithDiscount}</p>
+                                                    <p className='brandName'>{item.brandName}</p>
+                                                    <p className='individualProductPrice'><span id='productIcon' className="material-symbols-outlined">
+                                                        currency_rupee
+                                                    </span> {item.individualProductPrice}</p>
+                                                    {/* <p className='' >{item.productName}</p>
                                             <p className=''><p className=''>{item.discountPercentage} % off</p></p>
                                             <p className=''>Rs {item.natePriceWithDiscount}</p>
                                             <p className=''>{item.brandName}</p> */}
 
 
-                                                {
-                                                    (isLoggedIn) ? (
-                                                        <div >
-                                                            <Link onClick={() => addToCart(item)}><div className='col-5 text-decoration-none cart-button-category'>Add to cart</div></Link>
+                                                    {
+                                                        (isLoggedIn) ? (
+                                                            <div >
+                                                                <Link onClick={() => addToCart(item)}><div className='col-5 text-decoration-none cart-button-category'>Add to cart</div></Link>
 
-                                                            <Link onClick={() => checkout(item)}><div className='col-4 text-decoration-none cart-button1-category'>Buy now</div></Link>
-
-
-                                                        </div>
-                                                    ) : (
-                                                        <>
-                                                            <Link to={'/login'} className="cart-btn"><div className='col-5 text-decoration-none cart-button-category'>Add to cart</div></Link>
-
-                                                            <Link to={'/login'} className="cart-btn"><div className='col-4 text-decoration-none cart-button1-category'>Buy now</div></Link>
+                                                                <Link onClick={() => checkout(item)}><div className='col-4 text-decoration-none cart-button1-category'>Buy now</div></Link>
 
 
-                                                        </>
-                                                    )
-                                                }
+                                                            </div>
+                                                        ) : (
+                                                            <>
+                                                                <Link to={'/login'} className="cart-btn"><div className='col-5 text-decoration-none cart-button-category'>Add to cart</div></Link>
+
+                                                                <Link to={'/login'} className="cart-btn"><div className='col-4 text-decoration-none cart-button1-category'>Buy now</div></Link>
+
+
+                                                            </>
+                                                        )
+                                                    }
+                                                </div>
                                             </div>
-                                        </div>
-                                    </Link>
-                                </>
-                            )
-                            )
+                                        </Link>
+                                    </>
+                                )
+                                )
 
-                            }
+                                }
 
-                        </div>
+                            </div>
 
-                    </>
-                )
-            }
+                        </>
+                    )
+                }
+
+            </InfiniteScroll>
+
+
+
 
 
 

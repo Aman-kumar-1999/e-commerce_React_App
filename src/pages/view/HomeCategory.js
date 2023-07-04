@@ -7,8 +7,8 @@ export default function HomeCategory() {
         <div style={{ marginTop: 60 }}>
 
             <div className='row'>
-                <div className='col-6'>
-                    <div className='row'>
+                <div className='col categoryResponsive'>
+                    <div className='row responsiveCategory'>
                         <Link  to={'/equipments'} className='col categoryGrid'>
                             <img style={{ width: 40 }} src='microscope.png' />
                             <p>Equipment</p>
@@ -18,13 +18,13 @@ export default function HomeCategory() {
                             <img style={{ width: 40 }} src='loupe.png' />
                             <p>Instruments</p>
                         </Link>
-                        <Link  to={'/plasticWare'} className='col categoryGrid'>
+                        <Link  to={'/plasticWare'} className='col categoryGrid '>
                             <img style={{ width: 40 }} src='beaker.png' />
-                            <p>Plastic Ware</p>
+                            <p className='categoryPlasticWare'>PlasticWare</p>
                         </Link>
 
                     </div>
-                    <div className='row'>
+                    <div className='row responsiveCategory'>
                         <Link  to={'/glassWare'} className='col categoryGrid'>
                             <img style={{ width: 40 }} src='test_tube.png' />
                             <p>GlassWare</p>
@@ -35,11 +35,11 @@ export default function HomeCategory() {
                         </Link>
                         <Link  to={'/chart'} className='col categoryGrid'>
                             <img style={{ width: 40 }} src='smiling-skeleton.png' /> 
-                            <p>Chart & Model</p>
+                            <p>Chart</p>
                         </Link>
                     </div>
                 </div>
-                <div className='col-6'>
+                <div className='col homeSidebar'>
                     <div className='row'>
                         <HomePageSlider/>
 

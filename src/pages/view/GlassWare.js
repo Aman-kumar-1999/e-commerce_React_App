@@ -8,6 +8,7 @@ import baseUrl from '../../helper/helper';
 import HomeCategory from './HomeCategory';
 import { toast } from 'react-toastify';
 import axios from 'axios';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 function GlassWare(props) {
     const responsive = {
@@ -80,13 +81,22 @@ function GlassWare(props) {
 
     const fetchData = async () => {
         let eqi = 'Glassware'
+        let dataLimit = 10;
+
+        let pageNo = Math.ceil(data.length/dataLimit) + 1
+        console.log("Page No : "+pageNo)
+
         try {
-            const response = await axios.get(`${baseUrl}/product/category/${eqi}`);
+            // const response = await fetch(`http://localhost:5005/product/category/${eqi}/${pageNo}/${dataLimit}`);
+            const response = await fetch(`${baseUrl}/product/category/${eqi}/${pageNo}/${dataLimit}`);
 
 
-            const jsonData = await response.data;
+            let jsonproduct = await response.json();
 
-            setData(jsonData);
+            let apidata = [...data, ...jsonproduct];
+
+            // listproduct = jsonproduct;
+            setData(apidata);
         } catch (error) {
             console.log('Error:', error);
         }
@@ -272,9 +282,21 @@ function GlassWare(props) {
 
 
 
-            {
+            <InfiniteScroll
+                dataLength={data.length}
+                next={fetchData}
+                hasMore={true}
+                loader={<div className='text-center loading1'>
+
+                <img style={{ width: 50, height: 50 }} src='spinner.gif' />
+
+            </div>}
+                // scrollableTarget="scrollableDiv"
+            >
+                {
                 (data.length == 0) ? (<>
-                    <p> No Equipments are Present</p>
+                    
+                    {/* <p> No Equipments are Present</p> */}
                 </>) : (
                     <>
                         <div className="row row-cols-1 row-cols-md-7 g-8">
@@ -348,6 +370,8 @@ function GlassWare(props) {
                     </>
                 )
             }
+                
+            </InfiniteScroll>
 
 
 

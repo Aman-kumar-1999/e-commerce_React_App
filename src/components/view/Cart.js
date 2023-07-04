@@ -8,22 +8,25 @@ import { toast } from "react-toastify";
 
 function Cart() {
 
+    const deliveryCharge = 500;
     const [count, setCount] = useState(1);
     const [totalPrice, setTotalPrice] = useState(0);
+    const [finalTotal, setFinalTotal] = useState(0);
     const userData = JSON.parse(localStorage.getItem('userData'))
     const [cart, setCart] = useState([]);
     const [tempCart, setTempCart] = useState([]);
     const navigate = useNavigate();
-    const currentItems=[...cart];
+    const currentItems = [...cart];
     // const total1=[...totalPrice];
 
+
     const increaseCount = (index) => {
-        
-        
+
+
         const price = currentItems[index].natePriceWithDiscount / currentItems[index].productQuantity
         currentItems[index].productQuantity += 1;
-        currentItems[index].natePriceWithDiscount =  currentItems[index].productQuantity * price
-      
+        currentItems[index].natePriceWithDiscount = currentItems[index].productQuantity * price
+
         setCart(currentItems);
         // let total = 0;
         // cart.map((items) => {
@@ -31,10 +34,10 @@ function Cart() {
         // });
         // console.log('Total Price : ' + total)
         // setTotalPrice(total);
-        
-        
-   
-        
+
+
+
+
 
     };
     const decreaseCount = (index) => {
@@ -42,11 +45,11 @@ function Cart() {
         if (currentItems[index].productQuantity > 1) {
             const price = currentItems[index].natePriceWithDiscount / currentItems[index].productQuantity
             currentItems[index].productQuantity -= 1;
-            currentItems[index].natePriceWithDiscount =  currentItems[index].productQuantity * price
+            currentItems[index].natePriceWithDiscount = currentItems[index].productQuantity * price
             setCart(currentItems);
-            
-          }
-          
+
+        }
+
     };
 
     var isLoggedIn = localStorage.getItem('isLoggedIn');
@@ -82,18 +85,36 @@ function Cart() {
 
     }
 
-    
+    const [dataInst, setDataInst] = useState([]);
+    const fetchDataInst = async () => {
+        let eqi = 'Instruments'
+        try {
+            const response = await axios.get(`${baseUrl}/product/category/${eqi}`);
+
+
+            const jsonData = await response.data;
+
+            setDataInst(jsonData);
+        } catch (error) {
+            console.log('Error:', error);
+        }
+    };
+
 
 
 
     useEffect(() => {
-        
+
         calculateTotalPrice();
+
     },);
     useEffect(() => {
-        
+
         fetchCart();
-    },[]);
+
+
+    }, []);
+
 
     async function callCheckoutApi(data) {
         axios.post(`${baseUrl}/order/`, data).then(
@@ -181,30 +202,13 @@ function Cart() {
     const fetchCart = async () => {
 
         try {
-            // const response = await axios.get(`http://localhost:5004/order/cart/emailId/${userData.email}`);
-            const response = await axios.get(`${baseUrl}/order/cart/emailId/${userData.email}`)
-                .then(response => {
-                    // Handle the response data
-                    console.log(response.data);
-                    const jsonProduct = response.data;
-                    // listproduct = jsonproduct;
-                    setCart(jsonProduct);
-                    // setTempCart(jsonProduct);
-
-                    // toast.success('SUCCESS')
-                    return jsonProduct;
-
-                })
-                .catch(error => {
-                    // Handle the error
-
-                    // toast.error('FAILED')
-                    console.error(error);
-                });
+            const response = await fetch(`${baseUrl}/order/cart/emailId/${userData.email}`);
 
 
+            const jsonproduct = await response.json();
+            // listproduct = jsonproduct;
+            setCart(jsonproduct);
         } catch (error) {
-            // toast.error('FAILED')
             console.log('Error:', error);
         }
     };
@@ -268,12 +272,16 @@ function Cart() {
 
     const calculateTotalPrice = async () => {
         let total = 0;
+        
         cart.map((items) => {
+            
             total += items.natePriceWithDiscount;
+            
         });
         // console.log('Total Price : ' + total)
         setTotalPrice(total);
-        return total;
+        setFinalTotal((totalPrice * ((cart[0].gst) / 100)+totalPrice+deliveryCharge).toFixed(0));
+        return finalTotal;
     };
 
     function initiateClientModule(data) {
@@ -359,7 +367,7 @@ function Cart() {
         //call api to start payment
         // const amount = document.querySelector("#user_amount").value
         console.log("Jan")
-        
+
 
         // const baseUrl1 = "http://localhost:5004/order/start"
 
@@ -369,7 +377,7 @@ function Cart() {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ 'amount': totalPrice.toFixed(2) })
+            body: JSON.stringify({ 'amount': (totalPrice+(18/100)*totalPrice+deliveryCharge).toFixed(0) })
         })
 
 
@@ -406,7 +414,7 @@ function Cart() {
                                 </>
                             ) : (
                                 <>
-                                    <h5 className="Action" onClick={() => removeAllCart(userData.email)}>Remove all</h5>
+                                    {/* <h5 className="Action" onClick={() => removeAllCart(userData.email)}>Remove all</h5> */}
                                 </>
                             )
                         }
@@ -438,7 +446,7 @@ function Cart() {
                                     <div className="counter">
                                         <div className="btnCart" onClick={() => decreaseCount(index)} >-</div>
                                         <div className="count">{items.productQuantity}</div>
-                                        <div className="btnCart" onClick={() => increaseCount(index) } >+</div>
+                                        <div className="btnCart" onClick={() => increaseCount(index)} >+</div>
                                     </div>
                                     <div className="prices">
                                         <div className="amount">
@@ -446,7 +454,7 @@ function Cart() {
                                                 currency_rupee
                                             </span> {items.natePriceWithDiscount.toFixed(2)}
                                         </div>
-                                        <div className="save"><u>Save for later</u></div>
+                                        {/* <div className="save"><u>Save for later</u></div> */}
                                         <div className="remove" onClick={() => removeCart(items.orderId)}><u >Remove</u></div>
                                     </div>
 
@@ -467,12 +475,137 @@ function Cart() {
 
                             ) : (
                                 <>
+                                    <div className="row">
+                                        <div className="col-12">
+
                                     <hr className="hr"></hr>
-                                    <div className="checkout">
+                                        </div>
+                                    </div>
+                                    {/* <div className="bg-success float-end mr-5"> */}
+                                    <div className="row">
+
+                                        <div className="col-8">
+                                            <p></p>
+                                        </div>
+                                        <div className="col-1 float-end">
+                                            <p>CGST  -</p>
+                                        </div>
+                                        <div className="col-3">
+                                            <div className="total-amount">
+                                                {/* CGST :- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */}
+                                                <span style={{fontSize:16}} className="material-symbols-outlined">
+                                                currency_rupee
+                                            </span>
+
+                                                {(totalPrice * ((cart[0].gst / 2) / 100)).toFixed(2)} &nbsp; /-
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                    <div className="row">
+
+                                        <div className="col-8">
+                                            <p></p>
+                                        </div>
+                                        <div className="col-1">
+                                            <p>IGST  -</p>
+                                        </div>
+                                        <div className="col-3">
+                                            <div className="total-amount">
+                                                {/* CGST :- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */}
+                                                <span style={{fontSize:16}} className="material-symbols-outlined">
+                                                currency_rupee
+                                            </span>
+
+                                                {(totalPrice * ((cart[0].gst / 2) / 100)).toFixed(2)} &nbsp; /-
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                    <div className="row">
+
+                                        <div className="col-7">
+                                            <p></p>
+                                        </div>
+                                        <div className="col-2 float-end">
+                                            <p> Delivery Charge  -</p>
+                                        </div>
+                                        <div className="col-3">
+                                            <div className="total-amount">
+                                                {/* CGST :- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */}
+                                                <span style={{fontSize:16}} className="material-symbols-outlined">
+                                                currency_rupee
+                                            </span>
+                                                {deliveryCharge} &nbsp; /-
+                                                {/* {(totalPrice * ((cart[0].gst / 2) / 100)).toFixed(0)} &nbsp; /- */}
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                    <div className="row">
+
+                                        <div className="col-6">
+                                            <p></p>
+                                        </div>
+                                        <div className="col-6 float-end">
+                                        <hr className="hr"></hr>
+                                        </div>
+                                        
+
+                                    </div>
+                                        
+                                    <div className="row">
+
+                                        <div className="col-7">
+                                            <p></p>
+                                        </div>
+                                        <div className="col-2 float-end">
+                                            <p> <b>Total Price  -</b></p>
+                                        </div>
+                                        <div className="col-3">
+                                            <div className="total-amount">
+                                               
+                                                <span style={{fontSize:16}} className="material-symbols-outlined">
+                                                currency_rupee
+                                            </span>
+                                                
+                                                {(totalPrice * ((cart[0].gst) / 100)+totalPrice+deliveryCharge).toFixed(0)} &nbsp; /-
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                    <div className="row">
+
+                                        <div className="col-7">
+                                            <p></p>
+                                        </div>
+                                        <div className="col-2 float-end">
+                                            {/* <p> Delivery Charge  -</p> */}
+                                        </div>
+                                        <div className="col-3">
+                                            <div className="total-amount">
+                                            {/* <Link onClick={() => checkout(cart)}><div className='col-4 text-decoration-none cart-button1-category'>Buy now</div></Link> */}
+
+                                            <button className="button" onClick={() => checkout(cart)}>Checkout</button>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                    {/* </div> */}
+
+
+                                    {/* <div className="checkout">
                                         <div className="total">
                                             <div>
                                                 <div className="Subtotal">Sub-Total</div>
                                                 <div className="items">{cart.length}</div>
+                                                
                                             </div>
                                             <div className="total-amount"><span className="material-symbols-outlined">
                                                 currency_rupee
@@ -482,7 +615,7 @@ function Cart() {
                                             </div>
                                         </div >
                                         <button className="button" onClick={() => checkout(cart)}>Checkout</button>
-                                    </div >
+                                    </div > */}
 
                                 </>
                             )

@@ -17,7 +17,7 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   const [tagHeated, setTagHeated] = useState(false);
-  
+
 
   useEffect(() => {
     if (tagHeated) {
@@ -32,14 +32,87 @@ const Navbar = () => {
     setTagHeated(true);
   };
 
-  
+
 
 
   return (
     <>
+      <nav style={{ background: 'black' }} className='Container'>
+        {isLoggedIn ? (
+          <div>
+            {
+              userData.role.roleName == 'Admin' ? (
+                <>
+                  <a style={{ color: 'white' }} className='mt-2 float-start' data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
+                    <span style={{ background: '' }} className="material-symbols-outlined">
+                      menu
+                    </span>
+                  </a>
+                </>
+              ) : (<></>)
+            }
 
+
+            {
+              userData.role.roleName == 'User' ? (
+                <>
+                  <a style={{ color: 'white' }} className='mt-2 float-start' data-bs-toggle="offcanvas" href="#offcanvasExampleUser" role="button" aria-controls="offcanvasExample">
+                    <span style={{ background: '' }} className="material-symbols-outlined">
+                      menu
+                    </span>
+
+                  </a>
+                </>
+              ) : (<></>)
+            }
+            {
+              userData.role.roleName == 'Vendor' ? (
+                <>
+                  <a style={{ color: 'white' }} className='mt-2 float-start' data-bs-toggle="offcanvas" href="#offcanvasExampleVendor" role="button" aria-controls="offcanvasExample">
+                    <span style={{ background: '' }} className="material-symbols-outlined">
+                      menu
+                    </span>
+
+                  </a>
+                </>
+              ) : (<></>)
+            }
+          </div>
+
+
+        ) : (<></>)
+        }
+        <Link to={'/'}
+        >
+          <div className='float-start'>
+            <img className='eqippedLogo' src='https://eqipped.com/eqippedLogo.png' />
+          </div>
+
+        </Link>
+
+        {isLoggedIn ? (
+              <>
+                <Link className='navAccountResponsive mt-1 mb-1 float-end' onClick={handleTagHeat}>
+                  <span id='logoutIcon' class="material-symbols-outlined">logout</span>&nbsp;<p className='navAccountText'>Logout</p>
+                </Link>
+                <Link className='navCartResponsive mt-1 mb-1 float-end' to={'/cart'}>
+                  <span id='logoutIcon' class="material-symbols-outlined">shopping_cart</span>&nbsp;<p className='cartText'>Cart</p>
+                </Link>
+                </>
+            ) : (
+              <>
+                <Link className='navAccountResponsive float-end mt-1 mb-1 float-end' to='/login'>
+                  <span id='logoutIcon' class="material-symbols-outlined">login</span>&nbsp;<p className='navAccountText'>Login</p>
+                </Link>
+              </>
+            )
+
+            }
+
+
+      </nav>
       {/* <nav style={{ background: '' }} class="navbar navbar-expand-lg sticky-top navbar1"> */}
-      <nav className='navbar navbar-expand-lg sticky-top eqippedNavbar'>
+      {/* <nav className='navbar navbar-expand-lg sticky-top eqippedNavbar'>
         <div class="navbar-n<av container-fluid">
           {isLoggedIn ? (
             <div>
@@ -87,26 +160,13 @@ const Navbar = () => {
           }
           <Link to={'/'} >
             <div className='col-2'>
-              <img className='eqippedLogo' src='eqippedLogo.png' />
+              <img className='eqippedLogo' src='https://eqipped.com/eqippedLogo.png' />
             </div>
-            {/* <img className='eqippedLogo1' src='eqippedLogo1.png'></img> */}
-            {/* <p className='eqippedLogo1'></p> */}
-            {/* <img class="logo" src="eqippedLogo.png" /> */}
-            {/* <p className='eqippedLogo'>EQIPPED</p> */}
+           
           </Link>
           <li class="nav-item mx-auto" id="search">
 
-            <form class="form" style={{ background: 'white' }}>
-
-              <Link className='searchboxMenu'>
-                <span class="material-symbols-outlined">
-                  filter_list
-                </span>
-              </Link>
-
-              <input type="search" placeholder="Search..." />
-              <button className="button" type="submit">Search</button>
-            </form>
+            
             {isLoggedIn ? (
               <>
                 <Link className='navCart' to={'/cart'}>
@@ -125,12 +185,12 @@ const Navbar = () => {
 
             }
 
-          </li>
+          </li> */}
 
 
 
 
-          {/* <div style={{ display: 'inline' }} class="collapse navbar-collapse" id="navbarSupportedContent">
+      {/* <div style={{ display: 'inline' }} class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
               <li class="nav-item mx-auto" id="search">
@@ -186,11 +246,11 @@ const Navbar = () => {
 
           </div> */}
 
-        </div>
+      {/* </div>
 
 
-      </nav>
-      
+      </nav> */}
+
 
     </>
   )

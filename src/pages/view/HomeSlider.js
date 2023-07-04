@@ -50,7 +50,6 @@ function HomeSlider(props) {
 
     const cart =
     {
-
         "productId": '',
         "vendorId": '',
         "vendorName": null,
@@ -99,80 +98,137 @@ function HomeSlider(props) {
 
     const fetchData = async () => {
         let eqi = 'Equipments'
+        let dataLimit = 20;
+
+        let pageNo = Math.ceil(data.length/dataLimit) + 1
+        console.log("Page No : "+pageNo)
+
         try {
-            const response = await axios.get(`${baseUrl}/product/category/${eqi}`);
+            // const response = await fetch(`http://localhost:5005/product/category/${eqi}/${pageNo}/${dataLimit}`);
+            const response = await fetch(`${baseUrl}/product/category/${eqi}/${pageNo}/${dataLimit}`);
 
 
-            const jsonData = await response.data;
+            let jsonproduct = await response.json();
 
-            setData(jsonData);
-            // setTemp(false);
-            // alert("This is test")
+            let apidata = [...data, ...jsonproduct];
+
+            // listproduct = jsonproduct;
+            setData(apidata);
         } catch (error) {
             console.log('Error:', error);
         }
     };
     const fetchDataInst = async () => {
         let eqi = 'Instruments'
+        let dataLimit = 20;
+
+        let pageNo = Math.ceil(data.length/dataLimit) + 1
+        console.log("Page No : "+pageNo)
+
         try {
-            const response = await axios.get(`${baseUrl}/product/category/${eqi}`);
+            // const response = await fetch(`http://localhost:5005/product/category/${eqi}/${pageNo}/${dataLimit}`);
+            const response = await fetch(`${baseUrl}/product/category/${eqi}/${pageNo}/${dataLimit}`);
 
 
-            const jsonData = await response.data;
+            let jsonproduct = await response.json();
 
-            setDataInst(jsonData);
+            let apidata = [...data, ...jsonproduct];
+
+            // listproduct = jsonproduct;
+            setDataInst(apidata);
         } catch (error) {
             console.log('Error:', error);
         }
+       
     };
     const fetchDataPlastic = async () => {
+
         let eqi = 'Plasticware'
+
+        
+
+        let dataLimit = 20;
+
+        let pageNo = Math.ceil(data.length/dataLimit) + 1
+        console.log("Page No : "+pageNo)
+
         try {
-            const response = await axios.get(`${baseUrl}/product/category/${eqi}`);
+            // const response = await fetch(`http://localhost:5005/product/category/${eqi}/${pageNo}/${dataLimit}`);
+            const response = await fetch(`${baseUrl}/product/category/${eqi}/${pageNo}/${dataLimit}`);
 
 
-            const jsonData = await response.data;
+            let jsonproduct = await response.json();
 
-            setDataPlastic(jsonData);
+            let apidata = [...data, ...jsonproduct];
+
+            // listproduct = jsonproduct;
+            setDataPlastic(apidata);
         } catch (error) {
             console.log('Error:', error);
         }
     };
     const fetchDataGlass = async () => {
         let eqi = 'Glassware'
+        let dataLimit = 20;
+
+        let pageNo = Math.ceil(data.length/dataLimit) + 1
+        console.log("Page No : "+pageNo)
+
         try {
-            const response = await axios.get(`${baseUrl}/product/category/${eqi}`);
+            // const response = await fetch(`http://localhost:5005/product/category/${eqi}/${pageNo}/${dataLimit}`);
+            const response = await fetch(`${baseUrl}/product/category/${eqi}/${pageNo}/${dataLimit}`);
 
 
-            const jsonData = await response.data;
+            let jsonproduct = await response.json();
 
-            setDataGlass(jsonData);
+            let apidata = [...data, ...jsonproduct];
+
+            // listproduct = jsonproduct;
+            setDataGlass(apidata);
         } catch (error) {
             console.log('Error:', error);
         }
     };
     const fetchDataChemical = async () => {
         let eqi = 'Chemicals'
+        let dataLimit = 20;
+
+        let pageNo = Math.ceil(data.length/dataLimit) + 1
+        console.log("Page No : "+pageNo)
+
         try {
-            const response = await axios.get(`${baseUrl}/product/category/${eqi}`);
+            // const response = await fetch(`http://localhost:5005/product/category/${eqi}/${pageNo}/${dataLimit}`);
+            const response = await fetch(`${baseUrl}/product/category/${eqi}/${pageNo}/${dataLimit}`);
 
 
-            const jsonData = await response.data;
+            let jsonproduct = await response.json();
 
-            setDataChemical(jsonData);
+            let apidata = [...data, ...jsonproduct];
+
+            // listproduct = jsonproduct;
+            setDataChemical(apidata);
         } catch (error) {
             console.log('Error:', error);
         }
     };
     const fetchDataChart = async () => {
         let eqi = 'Chart & Models'
+        let dataLimit = 20;
+
+        let pageNo = Math.ceil(data.length/dataLimit) + 1
+        console.log("Page No : "+pageNo)
+
         try {
-            const response = await axios.get(`${baseUrl}/product/category/${eqi}`);
+            // const response = await fetch(`http://localhost:5005/product/category/${eqi}/${pageNo}/${dataLimit}`);
+            const response = await fetch(`${baseUrl}/product/category/${eqi}/${pageNo}/${dataLimit}`);
 
 
-            const jsonData = await response.data;
+            let jsonproduct = await response.json();
 
-            setDataChart(jsonData);
+            let apidata = [...data, ...jsonproduct];
+
+            // listproduct = jsonproduct;
+            setDataChart(apidata);
         } catch (error) {
             console.log('Error:', error);
         }
@@ -450,7 +506,8 @@ function HomeSlider(props) {
             </div>
 
             <hr style={{ paddingTop: 1, background: '#a70cef', marginLeft: '10px' }}/>
-            <Carousel responsive={responsive}>
+            <Carousel autoPlay responsive={responsive}>
+                
                 {data.map(item => (
                     <>
 
@@ -525,7 +582,7 @@ function HomeSlider(props) {
 
             <hr style={{ paddingTop: 1, background: '#a70cef', marginLeft: '10px' }}/>
 
-            <Carousel autoPlaySpeed={4000} responsive={responsive}>
+            <Carousel autoPlay responsive={responsive}>
                 {dataInst.map(item => (
                     <>
 
@@ -600,7 +657,7 @@ function HomeSlider(props) {
             </div>
 
             <hr style={{ paddingTop: 1, background: '#a70cef', marginLeft: '10px' }}/>
-            <Carousel responsive={responsive}>
+            <Carousel autoPlay responsive={responsive}>
                 {dataPlastic.map(item => (
                     <>
 
@@ -675,7 +732,7 @@ function HomeSlider(props) {
 
             <hr style={{ paddingTop: 1, background: '#a70cef', marginLeft: '10px' }}/>
 
-            <Carousel autoPlaySpeed={4000} responsive={responsive}>
+            <Carousel autoPlay responsive={responsive}>
                 {dataGlass.map(item => (
                     <>
 
@@ -750,7 +807,7 @@ function HomeSlider(props) {
             </div>
 
             <hr style={{ paddingTop: 1, background: '#a70cef', marginLeft: '10px' }}/>
-            <Carousel responsive={responsive}>
+            <Carousel autoPlay responsive={responsive}>
                 {dataChemical.map(item => (
                     <>
 
@@ -825,7 +882,7 @@ function HomeSlider(props) {
 
             <hr style={{ paddingTop: 1, background: '#a70cef', marginLeft: '10px' }}/>
 
-            <Carousel autoPlaySpeed={4000} responsive={responsive}>
+            <Carousel autoPlay responsive={responsive}>
                 {dataChart.map(item => (
                     <>
 

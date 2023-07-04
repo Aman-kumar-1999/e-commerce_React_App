@@ -30,7 +30,8 @@
 }
 
 .orcard2 {
-    background: linear-gradient(to right ,rgb(227, 106, 30), rgb(225, 116, 44), rgb(224, 141, 68), rgb(218, 115, 51));
+    /* background: linear-gradient(to right ,rgb(227, 106, 30), rgb(225, 116, 44), rgb(224, 141, 68), rgb(218, 115, 51)); */
+    background-color: rgb(32, 31, 31);
     border-radius: 10px;
     height: 65px;
     margin-top: 20px;
@@ -39,7 +40,8 @@
 
 .orcard2 h4{
     margin-top: -10px;
-    color: #1b6691;
+    color: white;
+    /* color: #1b6691; */
     margin-left: -85px;
     font-weight: bold;
     font-size: 15px;
@@ -61,7 +63,8 @@
 }
 
 .orcard3{
-    background: linear-gradient(to right ,rgb(227, 106, 30), rgb(225, 116, 44), rgb(224, 141, 68), rgb(218, 115, 51));
+    /* background: linear-gradient(to right ,rgb(227, 106, 30), rgb(225, 116, 44), rgb(224, 141, 68), rgb(218, 115, 51)); */
+    background-color: rgb(32, 31, 31);
     border-radius: 10px;
     height: 65px;
     margin-top: 20px;
@@ -70,7 +73,8 @@
 
 .orcard3 h4{
     margin-top: -10px;
-    color: #0e5b88;
+    color: white;
+    /* color: #0e5b88; */
     margin-left: -75px;
     font-weight: bold;
     font-size: 15px;
@@ -92,7 +96,8 @@
 }
 
 .addproduct{
-    background: linear-gradient(to right ,rgb(227, 106, 30), rgb(225, 116, 44), rgb(224, 141, 68), rgb(218, 115, 51));
+    /* background: linear-gradient(to right ,rgb(227, 106, 30), rgb(225, 116, 44), rgb(224, 141, 68), rgb(218, 115, 51)); */
+    background-color: rgb(44, 41, 41);
     border-radius: 10px;
     height: 65px;
     margin-top: 20px;
@@ -110,7 +115,8 @@
 
 .addproduct:hover{
     text-decoration: none;
-    background-color: orangered;
+    background-color: #CB006C;
+    ;
 }
 
 .addproduct h4:hover{
@@ -129,10 +135,50 @@
     color: orange;
 }
 
+.addbulk{
+    background-color: rgb(44, 41, 41);
+    border-radius: 10px;
+    height: 65px;
+    margin-top: 20px;
+    margin-left: 10px;
+}
+
+
+.addbulk h4{
+    width: 110px;
+    margin-left: 50px;
+    margin-top: -24px;
+    color: #dcd9d9;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.addbulk:hover{
+    text-decoration: none;
+    background-color: #CB006C;
+    ;
+}
+
+.addbulk h4:hover{
+    color: #a8dae9;
+}
+
+.addbulk i{
+    background-color: #fff;
+    margin-left: -173px;
+    /* margin-top: -30px; */
+    padding: 22px 25px;
+    padding-bottom: 25px;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 15px;
+    color: orange;
+}
 
 
 .longdiv1 {
-    background: linear-gradient(to right ,#1c86c4,#076e8d,#136983,#026e8f);
+    /* background: linear-gradient(to right ,#1c86c4,#076e8d,#136983,#026e8f); */
+    background-color: rgb(31, 30, 30);
     color: #fff;
     width: 100%;
     margin-top: 40px;
@@ -223,7 +269,7 @@
     background-color: #fff;
     padding-left: 162px;
     padding: 22px 25px;
-    padding-bottom: 25px;
+    /* padding-bottom: 25px; */
     border-radius: 10px;
     font-weight: bold;
     font-size: 15px;
@@ -283,7 +329,8 @@
 
 
 .shipcard{
-    background: linear-gradient(to right ,rgb(227, 106, 30), rgb(225, 116, 44), rgb(224, 141, 68), rgb(218, 115, 51));
+    /* background: linear-gradient(to right ,rgb(227, 106, 30), rgb(225, 116, 44), rgb(224, 141, 68), rgb(218, 115, 51)); */
+    background-color: rgb(27, 27, 27);
     border-radius: 10px;
     height: 65px;
     margin-top: 20px;
@@ -292,7 +339,7 @@
 
 .shipcard h4{
     margin-top: -10px;
-    color: #1b6691;
+    color: white;
     margin-left: -120px;
     font-weight: bold;
     font-size: 15px;
@@ -308,13 +355,14 @@
 .shipcard h5{
     width: 10px;
     color: #eae6e6;
-    margin-top: -50px;
-    padding-left: 150px;
+    margin-top: -40px;
+    padding-left: 100px;
     font-weight: bold;
 }
 
 .shipcard2{
-    background: linear-gradient(to right ,rgb(227, 106, 30), rgb(225, 116, 44), rgb(224, 141, 68), rgb(218, 115, 51));
+    /* background: linear-gradient(to right ,rgb(227, 106, 30), rgb(225, 116, 44), rgb(224, 141, 68), rgb(218, 115, 51)); */
+    background-color: rgb(27, 27, 27);
     border-radius: 10px;
     height: 65px;
     margin-top: 20px;
@@ -338,7 +386,8 @@
 }
 
 .shipcard3{
-    background: linear-gradient(to right ,rgb(227, 106, 30), rgb(225, 116, 44), rgb(224, 141, 68), rgb(218, 115, 51));
+    /* background: linear-gradient(to right ,rgb(227, 106, 30), rgb(225, 116, 44), rgb(224, 141, 68), rgb(218, 115, 51)); */
+    background-color: rgb(27, 27, 27);
     border-radius: 10px;
     height: 65px;
     margin-top: 20px;
@@ -369,7 +418,8 @@
 }
 
 .adduser{
-    background: linear-gradient(to right ,rgb(227, 106, 30), rgb(225, 116, 44), rgb(224, 141, 68), rgb(218, 115, 51));
+    /* background: linear-gradient(to right ,rgb(227, 106, 30), rgb(225, 116, 44), rgb(224, 141, 68), rgb(218, 115, 51)); */
+    background-color: rgb(27, 27, 27);
     width: 250px;
     margin-top: 45px;
     /* margin-left: 370px; */
@@ -396,12 +446,16 @@
 
 .adduser i{
     float: left;
-    padding-bottom: 26px;
+    padding-bottom: 23px;
+    padding-top: 23px;
+    margin-left: 1px;
+    margin-top: 1px;
 }
 
 .adduser:hover{
     text-decoration: none;
-    background-color: orangered;
+    background: #CB006C;
+
 }
 
 
@@ -411,7 +465,38 @@
     width: 20px;
 }
 
-@media screen and (min-width: 941px){
+@media screen and (max-width: 480px) {
+
+    .addproduct i{
+        background-color: #fff;
+        margin-left: -137px;
+        /* margin-top: -30px; */
+        /* padding: 22px 25px;
+        padding-bottom: 25px;
+        border-radius: 10px;
+        font-weight: bold;
+        font-size: 15px;
+        color: orange; */
+    }
+
+    .addbulk{
+        background-color: rgb(44, 41, 41);
+        border-radius: 10px;
+        height: 65px;
+        margin-top: 20px;
+        margin-left: 10px;
+        padding-right: 215px;
+    }
+    .addbulk i{
+        background-color: #fff;
+    margin-left: -34px;
+    /* margin-top: -30px; */
+    
+    }
+    
+}
+
+/* @media screen and (min-width: 941px){
   
     .card-body1 h5{
         margin-top: -45px;
@@ -423,7 +508,7 @@
         margin-top: -45px;
     }
     
-  }
+  } */
 /* @media screen and (min-width: 666px){
   
     .card-body1 h5{
@@ -438,32 +523,28 @@
     
   } */
 
-  @media (max-width: 768px) {
-    /* Styles for screens up to 768px wide */
+  /* @media (max-width: 768px) {
+    
     .card-body1 h5{
         margin-top: -15px;
     }
-    /* html{
-        width: 50%
-    } */
+    
 
-  }
+  } */
   
-  @media (max-width: 480px) {
-    /* Styles for screens up to 480px wide */
+  /* @media (max-width: 480px) {
+   
     .card-body1 h5{
         margin-top: -15px;
     }
     .addproduct i{
         margin-left: -175px;
-        /* position: absolute; */
+       
        color: cyan;
     }
     
-    /* html{
-        width: 100%
-    } */
-  }
+   
+  } */
 
 
 

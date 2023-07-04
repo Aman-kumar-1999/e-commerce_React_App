@@ -5,6 +5,7 @@ import axios from "axios";
 import baseUrl from "../../helper/helper";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 
 const ProductDetails = () => {
@@ -22,9 +23,13 @@ const ProductDetails = () => {
     ];
 
     const { productId } = useParams();
+    const [data, setData] = useState([]);
+    const [product, setProducts] = useState([]);
+
 
     useEffect(() => {
         getProductByProductId();
+        getProductByVariationId();
 
     }, [])
 
@@ -62,22 +67,22 @@ const ProductDetails = () => {
 
     }
 
-    const [product, setProducts] = useState([]
-        // {
 
-        //         "productId": productId,
-        //         "productName": "",
-        //         "brandName": "",
-        //         "productDescription": "",
-        //         "category": "",
-        //         "individualProductPrice": "",
-        //         "status": "Confirmed Order",
-        //         "action": "Edit",
-        //         "productQuantity": "",
-        //         "discountPercentage": ""
+    // {
 
-        // }
-    );
+    //         "productId": productId,
+    //         "productName": "",
+    //         "brandName": "",
+    //         "productDescription": "",
+    //         "category": "",
+    //         "individualProductPrice": "",
+    //         "status": "Confirmed Order",
+    //         "action": "Edit",
+    //         "productQuantity": "",
+    //         "discountPercentage": ""
+
+    // }
+
     const navigate = useNavigate();
 
     const addToCart = async (item) => {
@@ -218,34 +223,96 @@ const ProductDetails = () => {
 
     }
 
-    const getProductByProductId = async (event) => {
-
+    const getProductByProductId = async () => {
         try {
-            // const response = axios.get(`http://localhost:5005/product/productId/${productId}`).then(
-            const response = axios.get(`${baseUrl}/product/productId/${productId}`).then(
-                (response) => {
-                    setProducts(response.data)
-                    console.log('product Data By Id : ' + response.data)
-                    // toast.success('Your are ready to update product Data')
-                }, (error) => {
-                    console.log(error);
-                    // toast.error('Your are unable to update product Data')
-                }
+            const response = await fetch(`${baseUrl}/product/productId/${productId}`);
 
-            )
+
+            const jsonproduct = await response.json();
+            // listproduct = jsonproduct;
+            setProducts(jsonproduct);
+
 
         } catch (error) {
-            console.error(error);
-            // toast.error('Server is down !')
+            console.log('Error:', error);
         }
+
+    }
+    const getProductByVariationId = async (event) => {
+        let dataLimit = 10;
+
+        let pageNo = Math.ceil(data.length / dataLimit) + 1
+        console.log("Page No : " + pageNo)
+        try {
+            // const response = await fetch(`http://localhost:5005/product/variationId/${product.variationId}/${pageNo}/${dataLimit}`);
+
+            const response = await fetch(`${baseUrl}/product/variationId/${product.variationId}/${pageNo}/${dataLimit}`);
+
+
+            let jsonproduct = await response.json();
+
+            let apidata = [...data, ...jsonproduct];
+
+            setData(apidata);
+            console.log('Veriation : ' + data);
+        } catch (error) {
+            console.log('Error:', error);
+        }
+
     }
     return (
         <>
+            <div className="row mt-5 bg-opacity-10 border border-info border-start-0 rounded-3">
+                <div className="col float-start">
 
-            <div className="productDetails">
-                <div className="">
-                    {imgCollection.map(item => (
-                        <div className="carousel-item active" data-bs-interval="6000">
+                    <div className="">
+
+                        <div className="col mt-4">
+                            {
+                                (product.imagePath != "No") ? (
+                                    <div>
+                                        <img className="" src={product.imagePath} alt="" />
+
+
+                                    </div>
+                                ) : (<>
+                                    <div>
+                                        <img className="" src='https://eqipped.com/productImage.png' alt="...." />
+
+
+                                    </div>
+                                </>)
+                            }
+
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+                <div className="col mb-5 float-start">
+                    <h4 className="">{product.productName} ({product.containLiquid})</h4>
+
+                    <p> Brand: {product.brandName}</p>
+                    <p>Price :
+                        <span style={{ fontSize: '15px' }} className="material-symbols-outlined">
+                            currency_rupee
+                        </span>{product.natePriceWithDiscount} /-</p>
+                    <p >{product.productDescription}</p>
+
+                    <button className="btn btn-info" onClick={() => addToCart(product)}>Add to Cart</button>
+                    <button className="btn btn-danger ml-5" onClick={() => checkout(product)} >Buy Now</button>
+
+                </div>
+
+            </div>
+
+            {/* <div className="productDetails">
+                {product ? (<>
+                    <div className="">
+                        
+                        <div className="carousel-item active col" data-bs-interval="6000">
                             {
                                 (product.imagePath != "No") ? (
                                     <div>
@@ -254,7 +321,7 @@ const ProductDetails = () => {
                                     </div>
                                 ) : (<>
                                     <div>
-                                        <img className="productDetailsProductImage" src='productImage.png' alt="...." />
+                                        <img className="productDetailsProductImage" src='https://eqipped.com/productImage.png' alt="...." />
                                     </div>
                                 </>)
                             }
@@ -262,35 +329,36 @@ const ProductDetails = () => {
 
 
                         </div>
-                    ))}
-                    {/* <button className="prevbutton" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
-                        <span className="carousel-control-prev-icon prevIcon" aria-hidden="true"></span>
-                        <span className="visually-hidden">Previous</span>
-                    </button>
-                    <button className="nextbutton" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
-                        <span style={{ width: 10, height: 15 }} className="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span className="visually-hidden">Next</span>
-                    </button> */}
-                    {/* <img className="productDetailsProductImage" src={product.imagePath} alt="..." /> */}
-                </div>
-                <div>
-                    <p className="productDetailsProductName">{product.productName}</p>
-                    <p className="productDetailsDscription">Quantity : {product.productQuantity}</p>
-                    <p className="productDetailsBrandName">brand Name: {product.brandName}</p>
-                    <p className="productDetailsProductPrice">
-                        Price : 
-                        <span className="material-symbols-outlined">
-                            currency_rupee
-                        </span>{product.natePriceWithDiscount} /-
-                    </p>
-                    <p className="productDetailsProductDescription">{product.productDescription}</p>
-                    {/* <p>Quantity : </p><input type='text' placeholder="didi"/> */}
-                    <button className="productDetailsAddToCart" onClick={() => addToCart(product)}>Add to Cart</button>
+                       
+                    </div>
+                    <div className="col">
+                        <p className="productDetailsProductName">{product.productName}</p>
+                        <p className="productDetailsDscription">Quantity : {product.productQuantity}</p>
+                        <p className="productDetailsBrandName">brand Name: {product.brandName}</p>
+                        <p className="productDetailsProductPrice">
+                            Price :
+                            <span className="material-symbols-outlined">
+                                currency_rupee
+                            </span>{product.natePriceWithDiscount} /-
+                        </p>
+                        <p className="productDetailsProductDescription">{product.productDescription}</p>
+                        
+                        <button className="productDetailsAddToCart" onClick={() => addToCart(product)}>Add to Cart</button>
 
-                    <button className="productDetailsBuyNow" onClick={() => checkout(product)}>Buy Now </button>
+                        <button className="productDetailsBuyNow" onClick={() => checkout(product)}>Buy Now </button>
 
-                </div>
-            </div>
+                    </div>
+                </>) : (<>
+                    <div className='text-center loading1'>
+
+                        <img style={{ width: 200, height: 200 }} src='https://eqipped.com/spinner.gif' />
+                        <h1>Loading .... </h1>
+                       
+
+                    </div>
+                </>)}
+
+            </div> */}
 
 
             {/* <div class="list-group ">
@@ -332,6 +400,154 @@ const ProductDetails = () => {
 
 
             </div> */}
+            <div className="Variation">
+
+
+                <div className="Header">
+                    <h3 className="Heading">Related Products</h3>
+                    <h5 className="Action" ></h5>
+                </div>
+
+                <hr style={{ paddingTop: 1, background: '#a70cef', marginLeft: '10px' }} />
+
+
+                <InfiniteScroll
+                    dataLength={data.length}
+                    next={getProductByVariationId}
+                    hasMore={true}
+                    loader={<div className='text-center loading1'>
+
+                        <img style={{ width: 50, height: 50 }} src='https://eqipped.com/spinner.gif' />
+
+                    </div>}
+
+                >
+                    {
+                        (data.length == 0) ? (<>
+
+                            {/* <p> No Equipments are Present</p> */}
+                        </>) : (
+                            <><div className="row">
+                                {data.map(item => (
+
+
+                                    <div className="col">
+                                        <div className="card-img">
+                                            <img className="productImage" src='https://eqipped.com/productImage.png' alt="...." />
+                                            
+                                            <div className='card-body'>
+                                                <p className='productName' >{
+                                                    item.productName.length >= 10 ? (<>{item.productName.toUpperCase().slice(0, 10)} ....</>) : (<>{item.productName.toUpperCase()}</>)
+                                                }</p>
+                                                <p className='offCategory'>{item.discountPercentage} % off</p>
+                                                <p className='natePriceWithDiscount'><span id='productIcon' className="material-symbols-outlined">
+                                                    currency_rupee
+                                                </span> {item.natePriceWithDiscount}</p>
+                                                <p className='brandName'>{item.brandName}</p>
+                                                <p className='individualProductPrice'><span id='productIcon' className="material-symbols-outlined">
+                                                    currency_rupee
+                                                </span> {item.individualProductPrice}</p>
+
+
+
+                                                {
+                                                    (isLoggedIn) ? (
+                                                        <div >
+                                                            <Link onClick={() => addToCart(item)}><div className='col-5 text-decoration-none cart-button-category'>Add to cart</div></Link>
+
+                                                            <Link onClick={() => checkout(item)}><div className='col-4 text-decoration-none cart-button1-category'>Buy now</div></Link>
+
+
+                                                        </div>
+                                                    ) : (
+                                                        <>
+                                                            <Link to={'/login'} className="cart-btn"><div className='col-5 text-decoration-none cart-button-category'>Add to cart</div></Link>
+
+                                                            <Link to={'/login'} className="cart-btn"><div className='col-4 text-decoration-none cart-button1-category'>Buy now</div></Link>
+
+
+                                                        </>
+                                                    )
+                                                }
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                ))} 
+                            </div>
+                                {/* <div className="row row-cols-1 row-cols-md-7 g-8">
+                                    {data.map(item => (
+                                        <>
+
+
+                                            <Link to={'/productDetails/' + item.productId} className="col text-decoration-none">
+
+                                                <div className="" key={item.id} >
+                                                    {
+                                                        (item.imagePath != "No") ? (
+                                                            <div>
+                                                                <img className="productImage" src={item.imagePath} alt="...." />
+
+                                                            </div>
+                                                        ) : (<><div>
+                                                            <img className="productImage" src='https://eqipped.com/productImage.png' alt="...." />
+                                                        </div>
+                                                        </>)
+                                                    }
+
+                                                    <div className='card-body'>
+                                                        <p className='productName' >{
+                                                            item.productName.length >= 10 ? (<>{item.productName.toUpperCase().slice(0, 10)} ....</>) : (<>{item.productName.toUpperCase()}</>)
+                                                        }</p>
+                                                        <p className='offCategory'>{item.discountPercentage} % off</p>
+                                                        <p className='natePriceWithDiscount'><span id='productIcon' className="material-symbols-outlined">
+                                                            currency_rupee
+                                                        </span> {item.natePriceWithDiscount}</p>
+                                                        <p className='brandName'>{item.brandName}</p>
+                                                        <p className='individualProductPrice'><span id='productIcon' className="material-symbols-outlined">
+                                                            currency_rupee
+                                                        </span> {item.individualProductPrice}</p>
+                                                        
+
+
+                                                        {
+                                                            (isLoggedIn) ? (
+                                                                <div >
+                                                                    <Link onClick={() => addToCart(item)}><div className='col-5 text-decoration-none cart-button-category'>Add to cart</div></Link>
+
+                                                                    <Link onClick={() => checkout(item)}><div className='col-4 text-decoration-none cart-button1-category'>Buy now</div></Link>
+
+
+                                                                </div>
+                                                            ) : (
+                                                                <>
+                                                                    <Link to={'/login'} className="cart-btn"><div className='col-5 text-decoration-none cart-button-category'>Add to cart</div></Link>
+
+                                                                    <Link to={'/login'} className="cart-btn"><div className='col-4 text-decoration-none cart-button1-category'>Buy now</div></Link>
+
+
+                                                                </>
+                                                            )
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </Link>
+                                        </>
+                                    )
+                                    )
+
+                                    }
+
+                                </div> */}
+
+                            </>
+                        )
+                    }
+
+                </InfiniteScroll>
+            </div>
 
         </>
     )

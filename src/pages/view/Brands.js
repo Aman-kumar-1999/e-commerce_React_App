@@ -56,14 +56,24 @@ function Brands() {
     }
   ]
 
- const images = brandData.map(item => (
-    <Brandname name={item.name} url={item.imageurl} /> 
+  const images = brandData.map(item => (
+    <Brandname style={{width:40}} name={item.name} url={item.imageurl} />
   ))
   return (
     <div className='branddiv'>
-      <h1>CHOOSE FROM BRANDS</h1>
-      <Carousel responsive={responsive}>
-        {images}
+      <div className="Header">
+        <h3 className="Heading">Brand </h3>
+        <h5 className="Action" ></h5>
+      </div>
+
+      <hr style={{ paddingTop: 1, background: '#a70cef', marginLeft: '10px' }} />
+      <Carousel autoPlay responsive={responsive}>
+        {
+          brandData.map(item => (
+            <img style={{width:"200px",height:"50px"}} name={item.name} src={item.imageurl} />
+          ))
+        }
+        {/* {images} */}
       </Carousel>
     </div>
   )

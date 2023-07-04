@@ -51,8 +51,8 @@ function App() {
   axios.interceptors.request.use(function (config) {
     // Do something before request is sent
     
-    setLoading(true);
-    setOnLoading(false);
+    // setLoading(true);
+    // setOnLoading(false);
    
     // document.body.classList.add('loading');
     // document.getElementById('spinnerLoading').classList.add('spinnerTab')
@@ -61,8 +61,8 @@ function App() {
   }, function (error) {
     // Do something with request error
     
-    setLoading(false)
-    setOnLoading(true)
+    // setLoading(false)
+    // setOnLoading(true)
    
     // document.body.classList.remove('loading');
     // document.getElementById('spinnerLoading').classList.remove('spinnerTab')
@@ -75,8 +75,8 @@ function App() {
     // Do something with response data
     // document.body.classList.remove('loading');
     // document.getElementById('spinnerLoading').classList.remove('spinnerTab')
-    setLoading(false);
-    setOnLoading(true);
+    // setLoading(false);
+    // setOnLoading(true);
     
     return response;
   }, function (error) {
@@ -84,8 +84,8 @@ function App() {
     // Do something with response error
     // document.body.classList.add('loading');
     // document.getElementById('spinnerLoading').classList.add('spinnerTab')
-    setLoading(true);
-    setOnLoading(false)
+    // setLoading(true);
+    // setOnLoading(false)
    
     return Promise.reject(error);
   });

@@ -1,133 +1,38 @@
-.dashboardCard{
-    margin-top: 40px;
-    
-    margin-right: 0px;
-    margin-left: 60px;
-    /* background-color: red; */
-    justify-content: center;
-    /* margin-left: -10px; */
-    /* float: right ; */
-    /* width: 100%; */
-}
-.dash{
-  margin-left: -75px;
-}
-.vl{
-  border-left: 2px solid #116D6E;
-  height: 60px;
-  position: absolute;
-  /* left: 50%;
-  margin-left: -3px; */
-  top: 15px;
+.dashboardCard {
+  margin-top: 40px;
+
+  margin-right: 0px;
+  /* margin-left: 60px; */
+  /* background-color: red; */
+  justify-content: center;
+  margin-left: -10px;
+  /* float: right ; */
+  /* width: 100%; */
 }
 
 
 
-.outerBox{
-    background-color: orangered;
-    border: 1px solid orangered;
-    border-radius: 11px;
-    margin-left: 20px;
-     margin-right: -15px;
-    /* border-bottom-left-radius: 10px;
-    border-top-left-radius: 10px; */
-    /* padding-top: 25px;
-    padding-bottom: 25px; */
-}
-.outerBox:hover{
-    
-}
-.innerBox{
-    /* background-color: blue; */
-    /* background: linear-gradient(to right ,#dbe4e7,#dbe4e7,#d2dee2,#d2dee2); */
-    margin-left: -8px;
-    margin-right: -15px;
-    /* border-bottom-left-radius: 10px;
-    border-top-left-radius: 10px; */
-    border-radius: 10px;
-    padding-top: 40px;
-    padding-bottom: 30px;
-    /* position: initial; */
-    
-}
-.innerBox:hover{
-    /* box-shadow: 5px 10px 50px #706e6e; */
-    /* margin: 10px;    */
-    
-}
-.h6{
-    margin-top: -31px;
-    margin-left: -90px;
-    font-size: small;
-}
-.percentage{
-    margin-top: -31px;
-    margin-right: -115px;
-    font-size: small;
-    color: rgb(12, 189, 12);
-}
-.num{
-    margin-left: -125px;
-    font-size: small;
-}
-.newOder{
-    margin-left: -60px;
-    text-decoration: none;
-    font-size: small;
-}
-.newOder:hover{
-    text-decoration: none;
-}
-.viewAllOrders{
-    margin-left: -65px;
-    /* text-decoration: none; */
-    color: purple;
-    font-size: small;
-}
-.viewAllOrders:hover{
-    text-decoration: none;
-    
-}
-.dashboardCardIcon{
-    margin-right: -145px;
-    margin-top: -30px;
-    margin-bottom: -30px;
-    color: orangered;
-}
-.chart-container {
-    width: 50%;
-    height: 50%;
-    margin: auto;
-  
-
-}
-
-
-@media screen and (min-width: 641px){
-  
-    .dashboardCard{
-      width: 70%;
-      /* margin-right: -5000px; */
-    }
-    
-.outerBox{
-  background-color: orangered;
-  border: 1px solid orangered;
+.outerBox {
+  background-color: #CB006C;
+  border: 1px solid #CB006C;
   border-radius: 11px;
   margin-left: 20px;
-   margin-right: -15px;
+  margin-right: -15px;
   /* border-bottom-left-radius: 10px;
   border-top-left-radius: 10px; */
   /* padding-top: 25px;
   padding-bottom: 25px; */
 }
-.outerBox:hover{
-  
+
+.outerBox:hover {
+
+  box-shadow: 5px 10px 10px #706e6e;
+
 }
-.innerBox{
+
+.innerBox {
   /* background-color: blue; */
-  /* background: linear-gradient(to right ,#dbe4e7,#dbe4e7,#d2dee2,#d2dee2); */
-  background-color: white;
+  background: linear-gradient(to right ,#dbe4e7,#dbe4e7,#d2dee2,#d2dee2);
   margin-left: -8px;
   margin-right: -15px;
   /* border-bottom-left-radius: 10px;
@@ -136,64 +41,211 @@
   padding-top: 40px;
   padding-bottom: 30px;
   /* position: initial; */
-  
+
 }
 
-  }
-  
-  @media screen and (max-width: 640px){
-  
-    .dashboardCard{
-      /* width: 70%; */
-      /* text-align: center; */
-      margin-left: -70px;
+.innerBox:hover {
+  /* box-shadow: 5px 10px 50px #706e6e; */
+  /* margin: 10px;    */
 
-      
-    }
-    .outerBox{
-      background-color: orangered;
-      border: 1px solid orangered;
-      border-radius: 11px;
-      margin-left: 40px;
-       margin-right: 0px;
-       margin-bottom: 30px;
-       /* padding-right: 70px; */
-       /* position: relative; */
-      /* border-bottom-left-radius: 10px;
-      border-top-left-radius: 10px; */
-      /* padding-top: 25px;
-      padding-bottom: 25px; */
-    }
-    .outerBox:hover{
-      
-    }
-    .innerBox{
-      /* background-color: blue; */
-      background: linear-gradient(to right ,#dbe4e7,#dbe4e7,#d2dee2,#d2dee2);
-      margin-left: -8px;
-      margin-right: -15px;
-      /* border-bottom-left-radius: 10px;
-      border-top-left-radius: 10px; */
-      border-radius: 10px;
-      padding-top: 40px;
-      padding-bottom: 30px;
-      padding-left: 20px; 
-      padding-right: 20px;
-      position: inherit;
-      
-    }
+}
+
+.h6 {
+  margin-top: -31px;
+  margin-left: -90px;
+  font-size: small;
+}
+
+.percentage {
+  margin-top: -31px;
+  margin-right: -115px;
+  font-size: small;
+  color: rgb(12, 189, 12);
+}
+
+.num {
+  margin-left: -125px;
+  font-size: small;
+}
+
+.newOder {
+  margin-left: -60px;
+  text-decoration: none;
+  font-size: small;
+}
+
+.newOder:hover {
+  text-decoration: none;
+}
+
+.viewAllOrders {
+  margin-left: -65px;
+  /* text-decoration: none; */
+  
+  color: purple;
+  font-size: small;
+}
+
+.viewAllOrders:hover {
+  text-decoration: none;
+
+}
+
+.dashboardCardIcon {
+  margin-right: -145px;
+  margin-top: -30px;
+  margin-bottom: -30px;
+  color: orangered;
+}
+
+.chart-container {
+  width: 50%;
+  height: 50%;
+  margin: auto;
+
+
+}
+
+/* 
+@media screen and (min-width: 641px) {
+
+  .dashboardCard {
+    width: 70%;
+
   }
 
-  @media screen and (min-width: 941px){
-  
-    .dashboardCard{
-      width: 100%;
-    }
+  .outerBox {
+    background-color: orangered;
+    border: 1px solid orangered;
+    border-radius: 11px;
+    margin-left: 20px;
+    margin-right: -15px;
+
+  }
+
+  .outerBox:hover {}
+
+  .innerBox {
+
+    background-color: white;
+    margin-left: -8px;
+    margin-right: -15px;
+
+    border-radius: 10px;
+    padding-top: 40px;
+    padding-bottom: 30px;
+
+
+  }
+
+} */
+
+@media screen and (max-width: 680px) {
+
+  .dashboardCard {
+    /* width: 70%; */
+    /* text-align: center; */
+    margin-left: -70px;
+
+
+  }
+
+  .outerBox {
+    background-color: #CB006C;
+    border: 1px solid #CB006C;
+    border-radius: 11px;
+    margin-left: 55px;
+    /* margin-right: -53px; */
+    margin-bottom: 30px;
+    padding-right: 70px;
+    /* position: relative; */
+    /* border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px; */
+    /* padding-top: 25px;
+    padding-bottom: 25px; */
+    
+  }
+
+  .outerBox:hover {}
+
+  .innerBox {
+    /* background-color: blue; */
+    background: linear-gradient(to right, #dbe4e7, #dbe4e7, #d2dee2, #d2dee2);
+    margin-left: -8px;
+    /* margin-right: -15px; */
+    /* border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px; */
+    border-radius: 10px;
+    padding-top: 40px;
+    padding-bottom: 30px;
+    padding-left: 90px;
+    padding-right: 117px;
+    position: inherit;
+    font-size: 1px;
+
+  }
+
+  .h6 {
+    margin-top: -31px;
+    margin-left: -90px;
+    font-size: small;
   }
   
-  @media screen and (max-width: 940px){
-  
-    .dashboardCard{
-      width: 90%;
-    }
+  .percentage {
+    margin-top: -28px;
+    margin-right: -115px;
+    font-size: small;
+    color: rgb(12, 189, 12);
   }
+  
+  .num {
+    margin-left: -125px;
+    font-size: small;
+  }
+  
+  .newOder {
+    margin-left: -80px;
+    /* margin-right: 20px; */
+    text-decoration: none;
+    font-size: small;
+  }
+  
+  
+  .viewAllOrders {
+    margin-left: -80px;
+    display: inline;
+    /* text-decoration: none; */
+    color: purple;
+    font-size: x-small;
+  }
+  
+  
+  .dashboardCardIcon {
+    margin-right: -125px;
+    margin-top: -20px;
+    margin-bottom: -30px;
+    color: orangered;
+  }
+  
+  .chart-container {
+    width: 50%;
+    height: 50%;
+    margin: auto;
+  
+  
+  }
+}
+
+/* @media screen and (min-width: 941px){
+
+  .dashboardCard{
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 940px){
+
+  .dashboardCard{
+    width: 90%;
+  }
+} */

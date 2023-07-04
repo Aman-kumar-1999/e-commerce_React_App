@@ -40,7 +40,7 @@ function Vrcards() {
 
         <>
             <div className='container row'>
-                <div className="orcard1 col">
+                <div className="orcard2 col">
                     <div className="card-body">
                         <h4 className="card-title">Recent Vendors</h4>
                         <p>{vendor.length} %</p>
@@ -63,7 +63,7 @@ function Vrcards() {
                 </div>
                 <Link to={'/addvendor'} className="addproduct col"><div>
                     <div className="card-body">
-                        <i className="ri-add-line"></i>
+                        <i style={{marginRight:'25px'}}className="ri-add-line"></i>
                         <h4 className="card-title"> Add Vendor</h4>
                     </div>
                 </div>

@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react'
 import '../css/Cards.css'
 import baseUrl from '../../helper/helper';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 function Shipcards() {
 
-
+  var userData = JSON.parse(localStorage.getItem('userData'))
     const [order, setOrder] = useState([]);
   // const listproduct = []
 
@@ -15,7 +17,9 @@ function Shipcards() {
 
   const fetchOrder = async () => {
     try {
-      const response = await fetch(`${baseUrl}/order/`);
+      // const response = await fetch(`http://localhost:5004/order/getVendorOrder/${userData.id}`);
+
+      const response = await fetch(`${baseUrl}/order/getVendorOrder/${userData.id}`);
 
 
       const jsonproduct = await response.json();
@@ -26,116 +30,144 @@ function Shipcards() {
     }
   };
   console.log(order)
-  const [pendingOrder, setPendingOrder] = useState([]);
+  const [newShipments, setNewShipments] = useState([]);
   // const listproduct = []
-
+  
   useEffect(() => {
-    fetchPendingOrder();
+    fetchNewShipments();
   }, []);
-  const [formPendingData, setPendingFormData] = useState({
-    "status": "New Shipments"
+  const [formNewShipments, setFormNewShipments] = useState({
+    "status": "New Shipments",
+    "vendorId": userData.id
   });
-  const fetchPendingOrder = async () => {
+  const fetchNewShipments = async () => {
     try {
-      const response = await fetch(`${baseUrl}/order/getStatusOrder`, {
+      const response = await fetch(`${baseUrl}/order/getStatusVendorOrder`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(formPendingData)
+        body: JSON.stringify(formNewShipments)
       });
 
       const jsonproduct = await response.json();
       // listproduct = jsonproduct;
-      setPendingOrder(jsonproduct);
+      setNewShipments(jsonproduct);
     } catch (error) {
       console.log('Error:', error);
     }
   };
-  console.log(pendingOrder)
-  const [recentOrder, setRecentOrder] = useState([]);
+  console.log(newShipments)
+  const [deliveredShipments, setDeliveredShipments] = useState([]);
   // const listproduct = []
 
   useEffect(() => {
-    fetchRecentOrder();
+    fetchDeliveredOrder();
   }, []);
-  const [formRecentData, setRecentFormData] = useState({
-    "status": "Delivered"
+  const [formDeliveredData, setFormDeliveredData] = useState({
+    "status": "Delivered Shipments",
+    "vendorId": userData.id
   });
-  const fetchRecentOrder = async () => {
+  const fetchDeliveredOrder = async () => {
     try {
-      const response = await fetch(`${baseUrl}/order/getStatusOrder`, {
+      const response = await fetch(`${baseUrl}/order/getStatusVendorOrder`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(formRecentData)
+        body: JSON.stringify(formDeliveredData)
       });
 
       const jsonproduct = await response.json();
       // listproduct = jsonproduct;
-      setRecentOrder(jsonproduct);
+      setDeliveredShipments(jsonproduct);
     } catch (error) {
       console.log('Error:', error);
     }
   };
-  console.log(recentOrder)
-  const [confirmedOrder, setConfirmedOrder] = useState([]);
+  console.log(deliveredShipments)
+  const [replacementShipment, setReplacementShipment] = useState([]);
   // const listproduct = []
 
   useEffect(() => {
-    fetchConfirmedOrder();
+    fetchReplacementShipment();
   }, []);
-  const [formConfirmedData, setConfirmedFormData] = useState({
-    "status": "Replacement/Cancelled"
+  const [formReplacementShipment, setFormReplacementShipment] = useState({
+    "status": "Replacement Shipments",
+    "vendorId": userData.id
   });
-  const fetchConfirmedOrder = async () => {
+  const fetchReplacementShipment = async () => {
     try {
-      const response = await fetch(`${baseUrl}/order/getStatusOrder`, {
+      const response = await fetch(`${baseUrl}/order/getStatusVendorOrder`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(formConfirmedData)
+        body: JSON.stringify(formReplacementShipment)
       });
 
       const jsonproduct = await response.json();
       // listproduct = jsonproduct;
-      setConfirmedOrder(jsonproduct);
+      setReplacementShipment(jsonproduct);
     } catch (error) {
       console.log('Error:', error);
     }
   };
-  console.log(confirmedOrder)
-  const [cancelledOrder, setCancelledOrder] = useState([]);
+  console.log(replacementShipment)
+  const [cancelledShipment, setCancelledShipment] = useState([]);
   // const listproduct = []
 
   useEffect(() => {
-    fetchCancelledOrder();
+    fetchCancelledShipments();
   }, []);
-  const [formCancelledData, setCancelledFormData] = useState({
-    "status": "Cancelled Shipments"
+  const [formCancelledShipments, setCancelledFormShipments] = useState({
+    "status": "Cancelled Shipments",
+    "vendorId": userData.id
   });
-  const fetchCancelledOrder = async () => {
+  const fetchCancelledShipments = async () => {
     try {
-      const response = await fetch(`${baseUrl}/order/getStatusOrder`, {
+      const response = await fetch(`${baseUrl}/order/getStatusVendorOrder`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(formCancelledData)
+        body: JSON.stringify(formCancelledShipments)
       });
 
       const jsonproduct = await response.json();
       // listproduct = jsonproduct;
-      setCancelledOrder(jsonproduct);
+      setCancelledShipment(jsonproduct);
     } catch (error) {
       console.log('Error:', error);
     }
   };
-  console.log(cancelledOrder)
+  console.log(cancelledShipment)
 
   var date;
+
+  const changeOrderStatus = async (event,items) => {
+    try {
+      items.status = event.target.value;
+      const response = axios.put(`${baseUrl}/order/updateOrder`, items).then(
+        (response) => {
+          if (response.status == 200) {
+            // console.log(response.data)
+            // setOrder(response.data)
+            toast.success(`${event.target.value} Success !.`);
+
+          }
+        }
+
+      ).catch((error) => {
+        toast.error('Order can not be changed Status.')
+        console.log(error);
+
+      })
+    }
+    catch (error) {
+      console.log('Error : ', error);
+    }
+  }
 
     return (
         <div>
@@ -143,28 +175,43 @@ function Shipcards() {
                 <div className='container row'>
                     <div className="shipcard col">
                         <div className="card-body">
-                            <h4 className="card-title">New Shipments</h4>
-                            <p>+3.34%</p>
-                            <h5>{order.length}</h5>
+                            <h4 className="card-title ml-1">New Shipments</h4>
+                            {newShipments.length==0 
+                            ?(<><p>0 %</p>
+                            <h5>0</h5></>)
+                            :(<><p>{(newShipments.length) / (order.length) * 100} %</p>
+                            <h5>{newShipments.length}</h5></>)}
                         </div>
                     </div>
                     <div className="shipcard col">
                         <div className="card-body">
-                            <h4 className="card-title newh" >Delivered</h4>
-                            <p>+3.34%</p>
-                            <h5>{order.length}</h5>
+                            <h4 className="card-title ml-1" >Delivered Shipments</h4>
+                            {deliveredShipments.length==0 
+                            ?(<><p>0 %</p>
+                            <h5>0</h5></>)
+                            :(<><p>{(deliveredShipments.length) / (order.length) * 100} %</p>
+                            <h5>{deliveredShipments.length}</h5></>)}
+                            
                         </div>
                     </div>
-                    <div className="shipcard2 col">
+                    <div className="shipcard col">
                         <div className="card-body">
-                            <h4 className="card-title newh" >Replacement/Cancelled</h4>
-                            <h5>{order.length}</h5>
+                            <h4 className="card-title ml-1" >Replacement Ship...</h4>
+                            {replacementShipment.length==0 
+                            ?(<><p>0 %</p>
+                            <h5>0</h5></>)
+                            :(<><p>{(replacementShipment.length) / (order.length) * 100} %</p>
+                            <h5>{replacementShipment.length}</h5></>)}
                         </div>
                     </div>
-                    <div className="shipcard3 col">
+                    <div className="shipcard col">
                         <div className="card-body">
-                            <h4 className="card-title newcancel"> Cancelled</h4>
-                            <h5>{order.length}</h5>
+                            <h4 className="card-title ml-1"> Cancelled Shipments </h4>
+                            {cancelledShipment.length==0 
+                            ?(<><p>0 %</p>
+                            <h5>0</h5></>)
+                            :(<><p>{(cancelledShipment.length) / (order.length) * 100} %</p>
+                            <h5>{cancelledShipment.length}</h5></>)}
                         </div>
                     </div>
                 </div>
@@ -199,7 +246,7 @@ function Shipcards() {
 
 
           <tbody>
-            {order.map((item, index) => (
+            {order.length && order.map((item, index) => (
               <tr>
                 <td>{index + 1}</td>
                 <td>{item.productId}</td>
@@ -210,12 +257,12 @@ function Shipcards() {
                 <td>{item.productQuantity}</td>
                 <td>{item.natePriceWithDiscount}</td>
                 <td>
-                  <select className="btn-secondary" name="cars" id="cars">
+                  <select onChange={event => changeOrderStatus(event,item)} className="btn-secondary" name="cars" id="cars">
                     <option value={item.status}>{item.status}</option>
-                    <option value="Cancelled Order">Cancelled Order</option>
-                    <option value="Confirmed Order">Confirmed Order</option>
-                    <option value="Pending Order">Pending Order</option>
-                    <option value="Recent Order">Recent Order</option>
+                    <option value="New Shipments">New Shipments</option>
+                    <option value="Delivered Shipments">Delivered Shipments</option>
+                    <option value="Replacement shipments">Replacement shipments</option>
+                    <option value="Cancelled Shipments">Cancelled Shipments</option>
                   </select>
                 </td>
                 {/* <td><input type='text' value={item.status}></input></td> */}

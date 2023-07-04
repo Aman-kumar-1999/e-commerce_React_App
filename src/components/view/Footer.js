@@ -8,13 +8,15 @@ const Footer = () => {
 
             <div className="container-fluid footer">
                 <div className='row'>
-                    <div className='col-2'>
-                        <img className='eqippedFooterLogo1' src='eqippedLogo.png' />
+                    <div className='col-1'>
+                        <img className='eqippedFooterLogo1' src='https://eqipped.com/eqippedLogo.png' />
                     </div>
-                    {/* <div className='col-1'>
-                        <p className='eqippedFooterLogo'>EQIPPED</p>
-                    </div> */}
-                    <div className='col-9 mb-3'>
+                    <div className='col-8'>
+
+                    </div>
+                    
+                    
+                    <div className='col-2 mb-3 '>
                         <ul className='list-unstyled'>
 
                             <li className="socil-media"><a className="anker socil-media" target="_blank" href="#" title="Facebook"><i className="icon fa fa-facebook"></i></a>
@@ -22,24 +24,16 @@ const Footer = () => {
 
                             <li className="socil-media"><a className="anker socil-media" target="_blank" href="https://twitter.com/eqipped_" title="Twitter">
                                 <i className="icon fa fa-twitter"></i></a></li>
-                            {/* <li className="socil-media"><a className="anker socil-media" target="_blank" href="#" title="Youtube"><i
-                                className="icon fa fa-youtube-play"></i></a></li>
-                            <li className="socil-media"><a className="anker socil-media" target="_blank" href="#" title="GooglePlus"><i
-                                className="icon fa fa-google-plus"></i></a></li> */}
+                            
                             <li className="socil-media"><a className="anker socil-media" target="_blank" href="https://www.instagram.com/eqipped/" title="Instagram"><i
                                 className="icon fa fa-instagram"></i></a></li>
-                            {/* <li className="socil-media"><a className="anker socil-media" target="_blank" href="#" title="Pinterest"><i
-                                className="icon fa fa-pinterest"></i></a></li> */}
+                            
                         </ul>
                     </div>
-
-
-
-
                 </div>
                 <hr className='hrFooter' />
                 <div className='row'>
-                    <div className='col-3 list-unstyled'>
+                    <div className='col list-unstyled'>
                         <p>Company</p>
                         <li className="first">
                             <a className="anker" title="About us" href="#">
@@ -66,7 +60,7 @@ const Footer = () => {
 
 
                     </div>
-                    <div className='col-3'>
+                    <div className='col'>
                         <p>Account</p>
                         <li className="first">
                             <a className="anker" title="" href="#">
@@ -89,7 +83,7 @@ const Footer = () => {
                             </a>
                         </li>
                     </div>
-                    <div className='col-3'>
+                    <div className='col'>
                         <p>Seller</p>
                         <li className="first">
                             <a className="anker" title="About us" href="#">
@@ -117,7 +111,7 @@ const Footer = () => {
                             </a>
                         </li>
                     </div>
-                    <div className='col-3'>
+                    <div className='col'>
                         <p>Contact</p>
                         <li className="first">
                             <a className="anker" title="About us" href="#">
@@ -137,6 +131,22 @@ const Footer = () => {
 
                     </div>
 
+                </div>
+                <div className='row'>
+                    <div className="copyright-bar">
+                    <div className="container-fluid">
+                        <div style={{ display: 'inline' }} className="col col-sm-8 no-padding">
+                            <p style={{ display: 'inline' }}>&copy; 2023 Eqipped, All Right Reserved.</p>
+                        </div>
+                        {/* <p ></p> */}
+                        <div style={{ display: 'inline' }} className="col col-sm-4 no-padding">
+                            <div style={{ display: 'inline' }} className="clearfix payment-methods">
+                                <p style={{ display: 'inline' }}> Designed & Developed By:  Gearloose</p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
                 </div>
                 {/* <div className="">
                     <div className="row">
@@ -287,7 +297,7 @@ const Footer = () => {
                     </div>
                 </div> */}
 
-                <div className="copyright-bar">
+                {/* <div className="copyright-bar">
                     <div className="container-fluid">
                         <div style={{ display: 'inline' }} className="col-xs-12 col-sm-8 no-padding">
                             <p style={{ display: 'inline' }}>&copy; 2023 Eqipped, All Right Reserved.</p>
@@ -300,7 +310,7 @@ const Footer = () => {
 
                         </div>
                     </div>
-                </div>
+                </div> */}
             </div>
             {/* </footer> */}
 

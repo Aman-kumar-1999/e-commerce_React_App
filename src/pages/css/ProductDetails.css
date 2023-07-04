@@ -30,13 +30,16 @@
     position: relative;
     width: 1119px;
     height: 517px;
-    left: calc(50% - 1119px/2 + 6.5px);
+    /* left: calc(50% - 1119px/2 + 6.5px); */
     top: 14px;
 
     background: rgba(255, 255, 255, 0.85);
     border: 1px solid #000000;
     border-radius: 8px;
     
+}
+.Variation{
+    margin-top: 40px;
 }
 
 .productDetailsProductName {

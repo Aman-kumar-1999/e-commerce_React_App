@@ -2,11 +2,22 @@ import React, { useState, useEffect } from 'react'
 import '../css/Cards.css'
 import baseUrl from '../../helper/helper';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 function Orcards() {
 
   const [order, setOrder] = useState([]);
   // const listproduct = []
 
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const handleSearchOrderId = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const filteredData = order.filter((item) =>
+    item.orderId.toLowerCase().indexOf(searchTerm) > -1,
+  );
   useEffect(() => {
     fetchOrder();
   }, []);
@@ -134,6 +145,29 @@ function Orcards() {
   console.log(cancelledOrder)
 
   var date;
+  const changeOrderStatus = async (event,items) => {
+    try {
+      items.status = event.target.value;
+      const response = axios.put(`${baseUrl}/order/updateOrder`, items).then(
+        (response) => {
+          if (response.status == 200) {
+            // console.log(response.data)
+            // setOrder(response.data)
+            toast.success(`${event.target.value} Success !.`);
+
+          }
+        }
+
+      ).catch((error) => {
+        toast.error('Order can not be changed Status.')
+        console.log(error);
+
+      })
+    }
+    catch (error) {
+      console.log('Error : ', error);
+    }
+  }
 
   return (
     <>
@@ -178,12 +212,23 @@ function Orcards() {
         </select>
 
       </div>
+      <div className=''><input type="email" class="form-control" id="floatingInputValue"
+        className='sear'
+        size="lg"
+        bordered
+        clearable
+        placeholder="Search order Id ..."
+        value={searchTerm}
+        onChange={handleSearchOrderId} />
+
+      </div>
       <div className="col-md-12 container table-responsive">
 
         <table WIDTH="1300" HEIGHT="50">
           <thead>
             <tr>
               <th>No. </th>
+              <th>Order Id</th>
               <th>Product Id</th>
               <th>Date</th>
               <th>Customer Email</th>
@@ -198,9 +243,10 @@ function Orcards() {
 
 
           <tbody>
-            {order.map((item, index) => (
+            {filteredData.map((item, index) => (
               <tr>
                 <td>{index + 1}</td>
+                <td className='col-1'>{item.orderId}</td>
                 <td>{item.productId}</td>
                 <td>{date = new Date(item.date).toDateString()}</td>
                 <td>{item.email}</td>
@@ -209,7 +255,7 @@ function Orcards() {
                 <td>{item.productQuantity}</td>
                 <td>{item.natePriceWithDiscount}</td>
                 <td>
-                  <select className="btn-secondary" name="cars" id="cars">
+                  <select onChange={event => changeOrderStatus(event,item)} className="btn-secondary" name="cars" id="cars">
                     <option value={item.status}>{item.status}</option>
                     <option value="Cancelled Order">Cancelled Order</option>
                     <option value="Confirmed Order">Confirmed Order</option>
