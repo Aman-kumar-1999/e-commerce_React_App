@@ -13,7 +13,7 @@
     /* size: 500px; */    
 }
 .side-body{
-    margin-bottom: -20px;
+    margin-bottom: -50px;
     margin-left : -30px;
     /* float: left; */
     background: transparent;
@@ -47,6 +47,8 @@
     padding-left: 70px;
     padding-right: 50px;
     font-size: small;
+    background-color: black;
+    color: aliceblue;
    
 
 }
@@ -70,6 +72,8 @@
     position: relative ;
     /* padding-left: 80px; */
     font-size: small;
+    background-color: #000;
+    color: antiquewhite;
     
 }
 

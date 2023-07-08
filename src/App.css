@@ -1,15 +1,20 @@
-body{
+
+
+body {
     margin: 0px;
     padding: 0px;
-    /* width: 100%; */
-}
-.loading {
-    background-color: white; /* Set the desired background color */
-    /* z-index: 1; */
-    opacity: 0.1;
     
 }
-.loading1{
+
+.loading {
+    background-color: white;
+    /* Set the desired background color */
+    /* z-index: 1; */
+    opacity: 0.1;
+
+}
+
+.loading1 {
     /* opacity: 3; */
     /* position: absolute; */
 }

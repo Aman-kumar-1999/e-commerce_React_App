@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Carousel from 'react-multi-carousel';
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import 'react-multi-carousel/lib/styles.css';
 import '../css/HomeSlider.css'
 import 'react-toastify/dist/ReactToastify.css';
@@ -189,6 +189,7 @@ function GlassWare(props) {
         }
     };
     console.log(data)
+    const navigate = useNavigate();
     const checkout = async (items1) => {
         try {
             console.log("item : " + items1)
@@ -233,6 +234,7 @@ function GlassWare(props) {
                 (response) => {
                     if (response.status == 200) {
                         console.log(response.data)
+                        navigate('/checkoutsuccess')
                         toast.success('Order has been Created.')
 
                     }

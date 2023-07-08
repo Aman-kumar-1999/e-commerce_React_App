@@ -28,6 +28,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  z-index: 1;
 }
 
 .Heading {
@@ -69,7 +70,7 @@
 
 .title {
   padding-top: 5px;
-  line-height: 10px;
+  line-height: 20px;
   font-size: 20px;
   font-family: 'Open Sans';
   font-weight: 800;
@@ -90,7 +91,7 @@
   position: relative;
     /* width: 313px;
     height: 33px; */
-    left: -15px;
+    /* left: -15px; */
     /* top: 53px; */
     float: left;
 
@@ -246,8 +247,13 @@
 }
 
 .img9{
-    height: 100px;
-    width: 100px;
+  width: 212px;
+  height: 166px;
+}
+
+.track-horizontal {
+  background-color: blue;
+  /* height: 10px !important; */
 }
 
 

@@ -4,11 +4,16 @@ import HomeCategory from '../../pages/view/HomeCategory';
 import HomeSlider from '../../pages/view/HomeSlider';
 import Suggestion from '../../pages/view/Suggestion';
 import Brands from '../../pages/view/Brands';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import baseUrl from '../../helper/helper';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import InfiniteScroll from 'react-infinite-scroll-component';
+
+import TextField from '@mui/material/TextField';
+import Stack from '@mui/material/Stack';
+import Autocomplete from '@mui/material/Autocomplete';
+
 const Home = () => {
 
 
@@ -68,21 +73,21 @@ const Home = () => {
 
   const handleSearchInputChange = (event) => {
     setSearchNeeded(true)
+    // fetchProductData();
     setSearchData(event.target.value);
     if (event.target.value == "")
       setSearchNeeded(false)
   }
 
-
-
   const filteredProductName = product.filter((item) =>
-    item.productName.toLowerCase().indexOf(searchData.toLowerCase()) > -1,
+      item.productName.toLowerCase().includes(searchData.toLowerCase())
+  
   );
 
 
   const fetchProductData = async () => {
 
-    let dataLimit = 10;
+    let dataLimit = 1000;
 
     let pageNo = Math.ceil(product.length / dataLimit) + 1
     console.log("Page No : " + pageNo)
@@ -97,7 +102,7 @@ const Home = () => {
       let apidata = [...product, ...jsonproduct];
 
       // listproduct = jsonproduct;
-      setProduct(apidata);
+      setProduct(JSON.parse(JSON.stringify(apidata)));
     } catch (error) {
       console.log('Error:', error);
     }
@@ -181,6 +186,7 @@ const Home = () => {
     }
   };
   // console.log(data)
+  const navigate = useNavigate();
   const checkout = async (items1) => {
     try {
       console.log("item : " + items1)
@@ -190,7 +196,7 @@ const Home = () => {
       let cart1 = JSON.stringify(items)
       console.log('Item : ' + JSON.stringify(items))
       let item1 = JSON.parse(cart1);
-      startPayment(item1);
+      // startPayment(item1);
       cart.productId = item1.productId;
       cart.vendorId = item1.vendorId;
       cart.email = userData.email;
@@ -226,7 +232,8 @@ const Home = () => {
         (response) => {
           if (response.status == 200) {
             console.log(response.data)
-            // toast.success('Order has been Created.')
+            navigate('/checkoutsuccess');
+            toast.success('Order has been Created.')
 
           }
         }
@@ -370,7 +377,14 @@ const Home = () => {
           placeholder="Search Product Name ..."
           value={searchData} onChange={handleSearchInputChange} />
       </div>
-
+      {/* <Stack spacing={2} sx={{ width: 300 }}>
+        <Autocomplete
+          id="free-solo-demo"
+          freeSolo
+          options={product.map((option) => option.productName)}
+          renderInput={(params) => <TextField {...params} label="freeSolo" />}
+        />
+      </Stack> */}
 
 
       {/* <button className="searchButtonHomePage" type="submit">Search</button> */}
@@ -422,7 +436,7 @@ const Home = () => {
                               <p className='offCategory'>{item.discountPercentage} % off</p>
                               <p className='natePriceWithDiscount'><span id='productIcon' className="material-symbols-outlined">
                                 currency_rupee
-                              </span> {item.natePriceWithDiscount}</p>
+                              </span> {item.natePriceWithDiscount.toFixed(0)}</p>
                               <p className='brandName'>{item.brandName}</p>
                               <p className='individualProductPrice'><span id='productIcon' className="material-symbols-outlined">
                                 currency_rupee

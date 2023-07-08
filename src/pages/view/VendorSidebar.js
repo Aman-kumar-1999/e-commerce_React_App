@@ -105,7 +105,7 @@ export default function VendorSidebar() {
                                     <Link to={'/orders'} className='link'><li className="list-group-item sidebar" data-bs-dismiss="offcanvas" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"><span className='material-symbols-outlined sidebarLogo'>fluid_med</span>Order</li></Link>
                                 ) : (<></>)}
                                 {(userData.role.roleSideBarOptions.product === 'Yes') ? (
-                                    <Link to={'/products'} className='link'><li className="list-group-item sidebar" data-bs-dismiss="offcanvas" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"><span className='material-symbols-outlined sidebarLogo'>science</span>Product</li></Link>
+                                    <Link to={'/vendorProduct'} className='link'><li className="list-group-item sidebar" data-bs-dismiss="offcanvas" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"><span className='material-symbols-outlined sidebarLogo'>science</span>Product</li></Link>
                                 ) : (<></>)}
                                 {(userData.role.roleSideBarOptions.vendor === 'Yes') ? (
                                     <Link to={'/vendors'} className='link'><li className="list-group-item sidebar" data-bs-dismiss="offcanvas" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"><span className='material-symbols-outlined sidebarLogo'>diversity_3</span>Vendor</li></Link>

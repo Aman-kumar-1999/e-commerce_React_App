@@ -122,7 +122,7 @@ const Login = () => {
           <div className='col mt-5'>
             <img className="mb-4" src='https://eqipped.com/eqippedLogo.png' />
             <h1 className='mb-4'>Welcome to Eqipped </h1>
-            <h6>Already have an account ? <Link to={'/signup'}>signup</Link></h6>
+            <h6>Already have an account ? <Link style={{color:'red'}} to={'/signup'}>signup</Link></h6>
             <h6>Continue as guest</h6>
           </div>
           {/* <div className='col mr-5 ml-2'>

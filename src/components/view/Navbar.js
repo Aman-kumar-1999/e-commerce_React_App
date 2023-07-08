@@ -37,7 +37,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav style={{ background: 'black' }} className='Container'>
+      <nav style={{ background: 'black' }} className='Container sticky-top'>
         {isLoggedIn ? (
           <div>
             {

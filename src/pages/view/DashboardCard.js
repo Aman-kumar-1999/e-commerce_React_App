@@ -171,10 +171,16 @@ function DashboardCards() {
           <div className='col outerBox'>
             <div className=" innerBox">
               <h6 className='h6'>Total Orders</h6>
-              <p className='percentage'>+16.44%</p>
-              <h6 className='num'> {order.length}</h6>
+              {/* <p className='percentage'>+16.44%</p> */}
+              {(order == 0 || order == null) ? (<>
+                <h5 className='num'>
+
+                  <img style={{ width: 40, height: 40 }} src='spinner.gif' />
+
+                </h5>
+              </>) : (<><h6 className='num  pb-4'> {order.length}</h6></>)}
               {/* <Link className='newOder' to={'/orders'}> {order.length} New Orders</Link> */}
-              <br />
+              {/* <br /> */}
               <Link className='viewAllOrders' to={'/orders'}>View All Orders</Link>
               <p className='dashboardCardIcon'><span className='material-symbols-outlined'>fluid_med</span></p>
             </div>
@@ -182,10 +188,17 @@ function DashboardCards() {
           <div className='col outerBox'>
             <div className=" innerBox">
               <h6 className='h6'>Total Products</h6>
-              <p className='percentage'>+16.44%</p>
-              <h6 className='num'> {product.length}</h6>
+              {/* <p className='percentage'>+16.44%</p> */}
+              {(product == 0 || product == null || product.length == null) ? (<>
+                <h5 className='num'>
+                {/* <h6 className='num pb-4'> {product.length}</h6> */}
+                  <img style={{ width: 40, height: 40 }} src='spinner.gif' />
+
+                </h5>
+              </>) : (<><h6 className='num pb-4'> {product.length}</h6></>)}
+
               {/* <Link className='newOder' to={'/products'}>{product.length} New Products</Link> */}
-              <br />
+              {/* <br /> */}
               <Link className='viewAllOrders' to={'/products'}>View All Products</Link>
               <p className='dashboardCardIcon'><span className='material-symbols-outlined'>science</span></p>
             </div>
@@ -193,7 +206,7 @@ function DashboardCards() {
           <div className='col outerBox'>
             <div className=" innerBox">
               <h6 className='h6'>Total Vendors</h6>
-              <p className='percentage'>+16.44%</p>
+              {/* <p className='percentage'>+16.44%</p> */}
               <h6 className='num'> {vendor.length}</h6>
               {/* <Link className='newOder'>{vendor.length} New Venders</Link> */}
               <br />
@@ -204,7 +217,7 @@ function DashboardCards() {
           <div className='col outerBox'>
             <div className=" innerBox">
               <h6 className='h6'>Total Users</h6>
-              <p className='percentage'>+16.44%</p>
+              {/* <p className='percentage'>+16.44%</p> */}
               <h6 className='num'> {users.length}</h6>
               {/* <Link className='newOder'>{users.length} New Users</Link> */}
               <br />

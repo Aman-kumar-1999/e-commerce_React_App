@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Carousel from 'react-multi-carousel';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-multi-carousel/lib/styles.css';
@@ -319,6 +319,7 @@ function HomeSlider(props) {
         }
     };
     // console.log(data)
+    const navigate = useNavigate();
     const checkout = async (items1) => {
         try {
             console.log("item : " + items1)
@@ -328,7 +329,7 @@ function HomeSlider(props) {
             let cart1 = JSON.stringify(items)
             console.log('Item : ' + JSON.stringify(items))
             let item1 = JSON.parse(cart1);
-            startPayment(item1);
+            // startPayment(item1);
             cart.productId = item1.productId;
             cart.vendorId = item1.vendorId;
             cart.email = userData.email;
@@ -364,7 +365,8 @@ function HomeSlider(props) {
                 (response) => {
                     if (response.status == 200) {
                         console.log(response.data)
-                        // toast.success('Order has been Created.')
+                        toast.success('Order has been Created.')
+                        navigate('/checkoutsuccess')
 
                     }
                 }

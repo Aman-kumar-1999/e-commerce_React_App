@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import '../css/Sidebar.css';
 import { Link } from 'react-router-dom';
+import Scrollbars from 'react-custom-scrollbars-2';
 
 export default function Sidebar() {
 
@@ -41,6 +42,7 @@ export default function Sidebar() {
 
     return (
         <>
+        {/* <Scrollbars style={{ height: 635 }}> */}
 
 
 
@@ -142,6 +144,7 @@ export default function Sidebar() {
                     )
 
             }
+            {/* </Scrollbars> */}
 
         </>
     )

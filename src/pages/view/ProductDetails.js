@@ -25,11 +25,14 @@ const ProductDetails = () => {
     const { productId } = useParams();
     const [data, setData] = useState([]);
     const [product, setProducts] = useState([]);
+    const [tier, setTier] = useState([]);
 
 
     useEffect(() => {
-        getProductByProductId();
+        // getProductByProductId();
+        getProductByProductIdForTier();
         getProductByVariationId();
+
 
     }, [])
 
@@ -200,6 +203,7 @@ const ProductDetails = () => {
                         if (response.status == 200) {
                             console.log(response.data)
                             toast.success('Order has been Created.')
+                            navigate('/checkoutsuccess')
 
                         }
                     }
@@ -223,14 +227,33 @@ const ProductDetails = () => {
 
     }
 
-    const getProductByProductId = async () => {
+    // const getProductByProductId = async () => {
+    //     try {
+    //         const response = await fetch(`${baseUrl}/product/productId/${productId}`);
+
+
+    //         const jsonproduct = await response.json();
+    //         // listproduct = jsonproduct;
+    //         setProducts(jsonproduct);
+
+
+    //     } catch (error) {
+    //         console.log('Error:', error);
+    //     }
+
+    // }
+    const getProductByProductIdForTier = async () => {
         try {
-            const response = await fetch(`${baseUrl}/product/productId/${productId}`);
+            // const response = await fetch(`http://localhost:5005/product/tier/productId/${productId}`);
+            const response = await fetch(`${baseUrl}/product/tier/productId/${productId}`);
 
 
             const jsonproduct = await response.json();
             // listproduct = jsonproduct;
-            setProducts(jsonproduct);
+            // setProducts(jsonproduct);
+            console.log("Tier : " + jsonproduct.TIER)
+            setTier(jsonproduct.TIER)
+            setProducts(jsonproduct.PRODUCT)
 
 
         } catch (error) {
@@ -295,11 +318,49 @@ const ProductDetails = () => {
                     <h4 className="">{product.productName} ({product.containLiquid})</h4>
 
                     <p> Brand: {product.brandName}</p>
+                    <p> Quantity: {product.productQuantity}</p>
                     <p>Price :
                         <span style={{ fontSize: '15px' }} className="material-symbols-outlined">
                             currency_rupee
                         </span>{product.natePriceWithDiscount} /-</p>
                     <p >{product.productDescription}</p>
+                    <div className="row mb-4 bg-muted rounded-3">
+
+                        <div className="col-4 table-responsive">
+
+                            <div className="row">
+                                <p><b>Quantity : </b></p>
+                            </div>
+                            <div className="row">
+                                <p><b>Price : </b></p>
+                            </div>
+
+                        </div>
+                        
+                        {
+                            tier && tier.map(item => (
+                                <>
+                                    <div className="col table-responsive">
+
+
+                                        <div className="row">
+                                            <p>{item.productQuantity}</p>
+                                        </div>
+                                        <div className="row">
+                                            <p> <span style={{ fontSize: '15px' }} className="material-symbols-outlined">
+                                                currency_rupee
+                                            </span>
+                                                {(item.productQuantity) * (product.natePriceWithDiscount - (item.offerPercentage / 100) * product.natePriceWithDiscount).toFixed(0)}</p>
+                                        </div>
+
+                                    </div>
+
+
+                                </>
+                            ))
+                        }
+
+                    </div>
 
                     <button className="btn btn-info" onClick={() => addToCart(product)}>Add to Cart</button>
                     <button className="btn btn-danger ml-5" onClick={() => checkout(product)} >Buy Now</button>
@@ -434,7 +495,7 @@ const ProductDetails = () => {
                                     <div className="col">
                                         <div className="card-img">
                                             <img className="productImage" src='https://eqipped.com/productImage.png' alt="...." />
-                                            
+
                                             <div className='card-body'>
                                                 <p className='productName' >{
                                                     item.productName.length >= 10 ? (<>{item.productName.toUpperCase().slice(0, 10)} ....</>) : (<>{item.productName.toUpperCase()}</>)
@@ -475,7 +536,7 @@ const ProductDetails = () => {
 
                                     </div>
 
-                                ))} 
+                                ))}
                             </div>
                                 {/* <div className="row row-cols-1 row-cols-md-7 g-8">
                                     {data.map(item => (
