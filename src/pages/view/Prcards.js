@@ -7,7 +7,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 function Prcards() {
     const [product, setProduct] = useState([]);
     const [searchTermProduct, setSearchTermProduct] = useState("");
-    const [temp, setTamp] = useState(true);
+    const [count, setCount] = useState(0);
     const [listedProduct, setListedProduct] = useState(0);
     const [unListedProduct, setUnListedProduct] = useState(0);
     const handleSearchProductName = (event) => {
@@ -19,19 +19,32 @@ function Prcards() {
     );
 
     useEffect(() => {
-
+        countAllProduct();
         fetchProduct();
     }, []);
 
+    const countAllProduct = async () => {
+        try {
+          const response = await fetch(`${baseUrl}/product/countAll`);
+    
+    
+          const jsonproduct = await response.json();
+          // listproduct = jsonproduct;
+          setCount(jsonproduct);
+        } catch (error) {
+          console.log('Error:', error);
+        }
+      };
+
     const fetchProduct = async () => {
-        let dataLimit = 500;
+        let dataLimit = 300;
 
         let pageNo = Math.ceil(product.length / dataLimit) + 1
         console.log("Page No : " + pageNo)
 
         try {
             // const response = await fetch(`http://localhost:5005/product/filter/${pageNo}/${dataLimit}`);
-            const response = await fetch(`${baseUrl}/product/filter/${pageNo}/${dataLimit}`);
+            const response = await fetch(`${baseUrl}/product/?pageNo=${pageNo}&dataLimit=${dataLimit}`);
 
 
             let jsonproduct = await response.json();
@@ -60,7 +73,7 @@ function Prcards() {
                         <div className="card-body">
                             <h4 className="card-title">Recent Products</h4>
                             {
-                                product.length == 0 ?
+                                count == 0 ?
                                     (
                                         <>
                                             <h5 className='pt-4'>
@@ -70,8 +83,8 @@ function Prcards() {
                                             </h5>
                                         </>
                                     ) : (
-                                        <><p>{product.length} %</p>
-                                            <h5>{product.length}</h5>
+                                        <><p>{count}</p>
+                                            <h5></h5>
                                         </>
                                     )
                             }
@@ -83,7 +96,7 @@ function Prcards() {
                         <div className="card-body">
                             <h4 className="card-title">Listed Products</h4>
                             {
-                                product.length == 0 ?
+                                count == 0 ?
                                     (
                                         <>
                                             <h5 className='pt-4'>
@@ -93,8 +106,8 @@ function Prcards() {
                                             </h5>
                                         </>
                                     ) : (
-                                        <><p>{product.length} %</p>
-                                            <h5>{product.length}</h5>
+                                        <><p>{count}</p>
+                                            <h5></h5>
                                         </>
                                     )
                             }

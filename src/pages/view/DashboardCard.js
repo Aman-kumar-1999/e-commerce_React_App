@@ -6,11 +6,13 @@ import axios from 'axios';
 
 function DashboardCards() {
   const [order, setOrder] = useState([]);
+  const [count,setCount] = useState(0);
   // const listproduct = []
 
   useEffect(() => {
     fetchOrder();
     fetchProduct();
+    countAllProduct();
   }, []);
 
   const fetchOrder = async () => {
@@ -37,12 +39,25 @@ function DashboardCards() {
 
   const fetchProduct = async () => {
     try {
-      const response = await fetch(`${baseUrl}/product/`);
+      const response = await fetch(`${baseUrl}/product/?pageNo=1&dataLimit=10`);
 
 
       const jsonproduct = await response.json();
       // listproduct = jsonproduct;
       setProduct(jsonproduct);
+    } catch (error) {
+      console.log('Error:', error);
+    }
+  };
+
+  const countAllProduct = async () => {
+    try {
+      const response = await fetch(`${baseUrl}/product/countAll`);
+
+
+      const jsonproduct = await response.json();
+      // listproduct = jsonproduct;
+      setCount(jsonproduct);
     } catch (error) {
       console.log('Error:', error);
     }
@@ -195,7 +210,7 @@ function DashboardCards() {
                   <img style={{ width: 40, height: 40 }} src='spinner.gif' />
 
                 </h5>
-              </>) : (<><h6 className='num pb-4'> {product.length}</h6></>)}
+              </>) : (<><h6 className='num pb-4'> {count}</h6></>)}
 
               {/* <Link className='newOder' to={'/products'}>{product.length} New Products</Link> */}
               {/* <br /> */}

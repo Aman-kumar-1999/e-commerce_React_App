@@ -9,7 +9,7 @@ function VendorProduct() {
 
     const [product, setProduct] = useState([]);
     const [searchTermProduct, setSearchTermProduct] = useState("");
-    const [temp, setTamp] = useState(true);
+    const [count, setCount] = useState(0);
     const [listedProduct, setListedProduct] = useState(0);
     const [unListedProduct, setUnListedProduct] = useState(0);
     var userData = JSON.parse(localStorage.getItem('userData'))
@@ -22,37 +22,61 @@ function VendorProduct() {
     );
 
     useEffect(() => {
-
+        countProduct();
         fetchProduct();
     }, []);
 
     const fetchProduct = async () => {
-        // let dataLimit = 500;
+        let dataLimit = 300;
 
-        // let pageNo = Math.ceil(product.length / dataLimit) + 1
-        // console.log("Page No : " + pageNo)
+        let pageNo = Math.ceil(product.length / dataLimit) + 1
+        console.log("Page No : " + pageNo)
+        let headers = new Headers();
 
+        headers.append('Content-Type', 'application/json');
+        
         try {
-            // const response = await fetch(`http://localhost:5005/product/`);
-            const response = await fetch(`${baseUrl}/product/vendorId/${userData.id}`);
+            // const response = await fetch(`http://localhost:5005/product/vendorId/${userData.id}?pageNo=${pageNo}&dataLimit=${dataLimit}`);
+            const response = await fetch(`${baseUrl}/product/vendorId/${userData.id}?pageNo=${pageNo}&dataLimit=${dataLimit}`);
+               
 
 
             let jsonproduct = await response.json();
 
-            // let apidata = [...product, ...jsonproduct];
+            let apidata = [...product, ...jsonproduct];
 
             // listproduct = jsonproduct;
-            setProduct(jsonproduct);
+            setProduct(apidata);
         } catch (error) {
             console.log('Error:', error);
         }
 
     };
+
+    const countProduct = async () => {
+        
+
+       
+        
+        try {
+            
+            const response = await fetch(`${baseUrl}/product/countAllVendorId/${userData.id}`);
+               
+
+
+            let jsonproduct = await response.json();
+
+            
+            // listproduct = jsonproduct;
+            setCount(jsonproduct);
+        } catch (error) {
+            console.log('Error:', error);
+        }
+
+    };
+
     console.log(product)
     var date;
-
-
-
 
 
     return (
@@ -63,7 +87,7 @@ function VendorProduct() {
                         <div className="card-body">
                             <h4 className="card-title">Recent Products</h4>
                             {
-                                product.length == 0 ?
+                                count?
                                     (
                                         <>
                                             <h5 className='pt-4'>
@@ -74,8 +98,8 @@ function VendorProduct() {
                                         </>
                                     ) : (
                                         <>
-                                        <p>{product.length} %</p>
-                                            <h5>{product.length}</h5>
+                                            {/* <p>{count} %</p> */}
+                                            <h5>{count}</h5>
                                         </>
                                     )
                             }
@@ -87,7 +111,7 @@ function VendorProduct() {
                         <div className="card-body">
                             <h4 className="card-title">Listed Products</h4>
                             {
-                                product.length == 0 ?
+                                count?
                                     (
                                         <>
                                             <h5 className='pt-4'>
@@ -98,8 +122,8 @@ function VendorProduct() {
                                         </>
                                     ) : (
                                         <>
-                                        <p>{product.length} %</p>
-                                            <h5>{product.length}</h5>
+                                            {/* <p>{count} %</p> */}
+                                            <h5>{count}</h5>
                                         </>
                                     )
                             }
@@ -108,7 +132,7 @@ function VendorProduct() {
                     <div className="orcard2 col">
                         <div className="card-body">
                             <h4 className="card-title">Unlisted Products</h4>
-                            <p>0 %</p>
+                            {/* <p>0 %</p> */}
                             <h5>0 </h5>
                         </div>
                     </div>
@@ -138,7 +162,7 @@ function VendorProduct() {
                     </Link> */}
                 </div>
                 <div className=' longdiv1'>
-                    <h5>All Products</h5>
+                    <h5>All Products ({product.length})</h5>
                     <select className="form" id="floatingSelect" aria-label="Floating label select example">
                         <option >All</option>
                         <option >Today</option>
@@ -219,6 +243,7 @@ function VendorProduct() {
                         </table>
                     </InfiniteScroll>
                 </div>
+                
 
                 {/* <div className='largediv1'>
                     <nav className='navdiv'>

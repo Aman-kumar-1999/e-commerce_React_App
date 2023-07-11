@@ -137,6 +137,7 @@ const Login = () => {
                 value={formData.username} onChange={handleInputChange} className='form-control' placeholder='Email Id' />
               <input required="" name="password" type="password" id="password" value={formData.password}
                 onChange={handleInputChange} className='form-control' placeholder='Password' />
+              <h6><Link style={{color:'red'}} to={'/forgotPassword'}>Forgot Password</Link></h6>
               <button className='button mt-5 form-control'>Login</button>
               <button type="reset" className='button mt-3 form-control'  >Clear</button>
             </form>

@@ -43,6 +43,7 @@ import axios from 'axios';
 import Scrollbars from 'react-custom-scrollbars-2';
 import VendorProduct from './pages/view/VendorProduct';
 import SignUp from './pages/view/SignUp';
+import ForgotPassword from './pages/view/ForgotPassword';
 
 
 function App() {
@@ -145,6 +146,8 @@ function App() {
                       <Route exact path="/login" element={<Login />} />
                       <Route exact path="/signup" element={<SignUp />} />
                       <Route exact path="/logout" element={<Logout />} />
+                      <Route exact path="/forgotPassword" element={<ForgotPassword />} />
+
                       <Route path="/dashboard" element={<Dashboard />} />
                       <Route path="/orders" element={<Orders />} />
                       <Route path="/products" element={<Products />} />

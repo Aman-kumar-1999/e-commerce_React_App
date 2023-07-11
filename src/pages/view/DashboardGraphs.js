@@ -92,7 +92,7 @@ function DashboardGraph() {
 
         try {
             // const response = await fetch(`http://localhost:5005/product/filter/${pageNo}/${dataLimit}`);
-            const response = await fetch(`${baseUrl}/product/filter/${pageNo}/${dataLimit}`);
+            const response = await fetch(`${baseUrl}/product/?pageNo=${pageNo}&dataLimit=${dataLimit}`);
 
 
             let jsonproduct = await response.json();

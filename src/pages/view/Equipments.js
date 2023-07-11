@@ -91,7 +91,7 @@ function Equipments(props) {
 
         try {
             // const response = await fetch(`http://localhost:5005/product/category/${eqi}/${pageNo}/${dataLimit}`);
-            const response = await fetch(`${baseUrl}/product/category/${eqi}/${pageNo}/${dataLimit}`);
+            const response = await fetch(`${baseUrl}/product/category/${eqi}?pageNo=${pageNo}&dataLimit=${dataLimit}`);
 
 
             let jsonproduct = await response.json();

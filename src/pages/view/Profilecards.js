@@ -1,10 +1,22 @@
 import React from 'react'
 import '../css/Profile.css'
+
+import { useTheme } from '@mui/material/styles';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import Chip from '@mui/material/Chip';
+import { Button, Icon, IconButton, Input, InputAdornment } from '@mui/material';
+import { AddCircle, Send, Visibility } from '@mui/icons-material';
+
 function Profilecards() {
   var isLoggedIn = localStorage.getItem('isLoggedIn');
   var userData = JSON.parse(localStorage.getItem('userData'));
   return (
     <>
+      
       <article className="cssui-usercard">
         <div className="cssui-usercard__body">
           <header className="cssui-usercard__header">
@@ -12,11 +24,11 @@ function Profilecards() {
             {(userData.imagePath != null || userData.imagePath != undefined) ? (
               <div>
                 <img className='sidebarImg' src={userData.imagePath} alt='' />
-                
+
               </div>
             ) : (<>
               <div >
-              <span className="material-symbols-outlined logoSideBar" >account_circle</span>
+                <span className="material-symbols-outlined logoSideBar" >account_circle</span>
 
               </div>
             </>)}

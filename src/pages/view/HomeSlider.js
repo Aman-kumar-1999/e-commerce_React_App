@@ -105,7 +105,7 @@ function HomeSlider(props) {
 
         try {
             // const response = await fetch(`http://localhost:5005/product/category/${eqi}/${pageNo}/${dataLimit}`);
-            const response = await fetch(`${baseUrl}/product/category/${eqi}/${pageNo}/${dataLimit}`);
+            const response = await fetch(`${baseUrl}/product/category/${eqi}?pageNo=${pageNo}&dataLimit=${dataLimit}`);
 
 
             let jsonproduct = await response.json();
@@ -122,17 +122,17 @@ function HomeSlider(props) {
         let eqi = 'Instruments'
         let dataLimit = 20;
 
-        let pageNo = Math.ceil(data.length/dataLimit) + 1
+        let pageNo = Math.ceil(dataInst.length/dataLimit) + 1
         console.log("Page No : "+pageNo)
 
         try {
             // const response = await fetch(`http://localhost:5005/product/category/${eqi}/${pageNo}/${dataLimit}`);
-            const response = await fetch(`${baseUrl}/product/category/${eqi}/${pageNo}/${dataLimit}`);
+            const response = await fetch(`${baseUrl}/product/category/${eqi}?pageNo=${pageNo}&dataLimit=${dataLimit}`);
 
 
             let jsonproduct = await response.json();
 
-            let apidata = [...data, ...jsonproduct];
+            let apidata = [...dataInst, ...jsonproduct];
 
             // listproduct = jsonproduct;
             setDataInst(apidata);
@@ -149,17 +149,17 @@ function HomeSlider(props) {
 
         let dataLimit = 20;
 
-        let pageNo = Math.ceil(data.length/dataLimit) + 1
+        let pageNo = Math.ceil(dataPlastic.length/dataLimit) + 1
         console.log("Page No : "+pageNo)
 
         try {
             // const response = await fetch(`http://localhost:5005/product/category/${eqi}/${pageNo}/${dataLimit}`);
-            const response = await fetch(`${baseUrl}/product/category/${eqi}/${pageNo}/${dataLimit}`);
+             const response = await fetch(`${baseUrl}/product/category/${eqi}?pageNo=${pageNo}&dataLimit=${dataLimit}`);
 
 
             let jsonproduct = await response.json();
 
-            let apidata = [...data, ...jsonproduct];
+            let apidata = [...dataPlastic, ...jsonproduct];
 
             // listproduct = jsonproduct;
             setDataPlastic(apidata);
@@ -171,17 +171,17 @@ function HomeSlider(props) {
         let eqi = 'Glassware'
         let dataLimit = 20;
 
-        let pageNo = Math.ceil(data.length/dataLimit) + 1
+        let pageNo = Math.ceil(dataGlass.length/dataLimit) + 1
         console.log("Page No : "+pageNo)
 
         try {
             // const response = await fetch(`http://localhost:5005/product/category/${eqi}/${pageNo}/${dataLimit}`);
-            const response = await fetch(`${baseUrl}/product/category/${eqi}/${pageNo}/${dataLimit}`);
+            const response = await fetch(`${baseUrl}/product/category/${eqi}?pageNo=${pageNo}&dataLimit=${dataLimit}`);
 
 
             let jsonproduct = await response.json();
 
-            let apidata = [...data, ...jsonproduct];
+            let apidata = [...dataGlass, ...jsonproduct];
 
             // listproduct = jsonproduct;
             setDataGlass(apidata);
@@ -193,17 +193,17 @@ function HomeSlider(props) {
         let eqi = 'Chemicals'
         let dataLimit = 20;
 
-        let pageNo = Math.ceil(data.length/dataLimit) + 1
+        let pageNo = Math.ceil(dataChemical.length/dataLimit) + 1
         console.log("Page No : "+pageNo)
 
         try {
             // const response = await fetch(`http://localhost:5005/product/category/${eqi}/${pageNo}/${dataLimit}`);
-            const response = await fetch(`${baseUrl}/product/category/${eqi}/${pageNo}/${dataLimit}`);
+            const response = await fetch(`${baseUrl}/product/category/${eqi}?pageNo=${pageNo}&dataLimit=${dataLimit}`);
 
 
             let jsonproduct = await response.json();
 
-            let apidata = [...data, ...jsonproduct];
+            let apidata = [...dataChemical, ...jsonproduct];
 
             // listproduct = jsonproduct;
             setDataChemical(apidata);
@@ -215,17 +215,17 @@ function HomeSlider(props) {
         let eqi = 'Chart & Models'
         let dataLimit = 20;
 
-        let pageNo = Math.ceil(data.length/dataLimit) + 1
+        let pageNo = Math.ceil(dataChart.length/dataLimit) + 1
         console.log("Page No : "+pageNo)
 
         try {
             // const response = await fetch(`http://localhost:5005/product/category/${eqi}/${pageNo}/${dataLimit}`);
-            const response = await fetch(`${baseUrl}/product/category/${eqi}/${pageNo}/${dataLimit}`);
+            const response = await fetch(`${baseUrl}/product/category/${eqi}?pageNo=${pageNo}&dataLimit=${dataLimit}`);
 
 
             let jsonproduct = await response.json();
 
-            let apidata = [...data, ...jsonproduct];
+            let apidata = [...dataChart, ...jsonproduct];
 
             // listproduct = jsonproduct;
             setDataChart(apidata);
@@ -238,10 +238,10 @@ function HomeSlider(props) {
 
         try {
             // const response = axios.get(`http://localhost:5005/product/productId/${productId}`).then(
-            const response = await axios.get(`${baseUrl}/product/productId/${productId}`).then(
+            const response = await fetch(`${baseUrl}/product/productId/${productId}`).then(
                 (response) => {
-                    console.log('product Data By Id : ' + response.data)
-                    return response.data
+                    console.log('product Data By Id : ' + response.json())
+                    return response.json();
                     // console.log('product Data By Id : ' + response.data)
                     // toast.success('Your are ready to update product Data')
                 }, (error) => {

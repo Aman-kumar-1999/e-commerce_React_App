@@ -32,7 +32,8 @@ const Home = () => {
 
   const [searchData, setSearchData] = useState('');
   const [product, setProduct] = useState([]);
-  const [searchNeeded, setSearchNeeded] = useState(false)
+  const [searchNeeded, setSearchNeeded] = useState(false);
+  const [changeData, setChangeData] = useState(false);
 
   const userData = JSON.parse(localStorage.getItem('userData'))
   var isLoggedIn = localStorage.getItem('isLoggedIn');
@@ -68,33 +69,66 @@ const Home = () => {
   }
 
   useEffect(() => {
-    fetchProductData();
+    // fetchProductData();
   }, [])
 
   const handleSearchInputChange = (event) => {
     setSearchNeeded(true)
-    // fetchProductData();
     setSearchData(event.target.value);
+    onSearchHandle(event.target.value);
+
     if (event.target.value == "")
       setSearchNeeded(false)
   }
 
-  const filteredProductName = product.filter((item) =>
-      item.productName.toLowerCase().includes(searchData.toLowerCase())
-  
-  );
+  // const filteredProductName = product.filter((item) =>
+  //     item.productName.toLowerCase().includes(searchData.toLowerCase())
 
+  // );
 
-  const fetchProductData = async () => {
+  const onSearchHandle = async (e) => {
 
-    let dataLimit = 1000;
+    let dataLimit = 10;
 
     let pageNo = Math.ceil(product.length / dataLimit) + 1
     console.log("Page No : " + pageNo)
 
     try {
-      // const response = await fetch(`http://localhost:5005/product/filter/${pageNo}/${dataLimit}`);
-      const response = await fetch(`${baseUrl}/product/filter/${pageNo}/${dataLimit}`);
+      // const response = await fetch(`http://localhost:5005/product/?pageNo=${pageNo}&dataLimit=${dataLimit}`);
+      const response = await fetch(`${baseUrl}/product/productNameOrBrandName/${e}?pageNo=${pageNo}&dataLimit=${dataLimit}`);
+
+
+      let jsonproduct = await response.json();
+      const arr = [];
+      for (let s of jsonproduct) {
+        arr.push(JSON.parse(JSON.stringify(s)));
+      }
+
+      // let apidata = [...product, ...jsonproduct];
+
+      // listproduct = jsonproduct;
+
+      setProduct(arr);
+
+
+      console.log(" Product  : " + jsonproduct.type);
+    } catch (error) {
+      console.log('Error:', error);
+    }
+
+  }
+
+
+  const fetchProductData = async () => {
+
+    let dataLimit = 10;
+
+    let pageNo = Math.ceil(product.length / dataLimit) + 1
+    console.log("Page No : " + pageNo)
+
+    try {
+      // const response = await fetch(`http://localhost:5005/product/?pageNo=${pageNo}&dataLimit=${dataLimit}`);
+      const response = await fetch(`${baseUrl}/product/productNameOrBrandName/${searchData}?pageNo=${pageNo}&dataLimit=${dataLimit}`);
 
 
       let jsonproduct = await response.json();
@@ -102,7 +136,8 @@ const Home = () => {
       let apidata = [...product, ...jsonproduct];
 
       // listproduct = jsonproduct;
-      setProduct(JSON.parse(JSON.stringify(apidata)));
+      setProduct(apidata);
+      console.log(apidata);
     } catch (error) {
       console.log('Error:', error);
     }
@@ -410,13 +445,13 @@ const Home = () => {
               </>) : (
                 <>
                   <div className="row row-cols-1 row-cols-md-7 g-8">
-                    {filteredProductName.map(item => (
+                    {product.map((item, index) => (
                       <>
 
 
                         <Link to={'/productDetails/' + item.productId} className="col text-decoration-none">
 
-                          <div className="" key={item.id} >
+                          <div className="" key={index} >
                             {
                               (item.imagePath != "No") ? (
                                 <div>

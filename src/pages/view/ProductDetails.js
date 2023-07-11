@@ -29,7 +29,7 @@ const ProductDetails = () => {
 
 
     useEffect(() => {
-        // getProductByProductId();
+        
         getProductByProductIdForTier();
         getProductByVariationId();
 
@@ -254,6 +254,7 @@ const ProductDetails = () => {
             console.log("Tier : " + jsonproduct.TIER)
             setTier(jsonproduct.TIER)
             setProducts(jsonproduct.PRODUCT)
+            
 
 
         } catch (error) {
@@ -261,7 +262,7 @@ const ProductDetails = () => {
         }
 
     }
-    const getProductByVariationId = async (event) => {
+    const getProductByVariationId = async () => {
         let dataLimit = 10;
 
         let pageNo = Math.ceil(data.length / dataLimit) + 1
@@ -269,7 +270,7 @@ const ProductDetails = () => {
         try {
             // const response = await fetch(`http://localhost:5005/product/variationId/${product.variationId}/${pageNo}/${dataLimit}`);
 
-            const response = await fetch(`${baseUrl}/product/variationId/${product.variationId}/${pageNo}/${dataLimit}`);
+            const response = await fetch(`${baseUrl}/product/variationId/${product.variationId}?pageNo=${pageNo}&dataLimit=${dataLimit}`);
 
 
             let jsonproduct = await response.json();
