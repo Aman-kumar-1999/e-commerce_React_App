@@ -9,10 +9,10 @@ function VendorProduct() {
 
     const [product, setProduct] = useState([]);
     const [searchTermProduct, setSearchTermProduct] = useState("");
-    const [count, setCount] = useState(0);
+    const [countData, setCountData] = useState(0);
     const [listedProduct, setListedProduct] = useState(0);
     const [unListedProduct, setUnListedProduct] = useState(0);
-    var userData = JSON.parse(localStorage.getItem('userData'))
+    const userData = JSON.parse(localStorage.getItem('userData'))
     const handleSearchProductName = (event) => {
         setSearchTermProduct(event.target.value);
     };
@@ -31,14 +31,12 @@ function VendorProduct() {
 
         let pageNo = Math.ceil(product.length / dataLimit) + 1
         console.log("Page No : " + pageNo)
-        let headers = new Headers();
+     
 
-        headers.append('Content-Type', 'application/json');
-        
         try {
             // const response = await fetch(`http://localhost:5005/product/vendorId/${userData.id}?pageNo=${pageNo}&dataLimit=${dataLimit}`);
             const response = await fetch(`${baseUrl}/product/vendorId/${userData.id}?pageNo=${pageNo}&dataLimit=${dataLimit}`);
-               
+
 
 
             let jsonproduct = await response.json();
@@ -54,21 +52,20 @@ function VendorProduct() {
     };
 
     const countProduct = async () => {
-        
 
-       
-        
         try {
-            
+
             const response = await fetch(`${baseUrl}/product/countAllVendorId/${userData.id}`);
-               
 
 
-            let jsonproduct = await response.json();
 
-            
+            const jsonproduct = await response.json();
+
+
             // listproduct = jsonproduct;
-            setCount(jsonproduct);
+            setCountData(jsonproduct);
+            console.log("Count : "+jsonproduct)
+            console.log("Json : "+countData);
         } catch (error) {
             console.log('Error:', error);
         }
@@ -87,7 +84,7 @@ function VendorProduct() {
                         <div className="card-body">
                             <h4 className="card-title">Recent Products</h4>
                             {
-                                count?
+                                countData == 0 ?
                                     (
                                         <>
                                             <h5 className='pt-4'>
@@ -96,10 +93,11 @@ function VendorProduct() {
 
                                             </h5>
                                         </>
-                                    ) : (
+                                    ) : 
+                                    (
                                         <>
-                                            {/* <p>{count} %</p> */}
-                                            <h5>{count}</h5>
+                                            <p>{countData}</p>
+                                            <h5></h5>
                                         </>
                                     )
                             }
@@ -111,7 +109,7 @@ function VendorProduct() {
                         <div className="card-body">
                             <h4 className="card-title">Listed Products</h4>
                             {
-                                count?
+                                countData == 0 ?
                                     (
                                         <>
                                             <h5 className='pt-4'>
@@ -122,8 +120,8 @@ function VendorProduct() {
                                         </>
                                     ) : (
                                         <>
-                                            {/* <p>{count} %</p> */}
-                                            <h5>{count}</h5>
+                                            <p>{countData} </p>
+                                            <h5></h5>
                                         </>
                                     )
                             }
@@ -132,7 +130,7 @@ function VendorProduct() {
                     <div className="orcard2 col">
                         <div className="card-body">
                             <h4 className="card-title">Unlisted Products</h4>
-                            {/* <p>0 %</p> */}
+                            <p>0 %</p>
                             <h5>0 </h5>
                         </div>
                     </div>
@@ -163,13 +161,14 @@ function VendorProduct() {
                 </div>
                 <div className=' longdiv1'>
                     <h5>All Products ({product.length})</h5>
-                    <select className="form" id="floatingSelect" aria-label="Floating label select example">
+                    <h5 className='float-end mr-4' style={{ fontFamily: "cursive", color: "#ffff" }}>{product.length}</h5>
+                    {/* <select className="form" id="floatingSelect" aria-label="Floating label select example">
                         <option >All</option>
                         <option >Today</option>
-                        <option className='a1'>Weekly</option>
+                        <option className='a1'>Weekly</option>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
                         <option>Monthly</option>
 
-                    </select>
+                    </select> */}
 
                 </div>
 
@@ -243,7 +242,7 @@ function VendorProduct() {
                         </table>
                     </InfiniteScroll>
                 </div>
-                
+
 
                 {/* <div className='largediv1'>
                     <nav className='navdiv'>

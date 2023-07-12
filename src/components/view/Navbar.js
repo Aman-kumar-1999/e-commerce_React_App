@@ -6,6 +6,7 @@ import { Router, Route, Link, RouteOutlet } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import Login from './Login';
 import axios from 'axios';
+import { Box, LinearProgress } from '@mui/material';
 // import Cart from '../../pages/view/Cart';
 
 
@@ -250,6 +251,7 @@ const Navbar = () => {
 
 
       </nav> */}
+       
 
 
     </>

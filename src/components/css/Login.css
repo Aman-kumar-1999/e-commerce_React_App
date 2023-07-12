@@ -12,6 +12,9 @@
 	    /* background: linear-gradient(to right ,#98a0a3,#dbe4e7,#d2dee2,#98a0a3); */
 
 	}
+	.load{
+		margin-left: -125px;
+	}
 
 	.loginVertical {
 	    border-left: 2px solid #116D6E;

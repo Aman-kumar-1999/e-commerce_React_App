@@ -6,6 +6,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import baseUrl from '../../helper/helper';
 import ForgetPassword from '../../pages/view/ForgetPassword';
 import axios from 'axios';
+import { Box, LinearProgress } from '@mui/material';
 
 const Login = () => {
 
@@ -13,10 +14,30 @@ const Login = () => {
     username: '',
     password: ''
   });
+  const [loading, setLoading] = useState(false);
 
-  useEffect(()=>{
-    
-  },[])
+  const [progress, setProgress] = React.useState(0);
+  React.useEffect(() => {
+    const timer = setInterval(() => {
+      setProgress((oldProgress) => {
+        if (oldProgress === 100) {
+          return 0;
+        }
+        const diff = Math.random() * 10;
+        return Math.min(oldProgress + diff, 100);
+      });
+    }, 500);
+
+    return () => {
+      clearInterval(timer);
+    };
+  }, []);
+
+
+
+  // useEffect(() => {
+
+  // }, [])
 
 
 
@@ -28,6 +49,7 @@ const Login = () => {
     event.preventDefault();
 
     try {
+
       if (formData.username == null || formData.username == '') {
         toast('Kindly Enter User Name', {
           position: 'top-center'
@@ -40,6 +62,7 @@ const Login = () => {
         });
       }
       else {
+        setLoading(true);
 
         const response = await axios.post(`${baseUrl}/user/api/login`,
 
@@ -65,6 +88,7 @@ const Login = () => {
         console.log(jsonData);
         if (jsonData.STATUS == "SUCCESS") {
           // setIsLoggedIn(true);
+          setLoading(false);
           localStorage.setItem('userData', JSON.stringify(jsonData.USER));
           isLoggedIn = true
           localStorage.setItem('isLoggedIn', isLoggedIn);
@@ -83,6 +107,7 @@ const Login = () => {
           // localStorage.getItem('isLoggedIn');
         }
         else {
+          setLoading(false);
           toast('Password is Invalid', {
             position: 'top-center'
           });
@@ -110,11 +135,18 @@ const Login = () => {
     }));
   }
 
-  
+
 
 
   return (
     <div>
+      {
+        loading ? (<>
+          <Box className='load' sx={{ width: '123%' }}>
+            <LinearProgress color="secondary" variant="determinate" value={progress} />
+          </Box></>) : (<></>)
+      }
+
 
       <div className='container-fluid '>
 
@@ -122,7 +154,7 @@ const Login = () => {
           <div className='col mt-5'>
             <img className="mb-4" src='https://eqipped.com/eqippedLogo.png' />
             <h1 className='mb-4'>Welcome to Eqipped </h1>
-            <h6>Already have an account ? <Link style={{color:'red'}} to={'/signup'}>signup</Link></h6>
+            <h6>Already have an account ? <Link style={{ color: 'red' }} to={'/signup'}>signup</Link></h6>
             <h6>Continue as guest</h6>
           </div>
           {/* <div className='col mr-5 ml-2'>
@@ -137,7 +169,7 @@ const Login = () => {
                 value={formData.username} onChange={handleInputChange} className='form-control' placeholder='Email Id' />
               <input required="" name="password" type="password" id="password" value={formData.password}
                 onChange={handleInputChange} className='form-control' placeholder='Password' />
-              <h6><Link style={{color:'red'}} to={'/forgotPassword'}>Forgot Password</Link></h6>
+              <h6><Link style={{ color: 'red' }} to={'/forgotPassword'}>Forgot Password</Link></h6>
               <button className='button mt-5 form-control'>Login</button>
               <button type="reset" className='button mt-3 form-control'  >Clear</button>
             </form>

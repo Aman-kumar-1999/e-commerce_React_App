@@ -1,7 +1,7 @@
 import './App.css';
 
 
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 
 import Dashboard from './components/view/Dashboard';
 import Login from './components/view/Login';
@@ -44,6 +44,8 @@ import Scrollbars from 'react-custom-scrollbars-2';
 import VendorProduct from './pages/view/VendorProduct';
 import SignUp from './pages/view/SignUp';
 import ForgotPassword from './pages/view/ForgotPassword';
+import B404 from './pages/view/404';
+import ProtectedRoute from './components/view/ProtectedRoute';
 
 
 function App() {
@@ -51,6 +53,9 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [onLoading, setOnLoading] = useState(true);
   const l1 = true
+
+  const userData = JSON.parse(localStorage.getItem('userData'))
+  var isLoggedIn = localStorage.getItem('isLoggedIn');
 
   axios.interceptors.request.use(function (config) {
     // Do something before request is sent
@@ -141,40 +146,42 @@ function App() {
                   
                     <Routes className="">
 
-
-                      <Route path="/" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" element={<                                                                                               Home />} />
+                      <Route exact path="*" element={<B404 />} />
+                      
+                      <Route path="/" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" element={<Home />} />
                       <Route exact path="/login" element={<Login />} />
                       <Route exact path="/signup" element={<SignUp />} />
                       <Route exact path="/logout" element={<Logout />} />
                       <Route exact path="/forgotPassword" element={<ForgotPassword />} />
 
-                      <Route path="/dashboard" element={<Dashboard />} />
-                      <Route path="/orders" element={<Orders />} />
-                      <Route path="/products" element={<Products />} />
-                      <Route path="/vendors" element={<Vendors />} />
-                      <Route path="/user" element={<User />} />
-                      <Route path="/setting" element={<Setting />} />
-                      <Route path="/shipments" element={<Shipments />} />
-                      <Route path="/profile" element={<Profile />} />
-                      <Route path="/myorders" element={<MyOrders />} />
-                      <Route path="/notifications" element={<Notifications />} />
-                      <Route path="/addvendor" element={<Addvendors />} />
-                      <Route path="/adduser" element={<Adduser />} />
-                      <Route path="/addadminuser" element={<Addadminuser />} />
+                      {/* <Route path="/dashboard" element={<Dashboard />} /> */}
+                      <Route exact path="/dashboard" element={isLoggedIn && userData.role.roleName === 'Admin' ? (<Dashboard/>):(<Navigate to={'/'}/>)}/>
+                      <Route path="/orders" element={ isLoggedIn && userData.role.roleName === 'Admin' ? (<Orders />):(<Navigate to={'/'}/>)} />
+                      <Route path="/products" element={ isLoggedIn && userData.role.roleName === 'Admin' ? (<Products />):(<Navigate to={'/'}/>)} />
+                      <Route path="/vendors" element={ isLoggedIn && userData.role.roleName === 'Admin' ? (<Vendors />):(<Navigate to={'/'}/>)} />
+                      <Route path="/user" element={ isLoggedIn && userData.role.roleName === 'Admin' ? (<User />):(<Navigate to={'/'}/>)} />
+                      <Route path="/setting" element={ isLoggedIn && userData.role.roleName === 'Admin' ? (<Setting />):(<Navigate to={'/'}/>)} />
+                      <Route path="/shipments" element={ isLoggedIn && userData.role.roleName === 'Vendor' ? (<Shipments />):(<Navigate to={'/'}/>)} />
+                      <Route path="/profile" element={ isLoggedIn ? (<Profile />):(<Navigate to={'/'}/>)} />
+                      <Route path="/myorders" element={ isLoggedIn ? (<MyOrders />):(<Navigate to={'/'}/>)} />
+                      <Route path="/notifications" element={ isLoggedIn ? (<Notifications />):(<Navigate to={'/'}/>)} />
+                      <Route path="/addvendor" element={ isLoggedIn && userData.role.roleName === 'Admin' ? (<Addvendors />):(<Navigate to={'/'}/>)} />
+                      <Route path="/adduser" element={ isLoggedIn && (userData.role.roleName === 'Admin' || userData.role.roleName === 'Vendor') ? (<Adduser />):(<Navigate to={'/'}/>)} />
+                      <Route path="/addadminuser" element={ isLoggedIn && userData.role.roleName === 'Admin' ? (<Addadminuser />):(<Navigate to={'/'}/>)} />
                       <Route path="/equipments" id="nav-home" element={<Equipments />} />
                       <Route path="/instruments" element={<Instruments />} />
                       <Route path="/plasticWare" element={<PlasticWare />} />
                       <Route path="/glassWare" element={<GlassWare />} />
                       <Route path="/chemicals" element={<Chemicals />} />
                       <Route path="/chart" element={<Charts />} />
-                      <Route path="/addproduct" element={<AddProducts />} />
-                      <Route path="/addproductinbulk" element={<AddProductInBulk />} />
-                      <Route path="/editUserImage" element={<EditUserImage />} />
-                      <Route path="/cart" element={<Cart />} />
-                      <Route path="editProduct/:productId" element={<EditProduct />} />
+                      <Route path="/addproduct" element={ isLoggedIn && (userData.role.roleName === 'Admin' || userData.role.roleName === 'Vendor') ? (<AddProducts />):(<Navigate to={'/'}/>)} />
+                      <Route path="/addproductinbulk" element={ isLoggedIn && (userData.role.roleName === 'Admin' || userData.role.roleName === 'Vendor') ? (<AddProductInBulk />):(<Navigate to={'/'}/>)} />
+                      <Route path="/editUserImage" element={ isLoggedIn ? (<EditUserImage />):(<Navigate to={'/'}/>)} />
+                      <Route path="/cart" element={ isLoggedIn ? (<Cart />):(<Navigate to={'/'}/>)} />
+                      <Route path="editProduct/:productId" element={ isLoggedIn && (userData.role.roleName === 'Admin' || userData.role.roleName === 'Vendor') ? (<EditProduct />):(<Navigate to={'/'}/>)} />
                       <Route path="productDetails/:productId" element={<ProductDetails />} />
-                      <Route path="/checkoutsuccess" element={<CheckOutSuccess />} />
-                      <Route path="/vendorProduct" element={<VendorProduct />} />
+                      <Route path="/checkoutsuccess" element={ isLoggedIn ? (<CheckOutSuccess />):(<Navigate to={'/'}/>)} />
+                      <Route path="/vendorProduct" element={ isLoggedIn && userData.role.roleName === 'Vendor' ? (<VendorProduct />):(<Navigate to={'/'}/>)} />
                       
 
 

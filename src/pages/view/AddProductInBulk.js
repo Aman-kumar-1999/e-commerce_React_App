@@ -9,6 +9,7 @@ import axios from 'axios';
 function AddProductInBulk() {
 
     const userData = JSON.parse(localStorage.getItem('userData'))
+    const [loading,setLoading] = useState(false);
 
     const [products, setProducts] = useState({
             "vendorId": userData.id,
@@ -36,7 +37,9 @@ function AddProductInBulk() {
     const createProductsInBulk = async (event) => {
         event.preventDefault();
 
+
         try {
+            setLoading(true)
             const formData = new FormData();
             formData.append('file', file);
             formData.append('products',JSON.stringify(products));          
@@ -45,9 +48,11 @@ function AddProductInBulk() {
             console.log(response.data);
             if(response.status==200){
                 if(response.data.STATUS == 'SUCCESS'){
+                    setLoading(false)
                     toast.success('All Product has been Created')
                 }else
                 {
+                    setLoading(false)
                     toast.error('Unable to Create All Product')
                 }
                 
@@ -64,6 +69,23 @@ function AddProductInBulk() {
         <>
             <ToastContainer />
             <h2>Create Product</h2>
+            {
+                                loading ?
+                                    (
+                                        <>
+                                            <h5 className='pt-4'>
+
+                                                <img style={{ width: 40, height: 40 }} src='spinner.gif' />
+
+                                            </h5>
+                                        </>
+                                    ) : 
+                                    (
+                                        <>
+                                           
+                                        </>
+                                    )
+                            }
             <div className='add'>
 
                 <form className='container' encType="multipart/form-data" action="" onSubmit={createProductsInBulk}>
@@ -72,7 +94,7 @@ function AddProductInBulk() {
                         <input type="file" className="form-control" placeholder='file' name='file' onChange={handleInputChange} required />
                     </div>
                     <div>
-                        <button type="submit" className="form-label  btn2" >CREATE</button>
+                        <button type="submit" className="buttonAddbulk mt-5 form-control" >CREATE</button>
                     </div>
                 </form>
             </div>

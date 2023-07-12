@@ -7,6 +7,34 @@
 
 }
 
+.buttonAddbulk {
+
+  border: 1px solid #116D6E;
+  color: #116D6E;
+  border-radius: 5px;
+  font-family: Poppins;
+  font-size: 17px;
+  font-weight: 700;
+
+  /* margin-top: 5px;
+  width: 100%;
+  height: 40px;
+  border: none;
+  background: linear-gradient(to bottom right, #B8D7FF, #8EB7EB);
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: "Open Sans";
+  font-weight: 600;
+  color: #202020; */
+}
+.buttonAddbulk:hover {
+
+  background-color: #116D6E;
+  color: white;
+  
+}
+
 .btn2{
     background-color:rgb(234, 72, 13) ;
     width: 80px;

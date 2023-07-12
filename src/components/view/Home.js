@@ -13,6 +13,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 import Autocomplete from '@mui/material/Autocomplete';
+import { Box, LinearProgress } from '@mui/material';
 
 const Home = () => {
 
@@ -37,6 +38,8 @@ const Home = () => {
 
   const userData = JSON.parse(localStorage.getItem('userData'))
   var isLoggedIn = localStorage.getItem('isLoggedIn');
+
+  const [loading, setLoading] = useState(false);
 
   const cart =
   {
@@ -399,10 +402,12 @@ const Home = () => {
 
 
   }
+  
 
 
   return (
     <>
+     
       {/* <h1>The HomePage</h1> */}
       <div className='searchBoxCSS'>
 

@@ -147,13 +147,14 @@ function Prcards() {
                 </div>
                 <div className=' longdiv1'>
                     <h5>All Products</h5>
-                    <select className="form" id="floatingSelect" aria-label="Floating label select example">
+                    <h5 className='float-end mr-4' style={{fontFamily:"cursive", color: "#ffff"}}>{product.length}</h5>
+                    {/* <select className="form" id="floatingSelect" aria-label="Floating label select example">
                         <option >All</option>
                         <option >Today</option>
                         <option className='a1'>Weekly</option>
                         <option>Monthly</option>
 
-                    </select>
+                    </select> */}
 
                 </div>
 
