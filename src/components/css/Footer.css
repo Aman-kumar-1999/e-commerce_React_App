@@ -1,3 +1,52 @@
+
+#scroll-container {
+  border: 3px solid black;
+  border-radius: 5px;
+  padding-top: 100px;
+  padding-bottom: 100px;
+  overflow: hidden;
+}
+
+#scroll-text {
+  /* animation properties */
+  -moz-transform: translateX(100%);
+  -webkit-transform: translateX(100%);
+  transform: translateX(100%);
+  
+  
+  -moz-animation: my-animation 15s linear infinite;
+  -webkit-animation: my-animation 15s linear infinite ;
+  animation: my-animation 15s linear infinite ;
+}
+
+/* for Firefox */
+@-moz-keyframes my-animation {
+  from { -moz-transform: translateX(100%); }
+  to { -moz-transform: translateX(-100%); }
+}
+
+/* for Chrome */
+@-webkit-keyframes my-animation {
+  from { -webkit-transform: translateX(100%); }
+  to { -webkit-transform: translateX(-100%); }
+}
+
+@keyframes my-animation {
+  from {
+    -moz-transform: translateX(100%);
+    -webkit-transform: translateX(100%);
+    transform: translateX(100%);
+  }
+  to {
+    -moz-transform: translateX(-100%);
+    -webkit-transform: translateX(-100%);
+    transform: translateX(-100%);
+  }
+}
+
+
+/* --------------------------------------------------------------------------------------------------------------------------------------------- */
+
 .eqippedFooterLogo {
   position: relative;
   
@@ -66,19 +115,13 @@ h4 {
 
 .footer {
   margin-right: 0px;
-  
-  /* background-color: black; */
-  /* background: linear-gradient(to right ,#6b6f70,#89a8b3,#9babb1,#6b6f70);
-    color: rgb(78, 63, 63); */
-  background-color: black;
-  color: wheat;
+  background-color: #3f4240;
+  color: rgb(226, 223, 218);
   padding-top: 0px;
-  /* box-shadow: 5px 20px 50px #000; */
-  /* margin-left: 70px; */
   margin-top: 50px;
-  /* border: 2px solid white; */
-  /* border-radius: 50px; */
-  /* position: absolute; */
+  margin-bottom: 0px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 
 }
 

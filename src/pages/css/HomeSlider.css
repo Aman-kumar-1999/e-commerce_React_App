@@ -1,3 +1,9 @@
+
+
+
+
+/* -------------------------------------------------------------------------------------------------------------------------------- */
+
 .equimementscard {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   max-width: 200px;
@@ -10,10 +16,24 @@
   margin-left: 20px;
 
 }
+@supports (-ms-ime-align:auto) {
+  .selector {
+      property: searchBoxCSS;
+  }
+}
 .searchBoxCSS{
-  /* margin-top: -50px;
-  overflow: hidden; */
+  margin-top: -440px;
+  /* margin-bottom: 270px; */
+  margin-bottom: 400px;
+  float: initial;
+  
+  
+  
 
+}
+
+.searchBoxImputNavbar{
+  width: 500px;
 }
 
 .equimementscard:hover {
@@ -159,7 +179,7 @@
   margin-top: -10px;
   /* font-style: oblique;                                                                                                                                                                                                                                                                                                                                                                                                                                                 */
   /* opacity: 0.5; */
-  margin-left: -120px;
+  margin-left: -100px;
   text-decoration: none;
   color: #000;
   font-size: 12px;
@@ -189,7 +209,7 @@
   margin-top: -13px;
   /* font-style: oblique; */
   /* opacity: 0.5; */
-  margin-left: -150px;
+  margin-left: -130px;
   color: #000;
   font-size: 17px;
   font-family: Poppins;
@@ -198,11 +218,22 @@
 
 }
 
+.linkHover{
+  border-radius: 5px;
+  padding: 10px;
+  /* box-shadow: 5px 10px 10px #706e6e; */
+  margin-bottom: 10px;
+}
+
+.linkHover:hover{
+  /* box-shadow: 5px 10px 20px #706e6e; */
+}
+
 .productImage {
 
   width: 200px;
   height: 150px;
-  margin-left: -13px;
+  /* margin-left: -13px; */
   margin-top: 0px;
   border-radius: 5px;
   /* border-top-left-radius: 20px;
@@ -256,16 +287,20 @@
   padding: 0px;
   /* background-color: #197A34; */
   border: 1px solid #116D6E;
+  text-align: center;
   color: #116D6E;
   border-radius: 5px;
   margin-top: 30px;
-  margin-left: -25px;
+  margin-left: -15px;
   font-family: Poppins;
   font-size: 12px;
-  font-weight: 700;
+  font-weight:350;
   /* font-size: small;  */
   /* color: white; */
+  opacity: 1;
 }
+
+
 
 .cart-button-category:hover {
   background-color: #116D6E;
@@ -407,4 +442,23 @@
 .btndiv button:hover {
   background: rgb(182, 174, 174);
   color: black;
+}
+
+@media (max-width: 480px) {
+
+  .searchBoxImputNavbar{
+    width: 230px;
+    position: relative;
+    margin-top: 50px;
+    z-index: 0;
+  }
+  .searchBoxCSS{
+    margin-top: -440px;
+    /* margin-bottom: 270px; */
+    margin-bottom: 370px;  
+    z-index: 0;
+  }
+  
+  
+  
 }

@@ -14,6 +14,10 @@ import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 import Autocomplete from '@mui/material/Autocomplete';
 import { Box, LinearProgress } from '@mui/material';
+import SearchSection from './SearchBar';
+
+import { Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
+
 
 const Home = () => {
 
@@ -45,6 +49,7 @@ const Home = () => {
   {
     "productId": '',
     "vendorId": '',
+    "customerName": '',
     "vendorName": null,
     "vendorEmail": null,
     "productName": null,
@@ -169,6 +174,7 @@ const Home = () => {
       let item1 = JSON.parse(cart1);
       cart.productId = item1.productId;
       cart.vendorId = item1.vendorId;
+      cart.customerName = userData.firstName + " " + userData.lastName;
       cart.email = userData.email;
       cart.phone = userData.phone;
       cart.address = userData.address;
@@ -237,6 +243,7 @@ const Home = () => {
       // startPayment(item1);
       cart.productId = item1.productId;
       cart.vendorId = item1.vendorId;
+      cart.customerName = userData.firstName + " " + userData.lastName;
       cart.email = userData.email;
       cart.phone = userData.phone;
       cart.address = userData.address;
@@ -269,9 +276,23 @@ const Home = () => {
       response = axios.post(`${baseUrl}/order/`, cart).then(
         (response) => {
           if (response.status == 200) {
-            console.log(response.data)
-            navigate('/checkoutsuccess');
-            toast.success('Order has been Created.')
+            //console.log(response.data)
+            if (response.data.Email_STATUS === 'Failed') {
+              console.log(response.data)
+              toast.warning(`Order has been Created. But Email Sent : ${response.data.Email_STATUS}`);
+          }
+          if (response.data.WhatsApp_STATUS === 'Failed') {
+              console.log(response.data)
+              toast.warning(`Order has been Created. But WhatsApp Msg Sent : ${response.data.WhatsApp_STATUS}`);
+          }
+          if (response.data.WhatsApp_STATUS === 'Success.' || response.data.Email_STATUS === 'Success.') {
+              console.log(response.data)
+              toast.success(`Order has been Created. Sent Email : ${response.data.Email_STATUS} & Sent WhatsApp : ${response.data.WhatsApp_STATUS}`)
+          }
+          else {
+              console.log(response.data)
+              toast.warning(`Order has been Created. Sent Email : ${response.data.Email_STATUS} & Sent WhatsApp : ${response.data.WhatsApp_STATUS}`)
+          } navigate('/checkoutsuccess')
 
           }
         }
@@ -286,6 +307,7 @@ const Home = () => {
 
 
     } catch (error) {
+      // toast.error('Order can not be created.')
       // console.error(error);
 
     }
@@ -402,32 +424,31 @@ const Home = () => {
 
 
   }
-  
+
 
 
   return (
     <>
-     
-      {/* <h1>The HomePage</h1> */}
-      <div className='searchBoxCSS'>
 
-        <input type="" style={{ border: "1px solid black" }} size="lg"
+
+
+     
+
+      
+      <HomePageSlider/>
+
+
+      <div className='searchBoxCSS sticky-top'>
+
+        <input type="" style={{ border: "1px solid black" }} className='searchBoxImputNavbar' size="lg"
           bordered
           clearable
           placeholder="Search Product Name ..."
           value={searchData} onChange={handleSearchInputChange} />
       </div>
-      {/* <Stack spacing={2} sx={{ width: 300 }}>
-        <Autocomplete
-          id="free-solo-demo"
-          freeSolo
-          options={product.map((option) => option.productName)}
-          renderInput={(params) => <TextField {...params} label="freeSolo" />}
-        />
-      </Stack> */}
 
 
-      {/* <button className="searchButtonHomePage" type="submit">Search</button> */}
+
 
       {searchNeeded ? (<>
 
@@ -446,15 +467,16 @@ const Home = () => {
             {
               (product.length == 0) ? (<>
 
-                {/* <p> No Equipments are Present</p> */}
+
               </>) : (
                 <>
-                  <div className="row row-cols-1 row-cols-md-7 g-8">
+                  <div className="row row-cols-1 ">
                     {product.map((item, index) => (
                       <>
 
 
-                        <Link to={'/productDetails/' + item.productId} className="col text-decoration-none">
+
+                        <Link to={'/productDetails/' + item.productId} className="col text-decoration-none linkHover">
 
                           <div className="" key={index} >
                             {
@@ -481,10 +503,7 @@ const Home = () => {
                               <p className='individualProductPrice'><span id='productIcon' className="material-symbols-outlined">
                                 currency_rupee
                               </span> {item.individualProductPrice}</p>
-                              {/* <p className='' >{item.productName}</p>
-                                            <p className=''><p className=''>{item.discountPercentage} % off</p></p>
-                                            <p className=''>Rs {item.natePriceWithDiscount}</p>
-                                            <p className=''>{item.brandName}</p> */}
+
 
 
                               {
@@ -526,10 +545,11 @@ const Home = () => {
         </div>
 
       </>) : (<>
+        
         <HomeCategory />
-        {/* <HomePageSlider/>      */}
-        <HomeSlider />
-        {/* <Suggestion /> */}
+       
+        <HomeSlider/>
+       
         <Brands />
 
       </>)

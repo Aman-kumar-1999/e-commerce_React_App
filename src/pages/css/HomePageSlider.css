@@ -1,54 +1,307 @@
+/* .landingPageHeader{
+ padding-top: 100px
 
-#imgslide1{
-    padding-top: 20px; 
-    padding-bottom: 20px; 
-    padding-left: 0px;
-    padding-right: 0px; 
+
+} */
+
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+/* *{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins',sans-serif;
+} */
+
+.text-content {
+  position: absolute;
+  top: 2%;
+  left: 7%;
+  z-index: 0;
+}
+
+.name {
+  color: #3a665c;
+  font-size: 75px;
+  font-weight: 600;
+  margin: -20px 0 0 -40px;
+  /* color: #C346C2; */
+}
+
+.job {
+  color: #C346C2;;
+  font-size: 40px;
+  margin: 5px 0;
+  margin-top: -4px;
+  display: flex;
+}
+
+/* 
+.text-content .typing-text{
+  margin-left: 0px;
+  overflow: hidden;
+  white-space: nowrap;
+  font-family: 'Ubuntu';
+  border-right: 2px solid #9a1de2;
+  
+  animation: typing 5s steps(15) infinite;
+}
+@keyframes typing{
+  0%{
+    width: 0ch;
   }
-  .prevbutton{
-    position: absolute;
-    /* z-index: -1; */
-    top: 100px;
-    left: 15px;
-    border-radius: 300px;
-    border-style: solid;
-    border-color: white;
+  50%{
+    width: 13ch;
+  }
+  75%{
+    width: 13ch;
+  }
+  100%{
+    width: 0ch;
+  }
+} */
+.text-content .job .one {
+  color: #9a1de2;
+}
+
+.text-content .job .two {
+  color: #9a1de2;
+}
+.buttons {
+  margin: 100px 0 0 300px;
+}
+
+.text-content .buttons button {
+  outline: none;
+  margin: 0 10px;
+  border: none;
+  border-radius: 6px;
+  font-size: 18px;
+  color: #fff;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background-image: linear-gradient(135deg, #2AFADF 10%, #C346C2 100%);
+}
+
+.buttons button:hover {
+  transform: scale(0.97);
+}
+
+.content .girl img {
+  position: absolute;
+  height: 95%;
+  bottom: 0;
+  right: 80px;
+  position: absolute;
+}
+
+.media-icons a {
+  margin-top: 8px;
+  font-size: 20px;
+  font-weight: 500;
+  text-decoration: none;
+  opacity: 0.7;
+  color: #2c3350;
+  transition: all 0.3s ease;
+}
+
+.media-icons a:hover {
+  opacity: 1;
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+.landingPageImage {
+  width: 100%;
+}
+
+.landingPageMicroScop {
+  position: absolute;
+  /* float: right; */
+  margin-top: -40px;
+  margin-left: 820px;
+  padding: 0px;
+}
+
+.navSlider {
+  width: 126%;
+  height: 60vh;
+  /* border-bottom: 1px solid rgb(127, 160, 127); */
+  margin-left: -14%;
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  backface-visibility: hidden;
+  animation: slideBg 20s linear infinite 0s;
+  animation-timing-function: ease-in-out;
+  background-image: url('../../../public/Physics Lab Equipments.gif');
+
+}
+
+@keyframes slideBg {
+
+  0% {
+    /* background-image: url('../../../public/Physics Lab Equipments.gif'); */
     background-color: white;
   }
-  .nextbutton{
+
+  25% {
+    /* background-image: url('../../../public/Physics Lab Equipments (1).gif'); */
+    background-color: white;
+
+  }
+
+  50% {
+    /* background-image: url('../../../public/Physics Lab Equipments (2).gif'); */
+    background-color: white;
+  }
+
+  75% {
+    /* background-image: url('../../../public/Physics Lab Equipments (3).gif'); */
+    background-color: white;
+  }
+
+  100% {
+    /* background-image: url('../../../public/Physics Lab Equipments (4).gif'); */
+    background-color: white;
+  }
+
+}
+
+#imgslide1 {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.prevbutton {
+  position: absolute;
+  /* z-index: -1; */
+  top: 100px;
+  left: 15px;
+  border-radius: 300px;
+  border-style: solid;
+  border-color: white;
+  background-color: white;
+}
+
+
+.slideerPage {
+  padding-bottom: 300px;
+}
+
+
+.nextbutton {
+  position: absolute;
+  /* z-index: -1; */
+  top: 100px;
+  right: 30px;
+  border-radius: 300px;
+  border-style: solid;
+  border-color: white;
+  background-color: white;
+}
+
+.prevIcon {
+  width: 10px;
+  height: 15px;
+}
+
+.homePage {
+  margin-left: -10px;
+  padding-right: 0px;
+
+}
+
+.imageSliderCSS {
+  /* border-radius: 10px; */
+  /* padding-left: 200px; */
+  width: 280px;
+  height: 220px;
+  margin: 0px;
+  padding: 0px;
+  /* height:220; */
+  z-index: 0;
+}
+
+.roundedSlider {
+
+  top: 232px;
+  left: 763px;
+  width: 428px;
+  height: 497px;
+  transform: matrix(0, 1, -1, 0, 0, 0);
+  /* UI Properties */
+  border: 1px solid #1E1E1E;
+  opacity: 1;
+}
+
+@media (max-width: 480px) {
+
+  .imageSliderCSS {
+
+    height: 120;
+
+  }
+
+  .landingPageImage {
+    margin-top: 30px;
+    width: 70%;
+  }
+
+  .landingPageMicroScop {
     position: absolute;
-    /* z-index: -1; */
-    top: 100px;
-    right: 30px;
-    border-radius: 300px;
-    border-style: solid;
-    border-color: white;
-    background-color:white; 
+    float: right;
+    margin-top: 0px;
+    margin-left: 0px;
+    padding: 0px;
+    /* opacity: 0.4; */
   }
-  .prevIcon{
-    width: 10px;
-    height: 15px;
-  }
-  .homePage{
-    margin-left: -10px;
-    padding-right: 0px;
-    
-  }
-  .imageSliderCSS{
-    border-radius: 10px;
-    /* padding-left: 200px; */
-    width: 200px;
-    height: 220px;
-    /* height:220; */
+
+  .text-content {
+    position: absolute;
+    top: 8%;
+    left: 7%;
     z-index: 0;
   }
 
-  @media (max-width: 480px) {
-
-    .imageSliderCSS{
-      
-      height:120;
-      
-    }
-    
+  .name {
+    color: #2c3350;
+    font-size: 35px;
+    font-weight: 600;
+    margin-left: -30px;
+    z-index: 0;
   }
+
+  .job {
+    color: #2c3350;
+    font-size: 20px;
+    margin: 0px 0;
+    margin-top: -4px;
+    display: flex;
+    z-index: 0;
+  }
+
+  .buttons {
+    margin: 20px 0 0 -10px;
+  }
+
+  .text-content .buttons button {
+    outline: none;
+    margin: 0 10px;
+    border: none;
+    border-radius: 6px;
+    font-size: 18px;
+    color: #fff;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-image: linear-gradient(135deg, #2AFADF 10%, #C346C2 100%);
+  }
+
+  .buttons button:hover {
+    transform: scale(0.97);
+  }
+
+}

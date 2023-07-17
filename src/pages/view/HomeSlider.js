@@ -52,6 +52,7 @@ function HomeSlider(props) {
     {
         "productId": '',
         "vendorId": '',
+        "customerName": '',
         "vendorName": null,
         "vendorEmail": null,
         "productName": null,
@@ -90,7 +91,7 @@ function HomeSlider(props) {
         fetchDataInst();
         fetchDataPlastic();
         fetchDataChemical();
-        fetchDataGlass();        
+        fetchDataGlass();
         fetchDataChart();
         // }
         // setTemp(false)
@@ -100,8 +101,8 @@ function HomeSlider(props) {
         let eqi = 'Equipments'
         let dataLimit = 20;
 
-        let pageNo = Math.ceil(data.length/dataLimit) + 1
-        console.log("Page No : "+pageNo)
+        let pageNo = Math.ceil(data.length / dataLimit) + 1
+        console.log("Page No : " + pageNo)
 
         try {
             // const response = await fetch(`http://localhost:5005/product/category/${eqi}/${pageNo}/${dataLimit}`);
@@ -122,8 +123,8 @@ function HomeSlider(props) {
         let eqi = 'Instruments'
         let dataLimit = 20;
 
-        let pageNo = Math.ceil(dataInst.length/dataLimit) + 1
-        console.log("Page No : "+pageNo)
+        let pageNo = Math.ceil(dataInst.length / dataLimit) + 1
+        console.log("Page No : " + pageNo)
 
         try {
             // const response = await fetch(`http://localhost:5005/product/category/${eqi}/${pageNo}/${dataLimit}`);
@@ -139,22 +140,22 @@ function HomeSlider(props) {
         } catch (error) {
             console.log('Error:', error);
         }
-       
+
     };
     const fetchDataPlastic = async () => {
 
         let eqi = 'Plasticware'
 
-        
+
 
         let dataLimit = 20;
 
-        let pageNo = Math.ceil(dataPlastic.length/dataLimit) + 1
-        console.log("Page No : "+pageNo)
+        let pageNo = Math.ceil(dataPlastic.length / dataLimit) + 1
+        console.log("Page No : " + pageNo)
 
         try {
             // const response = await fetch(`http://localhost:5005/product/category/${eqi}/${pageNo}/${dataLimit}`);
-             const response = await fetch(`${baseUrl}/product/category/${eqi}?pageNo=${pageNo}&dataLimit=${dataLimit}`);
+            const response = await fetch(`${baseUrl}/product/category/${eqi}?pageNo=${pageNo}&dataLimit=${dataLimit}`);
 
 
             let jsonproduct = await response.json();
@@ -171,8 +172,8 @@ function HomeSlider(props) {
         let eqi = 'Glassware'
         let dataLimit = 20;
 
-        let pageNo = Math.ceil(dataGlass.length/dataLimit) + 1
-        console.log("Page No : "+pageNo)
+        let pageNo = Math.ceil(dataGlass.length / dataLimit) + 1
+        console.log("Page No : " + pageNo)
 
         try {
             // const response = await fetch(`http://localhost:5005/product/category/${eqi}/${pageNo}/${dataLimit}`);
@@ -193,8 +194,8 @@ function HomeSlider(props) {
         let eqi = 'Chemicals'
         let dataLimit = 20;
 
-        let pageNo = Math.ceil(dataChemical.length/dataLimit) + 1
-        console.log("Page No : "+pageNo)
+        let pageNo = Math.ceil(dataChemical.length / dataLimit) + 1
+        console.log("Page No : " + pageNo)
 
         try {
             // const response = await fetch(`http://localhost:5005/product/category/${eqi}/${pageNo}/${dataLimit}`);
@@ -215,8 +216,8 @@ function HomeSlider(props) {
         let eqi = 'Chart & Models'
         let dataLimit = 20;
 
-        let pageNo = Math.ceil(dataChart.length/dataLimit) + 1
-        console.log("Page No : "+pageNo)
+        let pageNo = Math.ceil(dataChart.length / dataLimit) + 1
+        console.log("Page No : " + pageNo)
 
         try {
             // const response = await fetch(`http://localhost:5005/product/category/${eqi}/${pageNo}/${dataLimit}`);
@@ -267,6 +268,7 @@ function HomeSlider(props) {
             cart.email = userData.email;
             cart.phone = userData.phone;
             cart.address = userData.address;
+            cart.customerName = userData.firstName+" "+userData.lastName;
             cart.vendorName = item1.vendorName;
             cart.vendorEmail = item1.vendorEmail;
             cart.productName = item1.productName;
@@ -320,18 +322,14 @@ function HomeSlider(props) {
     };
     // console.log(data)
     const navigate = useNavigate();
-    const checkout = async (items1) => {
+    const checkout = async (item) => {
         try {
-            console.log("item : " + items1)
-            const items = await getProductByProductId(items1.productId)
-            console.log("Product Id  : " + JSON.stringify(items))
-            const response = null;
-            let cart1 = JSON.stringify(items)
-            console.log('Item : ' + JSON.stringify(items))
+            let cart1 = JSON.stringify(item)
+            console.log('Item : ' + JSON.stringify(item))
             let item1 = JSON.parse(cart1);
-            // startPayment(item1);
             cart.productId = item1.productId;
             cart.vendorId = item1.vendorId;
+            cart.customerName = userData.firstName + " " + userData.lastName;
             cart.email = userData.email;
             cart.phone = userData.phone;
             cart.address = userData.address;
@@ -358,15 +356,29 @@ function HomeSlider(props) {
             cart.tierNo = item1.tierNo;
             cart.containLiquid = item1.containLiquid;
             cart.totalProductPrice = item1.totalProductPrice;
-            // console.log("ProductId : " + cart.productId);
+            console.log("ProductId : " + cart.productId);
 
 
-            response = axios.post(`${baseUrl}/order/`, cart).then(
+            const response = axios.post(`${baseUrl}/order/`, cart).then(
                 (response) => {
                     if (response.status == 200) {
-                        console.log(response.data)
-                        toast.success('Order has been Created.')
-                        navigate('/checkoutsuccess')
+                        if (response.data.Email_STATUS === 'Failed') {
+                            console.log(response.data)
+                            toast.warning(`Order has been Created. But Email Sent : ${response.data.Email_STATUS}`);
+                        }
+                        if (response.data.WhatsApp_STATUS === 'Failed') {
+                            console.log(response.data)
+                            toast.warning(`Order has been Created. But WhatsApp Msg Sent : ${response.data.WhatsApp_STATUS}`);
+                        }
+                        if (response.data.WhatsApp_STATUS === 'Success.' || response.data.Email_STATUS === 'Success.') {
+                            console.log(response.data)
+                            toast.success(`Order has been Created. Sent Email : ${response.data.Email_STATUS} & Sent WhatsApp : ${response.data.WhatsApp_STATUS}`)
+                        }
+                        else {
+                            console.log(response.data)
+                            toast.warning(`Order has been Created. Sent Email : ${response.data.Email_STATUS} & Sent WhatsApp : ${response.data.WhatsApp_STATUS}`)
+                        } navigate('/checkoutsuccess')
+
 
                     }
                 }
@@ -381,6 +393,7 @@ function HomeSlider(props) {
 
 
         } catch (error) {
+            toast.error('Order can not be created.')
             // console.error(error);
 
         }
@@ -499,7 +512,7 @@ function HomeSlider(props) {
     }
 
     return (
-        <div className='carasouldiv'>
+        <div className='carasouldiv mt-5'>
             <Link to={'/equipments'} className='link-success link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hovern lastbtn '>View all</Link>
 
             <div className="Header">
@@ -507,14 +520,68 @@ function HomeSlider(props) {
                 <h5 className="Action" ></h5>
             </div>
 
-            <hr style={{ paddingTop: 1, background: '#a70cef', marginLeft: '10px' }}/>
+            <hr style={{ paddingTop: 1, background: '#a70cef', marginLeft: '10px' }} />
             <Carousel autoPlay responsive={responsive}>
-                
+
                 {data.map(item => (
                     <>
+                        <div className='row'>
+                            <div className='col'>
+                                <Link to={'/productDetails/' + item.productId} className="col text-decoration-none">
+
+                                    <div className="p-0 linkHover" key={item.id} >
+                                        {
+                                            (item.imagePath != "No") ? (
+                                                <div>
+                                                    <img className="productImage" src={item.imagePath} alt="...." />
+
+                                                </div>
+                                            ) : (<><div>
+                                                <img className="productImage" src='productImage.png' alt="...." />
+                                            </div>
+                                            </>)
+                                        }
+
+                                        <div className='card-body'>
+                                            <p className='productName' >{
+                                                item.productName.length >= 10 ? (<>{item.productName.toUpperCase().slice(0, 10)} ....</>) : (<>{item.productName.toUpperCase()}</>)
+                                            }</p>
+                                            <p className='off'>{item.discountPercentage} % off</p>
+                                            <p className='natePriceWithDiscount'><span id='productIcon' className="material-symbols-outlined">
+                                                currency_rupee
+                                            </span> {item.natePriceWithDiscount}</p>
+                                            <p className='brandName'>{item.brandName}</p>
+                                            <p className='individualProductPrice'><span id='productIcon' className="material-symbols-outlined">
+                                                currency_rupee
+                                            </span> {item.individualProductPrice}</p>
+                                            {
+                                                (isLoggedIn) ? (
+                                                    <div >
+                                                        <Link onClick={() => addToCart(item)}><div className='col-5 text-decoration-none cart-button'>Add to cart</div></Link>
+
+                                                        <Link onClick={() => checkout(item)}><div className='col-4 text-decoration-none cart-button1'>Buy now</div></Link>
 
 
-                        <Link to={'/productDetails/' + item.productId} className="col text-decoration-none">
+                                                    </div>
+                                                ) : (
+                                                    <>
+                                                        <Link to={'/login'} className="cart-btn"><div className='col-5 text-decoration-none cart-button'>Add to cart</div></Link>
+
+                                                        <Link to={'/login'} className="cart-btn"><div className='col-4 text-decoration-none cart-button1'>Buy now</div></Link>
+
+
+                                                    </>
+                                                )
+                                            }
+                                        </div>
+                                    </div>
+                                </Link>
+                            </div>
+
+                        </div>
+
+
+                        {/* <Link to={'/productDetails/' + item.productId} className="col text-decoration-none">
 
                             <div className="" key={item.id} >
                                 {
@@ -541,12 +608,6 @@ function HomeSlider(props) {
                                     <p className='individualProductPrice'><span id='productIcon' className="material-symbols-outlined">
                                         currency_rupee
                                     </span> {item.individualProductPrice}</p>
-                                    {/* <p className='' >{item.productName}</p>
-                                            <p className=''><p className=''>{item.discountPercentage} % off</p></p>
-                                            <p className=''>Rs {item.natePriceWithDiscount}</p>
-                                            <p className=''>{item.brandName}</p> */}
-
-
                                     {
                                         (isLoggedIn) ? (
                                             <div >
@@ -568,7 +629,7 @@ function HomeSlider(props) {
                                     }
                                 </div>
                             </div>
-                        </Link>
+                        </Link> */}
                     </>
                 )
                 )
@@ -576,22 +637,22 @@ function HomeSlider(props) {
                 }
             </Carousel>
             <Link to={'/instruments'} className='link-success link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hovern lastbtn '>View all</Link>
-                
+
             <div className="Header">
                 <h3 className="Heading">Instruments</h3>
                 <h5 className="Action" ></h5>
             </div>
 
-            <hr style={{ paddingTop: 1, background: '#a70cef', marginLeft: '10px' }}/>
+            <hr style={{ paddingTop: 1, background: '#a70cef', marginLeft: '10px' }} />
 
             <Carousel autoPlay responsive={responsive}>
                 {dataInst.map(item => (
                     <>
 
 
-                        <Link to={'/productDetails/' + item.productId} className="col text-decoration-none">
+                        <Link to={'/productDetails/' + item.productId} className="col text-decoration-none ">
 
-                            <div className="" key={item.id} >
+                            <div className="p-0 linkHover" key={item.id} >
                                 {
                                     (item.imagePath != "No") ? (
                                         <div>
@@ -658,15 +719,15 @@ function HomeSlider(props) {
                 <h5 className="Action" ></h5>
             </div>
 
-            <hr style={{ paddingTop: 1, background: '#a70cef', marginLeft: '10px' }}/>
+            <hr style={{ paddingTop: 1, background: '#a70cef', marginLeft: '10px' }} />
             <Carousel autoPlay responsive={responsive}>
                 {dataPlastic.map(item => (
                     <>
 
 
-                        <Link to={'/productDetails/' + item.productId} className="col text-decoration-none">
+                        <Link to={'/productDetails/' + item.productId} className="col text-decoration-none ">
 
-                            <div className="" key={item.id} >
+                            <div className="p-0 linkHover" key={item.id} >
                                 {
                                     (item.imagePath != "No") ? (
                                         <div>
@@ -732,16 +793,16 @@ function HomeSlider(props) {
                 <h5 className="Action" ></h5>
             </div>
 
-            <hr style={{ paddingTop: 1, background: '#a70cef', marginLeft: '10px' }}/>
+            <hr style={{ paddingTop: 1, background: '#a70cef', marginLeft: '10px' }} />
 
             <Carousel autoPlay responsive={responsive}>
                 {dataGlass.map(item => (
                     <>
 
 
-                        <Link to={'/productDetails/' + item.productId} className="col text-decoration-none">
+                        <Link to={'/productDetails/' + item.productId} className="col text-decoration-none ">
 
-                            <div className="" key={item.id} >
+                            <div className="p-0 linkHover" key={item.id} >
                                 {
                                     (item.imagePath != "No") ? (
                                         <div>
@@ -808,7 +869,7 @@ function HomeSlider(props) {
                 <h5 className="Action" ></h5>
             </div>
 
-            <hr style={{ paddingTop: 1, background: '#a70cef', marginLeft: '10px' }}/>
+            <hr style={{ paddingTop: 1, background: '#a70cef', marginLeft: '10px' }} />
             <Carousel autoPlay responsive={responsive}>
                 {dataChemical.map(item => (
                     <>
@@ -816,7 +877,7 @@ function HomeSlider(props) {
 
                         <Link to={'/productDetails/' + item.productId} className="col text-decoration-none">
 
-                            <div className="" key={item.id} >
+                            <div className="p-0 linkHover" key={item.id} >
                                 {
                                     (item.imagePath != "No") ? (
                                         <div>
@@ -882,7 +943,7 @@ function HomeSlider(props) {
                 <h5 className="Action" ></h5>
             </div>
 
-            <hr style={{ paddingTop: 1, background: '#a70cef', marginLeft: '10px' }}/>
+            <hr style={{ paddingTop: 1, background: '#a70cef', marginLeft: '10px' }} />
 
             <Carousel autoPlay responsive={responsive}>
                 {dataChart.map(item => (
@@ -891,7 +952,7 @@ function HomeSlider(props) {
 
                         <Link to={'/productDetails/' + item.productId} className="col text-decoration-none">
 
-                            <div className="" key={item.id} >
+                            <div className="p-0 linkHover" key={item.id} >
                                 {
                                     (item.imagePath != "No") ? (
                                         <div>

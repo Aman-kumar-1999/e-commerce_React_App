@@ -25,12 +25,13 @@
     color: #000;
   }
   
+  
   .cssui-usercard__header{
-    padding: 3rem 5% 2rem;
+    padding: 0rem 8% 2rem;
     display: flex;
     align-items: center;
-    background-image: linear-gradient(to bottom, #3F51B5, #041886);
-    color: #fff;  
+    /* background-image: linear-gradient(to bottom, #3F51B5, #041886); */
+    color: #000;  
   }
   
   .cssui-usercard__avatar{

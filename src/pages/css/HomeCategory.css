@@ -45,25 +45,34 @@
 }
 
 .categoryGrid {
-  padding: 10px;
+  padding-top: 20px;
   /* border: 1px solid #65159A; */
+  box-shadow: 5px 10px 10px #706e6e;
   text-align: center;
-  border-radius: 100px;
+  border: 1px solid white;
+  border-radius: 10px;
   margin: 5px;
   width: 20px;
+  align-items: center;
   /* width: 126.876px;
   height: 126.876px; */
   /* flex-shrink: 0; */
+  /* color: wheat; */
+
+  background-color: #B9F6CA;
 
 }
 
 .categoryGrid:hover {
-  text-transform: uppercase;
-  color: #65159A;
+  /* text-transform: uppercase; */
+  /* color: white; */
   text-decoration: none;
+  box-shadow: 5px 10px 40px #706e6e;
+
+  
   
   /* border: 1px solid #65159A; */
-  /* background-color: #ccb1df; */
+  /* background-color: #F44336; */
 
 }
 
@@ -99,6 +108,9 @@
   }
   .homeSidebar{
     
+  }
+  .resposiveMarginTop{
+    margin-top: 10px;
   }
   
 }

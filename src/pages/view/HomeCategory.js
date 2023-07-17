@@ -2,11 +2,72 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import '../css/HomeCategory.css'
 import HomePageSlider from './HomePageSlider'
+import Carousel from 'react-multi-carousel'
 export default function HomeCategory() {
-    return (
-        <div style={{ marginTop: 60 }}>
 
+    const responsive = {
+        superLargeDesktop: {
+            // the naming can be any, depends on you.
+            breakpoint: { max: 4000, min: 3000 },
+            items: 5
+        },
+        desktop: {
+            breakpoint: { max: 3000, min: 1024 },
+            items: 4
+        },
+        tablet: {
+            breakpoint: { max: 1024, min: 464 },
+            items: 2
+        },
+        mobile: {
+            breakpoint: { max: 464, min: 0 },
+            items: 1
+        }
+    };
+    return (
+        <div className=''>
+            {/* <Carousel autoPlay responsive={responsive}> */}
             <div className='row'>
+                <Link to={'/equipments'} className='col categoryGrid'>
+                    <img style={{ width: 40 }} src='microscope.png' />
+                    <p>Equipment</p>
+                </Link>
+                <Link to={'/instruments'} className='col categoryGrid'>
+                    <img style={{ width: 40 }} src='loupe.png' />
+                    <p>Instruments</p>
+                </Link>
+                <Link to={'/plasticWare'} className='col categoryGrid'>
+                    <img style={{ width: 40 }} src='beaker.png' />
+                    <p className=''>PlasticWare</p>
+                </Link>
+                <Link to={'/glassWare'} className='col categoryGrid'>
+                    <img style={{ width: 40 }} src='test_tube.png' />
+                    <p>GlassWare</p>
+                </Link>
+                <Link to={'/chemicals'} className='col categoryGrid'>
+                    <img style={{ width: 40 }} src='flask.png' />
+                    <p>Chemicals</p>
+                </Link>
+                <Link to={'/chart'} className='col categoryGrid'>
+                    <img style={{ width: 40 }} src='smiling-skeleton.png' />
+                    <p>Chart</p>
+                </Link>
+                <Link to={'/physics'} className='col categoryGrid'>
+                    <img style={{ width: 40 }} src='physics.png' />
+                    <p>Physics</p>
+                </Link>
+                <Link to={'/chemistry'} className='col categoryGrid'>
+                    <img style={{ width: 40 }} src='chemistory.png' />
+                    <p>Chemistry</p>
+                </Link>
+                <Link to={'/biology'} className='col categoryGrid'>
+                    <img style={{ width: 40 }} src='biology.png' />
+                    <p>Biology</p>
+                </Link>
+
+            </div>
+
+            {/* <div className='row'>
                 <div className='col categoryResponsive'>
                     <div className='row responsiveCategory'>
                         <Link  to={'/equipments'} className='col categoryGrid'>
@@ -47,7 +108,7 @@ export default function HomeCategory() {
                 </div>
 
 
-            </div>
+            </div> */}
 
             {/* <div className="container text-center">
                 <div className="row">
@@ -119,6 +180,7 @@ export default function HomeCategory() {
                     </div>
                 </div>
             </div> */}
+            {/* </Carousel> */}
         </div>
     )
 }

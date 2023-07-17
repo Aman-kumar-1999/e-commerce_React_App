@@ -10,6 +10,14 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
+
+import BottomNavigation from '@mui/material/BottomNavigation';
+import BottomNavigationAction from '@mui/material/BottomNavigationAction';
+import FolderIcon from '@mui/icons-material/Folder';
+import RestoreIcon from '@mui/icons-material/Restore';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+
 function Chemicals(props) {
 
     const responsive = {
@@ -45,6 +53,7 @@ function Chemicals(props) {
 
         "productId": '',
         "vendorId": '',
+        "customerName": '',
         "vendorName": null,
         "vendorEmail": null,
         "productName": null,
@@ -84,8 +93,8 @@ function Chemicals(props) {
         let eqi = 'Chemicals'
         let dataLimit = 10;
 
-        let pageNo = Math.ceil(data.length/dataLimit) + 1
-        console.log("Page No : "+pageNo)
+        let pageNo = Math.ceil(data.length / dataLimit) + 1
+        console.log("Page No : " + pageNo)
 
         try {
             // const response = await fetch(`http://localhost:5005/product/category/${eqi}/${pageNo}/${dataLimit}`);
@@ -132,6 +141,7 @@ function Chemicals(props) {
             let item1 = JSON.parse(cart1);
             cart.productId = item1.productId;
             cart.vendorId = item1.vendorId;
+            cart.customerName = userData.firstName + " " + userData.lastName;
             cart.email = userData.email;
             cart.phone = userData.phone;
             cart.address = userData.address;
@@ -202,6 +212,7 @@ function Chemicals(props) {
             let item1 = JSON.parse(cart1);
             cart.productId = item1.productId;
             cart.vendorId = item1.vendorId;
+            cart.customerName = userData.firstName + " " + userData.lastName;
             cart.email = userData.email;
             cart.phone = userData.phone;
             cart.address = userData.address;
@@ -234,9 +245,23 @@ function Chemicals(props) {
             response = axios.post(`${baseUrl}/order/`, cart).then(
                 (response) => {
                     if (response.status == 200) {
-                        console.log(response.data)
+                        if (response.data.Email_STATUS === 'Failed') {
+                            console.log(response.data)
+                            toast.warning(`Order has been Created. But Email Sent : ${response.data.Email_STATUS}`);
+                        }
+                        if (response.data.WhatsApp_STATUS === 'Failed') {
+                            console.log(response.data)
+                            toast.warning(`Order has been Created. But WhatsApp Msg Sent : ${response.data.WhatsApp_STATUS}`);
+                        }
+                        if (response.data.WhatsApp_STATUS === 'Success.' || response.data.Email_STATUS === 'Success.') {
+                            console.log(response.data)
+                            toast.success(`Order has been Created. Sent Email : ${response.data.Email_STATUS} & Sent WhatsApp : ${response.data.WhatsApp_STATUS}`)
+                        }
+                        else {
+                            console.log(response.data)
+                            toast.warning(`Order has been Created. Sent Email : ${response.data.Email_STATUS} & Sent WhatsApp : ${response.data.WhatsApp_STATUS}`)
+                        } 
                         navigate('/checkoutsuccess')
-                        toast.success('Order has been Created.')
 
                     }
                 }
@@ -256,13 +281,86 @@ function Chemicals(props) {
         }
 
     }
+    const [value, setValue] = React.useState('recents');
+
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
+    };
 
 
     return (
-        <div className='carasouldiv'>
+        <div className='carasouldiv mt-3'>
+
+            <HomeCategory />    
+
+            {/* <BottomNavigation className='mb-3' sx={{ width: "100%" }} value={value} onChange={handleChange}>
+                <BottomNavigationAction
+                    label="Equipments"
+                    value="equipments"
+                    icon={<Link to={'/equipments'} ><img style={{ width: 40 }} src='microscope.png' /></Link>}
+                >
+
+                </BottomNavigationAction>
+                <BottomNavigationAction
+                    label="Instruments"
+                    value="instruments"
+                    icon={<Link to={'/instruments'} className=''><img style={{ width: 40 }} src='loupe.png' /></Link>}
+                />
+                <BottomNavigationAction
+                    label="Plastic Ware"
+                    value="plasticWare"
+                    icon={<Link to={'/plasticWare'} className=''>
+                        <img style={{ width: 40 }} src='beaker.png' />
+
+                    </Link>}
+                />
+                <BottomNavigationAction
+                    label="Glass Ware"
+                    value="glassWare"
+                    icon={<Link to={'/glassWare'} className=''>
+                        <img style={{ width: 40 }} src='test_tube.png' />
+
+                    </Link>} />
+                <BottomNavigationAction
+                    label="Chemicals"
+                    value="chemicals"
+                    icon={<Link to={'/chemicals'} className=''>
+                        <img style={{ width: 40 }} src='flask.png' />
+
+                    </Link>} />
+                <BottomNavigationAction
+                    label="Chart & Models"
+                    value="chart"
+                    icon={<Link to={'/chart'} className=''>
+                        <img style={{ width: 40 }} src='smiling-skeleton.png' />
+
+                    </Link>} />
+                <BottomNavigationAction
+                    label="Physics"
+                    value="physics"
+                    icon={<Link to={'/physics'} className=''>
+                        <img style={{ width: 40 }} src='physics.png' />
+
+                    </Link>} />
+                <BottomNavigationAction
+                    label="Chemistry"
+                    value="chemistry"
+                    icon={<Link to={'/chemistry'} className=''>
+                        <img style={{ width: 40 }} src='chemistory.png' />
+
+                    </Link>} />
+                <BottomNavigationAction
+                    label="Biology"
+                    value="biology"
+                    icon={<Link to={'/biology'} className=''>
+                        <img style={{ width: 40 }} src='biology.png' />
+
+                    </Link>} />
 
 
-            <ul class="nav nav-tabs mb-3">
+            </BottomNavigation> */}
+
+            {/* <ul class="nav nav-tabs mb-3">
                 <li class="nav-item">
                     <Link to={'/equipments'} class="nav-link" aria-current="page" data-bs-target="#nav-home">Equipments</Link>
                 </li>
@@ -281,7 +379,7 @@ function Chemicals(props) {
                 <li class="nav-item">
                     <Link to={'/chart'} class="nav-link " >Chart & Model</Link>
                 </li>
-            </ul>
+            </ul> */}
 
 
 
@@ -291,36 +389,24 @@ function Chemicals(props) {
                 hasMore={true}
                 loader={<div className='text-center loading1'>
 
-                <img style={{ width: 50, height: 50 }} src='spinner.gif' />
+                    <img style={{ width: 50, height: 50 }} src='spinner.gif' />
 
-            </div>}
-                // scrollableTarget="scrollableDiv"
+                </div>}
+            // scrollableTarget="scrollableDiv"
             >
                 {
-                (data.length == 0) ? (<>
-                    
-                    {/* <p> No Equipments are Present</p> */}
-                </>) : (
-                    <>
-                        <div className="row row-cols-1 row-cols-md-7 g-8">
-                            {data.map(item => (
-                                <>
+                    (data.length == 0) ? (<>
+
+                        {/* <p> No Equipments are Present</p> */}
+                    </>) : (
+                        <>
+                            <div className="row">
+                                {data.map(item => (
 
 
-                                    <Link to={'/productDetails/' + item.productId} className="col text-decoration-none">
-
-                                        <div className="" key={item.id} >
-                                            {
-                                                (item.imagePath != "No") ? (
-                                                    <div>
-                                                        <img className="productImage" src={item.imagePath} alt="...." />
-
-                                                    </div>
-                                                ) : (<><div>
-                                                    <img className="productImage" src='productImage.png' alt="...." />
-                                                </div>
-                                                </>)
-                                            }
+                                    <div className="col linkHover">
+                                        <Link to={'/productDetails'} className="card-img text-decoration-none ">
+                                            <img className="productImage" src='https://eqipped.com/productImage.png' alt="...." />
 
                                             <div className='card-body'>
                                                 <p className='productName' >{
@@ -334,10 +420,7 @@ function Chemicals(props) {
                                                 <p className='individualProductPrice'><span id='productIcon' className="material-symbols-outlined">
                                                     currency_rupee
                                                 </span> {item.individualProductPrice}</p>
-                                                {/* <p className='' >{item.productName}</p>
-                                            <p className=''><p className=''>{item.discountPercentage} % off</p></p>
-                                            <p className=''>Rs {item.natePriceWithDiscount}</p>
-                                            <p className=''>{item.brandName}</p> */}
+
 
 
                                                 {
@@ -345,7 +428,7 @@ function Chemicals(props) {
                                                         <div >
                                                             <Link onClick={() => addToCart(item)}><div className='col-5 text-decoration-none cart-button-category'>Add to cart</div></Link>
 
-                                                            <Link onClick={() => checkout(item)}><div className='col-4 text-decoration-none cart-button1-category'>Buy now</div></Link>
+                                                            <Link onClick={() => checkout(item)}><div className='col-4 float-end text-decoration-none cart-button1-category'>Buy now</div></Link>
 
 
                                                         </div>
@@ -360,20 +443,18 @@ function Chemicals(props) {
                                                     )
                                                 }
                                             </div>
-                                        </div>
-                                    </Link>
-                                </>
-                            )
-                            )
 
-                            }
+                                        </Link>
 
-                        </div>
+                                    </div>
 
-                    </>
-                )
-            }
-                
+                                ))}
+                            </div>
+
+                        </>
+                    )
+                }
+
             </InfiniteScroll>
 
 

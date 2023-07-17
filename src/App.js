@@ -46,6 +46,9 @@ import SignUp from './pages/view/SignUp';
 import ForgotPassword from './pages/view/ForgotPassword';
 import B404 from './pages/view/404';
 import ProtectedRoute from './components/view/ProtectedRoute';
+import EditProfile from './pages/view/EditUserProfile';
+import ChangePassword from './pages/view/ChangePassword';
+import Testimonial from './pages/view/Testimonial';
 
 
 function App() {
@@ -115,23 +118,11 @@ function App() {
 
           <div className="container-fluid text-center">
             <div className="row">
-              {onLoading && (
-                <>
+             
                 <Navbar />
-                </>
-              )
-              }
-              {loading && (<div className='text-center loading1'>
-
-                <img style={{ width: 200, height: 200 }} src='spinner.gif' />
-                <h1>Loading .... </h1>
-                {/* <div style={{width: 500,height: 500}} class="spinner-border text-success" role="status">
-                    <span class="visually-hidden">Loading...</span>
-                     </div> */}
-                {/* <span class="loader"></span> */}
-
-              </div>)}
-              {onLoading && (
+               
+              
+              
                 <div className="col-1">
                   <ul className="list-group list-group-flush">
                     <Sidebar />
@@ -140,11 +131,10 @@ function App() {
 
                   </ul>
                 </div>
-              )}
-              {onLoading && (
+             
                 <div className="col-10">
                   
-                    <Routes className="">
+                    <Routes className="routerCSS">
 
                       <Route exact path="*" element={<B404 />} />
                       
@@ -153,8 +143,9 @@ function App() {
                       <Route exact path="/signup" element={<SignUp />} />
                       <Route exact path="/logout" element={<Logout />} />
                       <Route exact path="/forgotPassword" element={<ForgotPassword />} />
+                      <Route exact path="/testimonial" element={<Testimonial />} />
 
-                      {/* <Route path="/dashboard" element={<Dashboard />} /> */}
+                     
                       <Route exact path="/dashboard" element={isLoggedIn && userData.role.roleName === 'Admin' ? (<Dashboard/>):(<Navigate to={'/'}/>)}/>
                       <Route path="/orders" element={ isLoggedIn && userData.role.roleName === 'Admin' ? (<Orders />):(<Navigate to={'/'}/>)} />
                       <Route path="/products" element={ isLoggedIn && userData.role.roleName === 'Admin' ? (<Products />):(<Navigate to={'/'}/>)} />
@@ -163,6 +154,8 @@ function App() {
                       <Route path="/setting" element={ isLoggedIn && userData.role.roleName === 'Admin' ? (<Setting />):(<Navigate to={'/'}/>)} />
                       <Route path="/shipments" element={ isLoggedIn && userData.role.roleName === 'Vendor' ? (<Shipments />):(<Navigate to={'/'}/>)} />
                       <Route path="/profile" element={ isLoggedIn ? (<Profile />):(<Navigate to={'/'}/>)} />
+                      <Route path="/editProfile" element={ isLoggedIn ? (<EditProfile />):(<Navigate to={'/'}/>)} />
+                      <Route path="/changepassword" element={ isLoggedIn ? (<ChangePassword />):(<Navigate to={'/'}/>)} />
                       <Route path="/myorders" element={ isLoggedIn ? (<MyOrders />):(<Navigate to={'/'}/>)} />
                       <Route path="/notifications" element={ isLoggedIn ? (<Notifications />):(<Navigate to={'/'}/>)} />
                       <Route path="/addvendor" element={ isLoggedIn && userData.role.roleName === 'Admin' ? (<Addvendors />):(<Navigate to={'/'}/>)} />
@@ -190,16 +183,16 @@ function App() {
                   
                   {/* <Footer />   */}
                 </div>
-              )}
+             
 
               <div className="col-1">
                 <ul className="list-group list-group-flush">
 
                 </ul>
               </div>
-              {onLoading && (
-                <Footer className='sticky-button'/>
-              )}
+              
+                <Footer className=''/>
+             
             </div>
 
           </div>

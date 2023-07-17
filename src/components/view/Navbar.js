@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import Login from './Login';
 import axios from 'axios';
 import { Box, LinearProgress } from '@mui/material';
+import HomePageSlider from '../../pages/view/HomePageSlider';
 // import Cart from '../../pages/view/Cart';
 
 
@@ -38,13 +39,17 @@ const Navbar = () => {
 
   return (
     <>
-      <nav style={{ background: 'black' }} className='Container sticky-top'>
+    
+      <nav
+        // style={{ background: '#116D6E' }}
+        style={{ background: 'azure' }}
+        className='Container  sticky-top navCSS'>
         {isLoggedIn ? (
           <div>
             {
               userData.role.roleName == 'Admin' ? (
                 <>
-                  <a style={{ color: 'white' }} className='mt-2 float-start' data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
+                  <a style={{ color: 'black' }} className='mt-2 float-start' data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
                     <span style={{ background: '' }} className="material-symbols-outlined">
                       menu
                     </span>
@@ -57,7 +62,7 @@ const Navbar = () => {
             {
               userData.role.roleName == 'User' ? (
                 <>
-                  <a style={{ color: 'white' }} className='mt-2 float-start' data-bs-toggle="offcanvas" href="#offcanvasExampleUser" role="button" aria-controls="offcanvasExample">
+                  <a style={{ color: 'black' }} className='mt-2 float-start' data-bs-toggle="offcanvas" href="#offcanvasExampleUser" role="button" aria-controls="offcanvasExample">
                     <span style={{ background: '' }} className="material-symbols-outlined">
                       menu
                     </span>
@@ -91,27 +96,45 @@ const Navbar = () => {
 
         </Link>
 
-        {isLoggedIn ? (
-              <>
-                <Link className='navAccountResponsive mt-1 mb-1 float-end' onClick={handleTagHeat}>
-                  <span id='logoutIcon' class="material-symbols-outlined">logout</span>&nbsp;<p className='navAccountText'>Logout</p>
-                </Link>
-                <Link className='navCartResponsive mt-1 mb-1 float-end' to={'/cart'}>
-                  <span id='logoutIcon' class="material-symbols-outlined">shopping_cart</span>&nbsp;<p className='cartText'>Cart</p>
-                </Link>
-                </>
-            ) : (
-              <>
-                <Link className='navAccountResponsive float-end mt-1 mb-1 float-end' to='/login'>
-                  <span id='logoutIcon' class="material-symbols-outlined">login</span>&nbsp;<p className='navAccountText'>Login</p>
-                </Link>
-              </>
-            )
+        
+        {/* <p style={{width:"px"}}></p> */}
 
-            }
+
+        {/* <li className="nav-item mx-auto" id="search"> */}
+
+        {/* <form className="form" style={{ background: 'azure' }}> */}
+
+        {/* <input type="" className='col-3 ml-5 mt-0 mb-0 form-control float-end' placeholder="Search..." /> */}
+        {/* <button className="button" type="submit">Search</button> */}
+        {/* </form> */}
+
+        {/* </li> */}
+
+
+
+        {isLoggedIn ? (
+          <div className="float-end">
+            <Link className='navAccountResponsive mt-1 mb-1 float-end' onClick={handleTagHeat}>
+              <span id='logoutIcon' class="material-symbols-outlined">logout</span>&nbsp;<p className='navAccountText'>Logout</p>
+            </Link>
+            <Link className='navCartResponsive mt-1 mb-1 float-end' to={'/cart'}>
+              <span id='logoutIcon' class="material-symbols-outlined">shopping_cart</span>&nbsp;<p className='cartText'>Cart</p>
+            </Link>
+          </div>
+        ) : (
+          <div className='float-end'>
+            <Link className='navAccountResponsive float-end mt-1 mb-1 float-end' to='/login'>
+              <span id='logoutIcon' class="material-symbols-outlined">login</span>&nbsp;<p className='navAccountText'>Login</p>
+            </Link>
+          </div>
+        )
+
+        }
 
 
       </nav>
+      {/* <HomePageSlider/> */}
+      
       {/* <nav style={{ background: '' }} class="navbar navbar-expand-lg sticky-top navbar1"> */}
       {/* <nav className='navbar navbar-expand-lg sticky-top eqippedNavbar'>
         <div class="navbar-n<av container-fluid">
@@ -191,6 +214,7 @@ const Navbar = () => {
 
 
 
+
       {/* <div style={{ display: 'inline' }} class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
@@ -251,7 +275,7 @@ const Navbar = () => {
 
 
       </nav> */}
-       
+
 
 
     </>

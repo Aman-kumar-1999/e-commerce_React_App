@@ -1,26 +1,166 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+// import '../css/AddVendors.css'
 import '../css/Profile.css'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { Link, useLocation, useParams } from 'react-router-dom';
+import baseUrl from '../../helper/helper';
+import axios from 'axios';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import Scrollbars from 'react-custom-scrollbars-2';
+import { Button, backdropClasses } from '@mui/material';
+import { AddCircle, Edit, EditAttributesOutlined, EditAttributesRounded, EditAttributesSharp, EditCalendar, EditNote, EditRoad } from '@mui/icons-material';
+import EditProfile from './EditUserProfile';
 
-import { useTheme } from '@mui/material/styles';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import Chip from '@mui/material/Chip';
-import { Button, Icon, IconButton, Input, InputAdornment } from '@mui/material';
-import { AddCircle, Send, Visibility } from '@mui/icons-material';
 
 function Profilecards() {
-  var isLoggedIn = localStorage.getItem('isLoggedIn');
-  var userData = JSON.parse(localStorage.getItem('userData'));
+  const userData = JSON.parse(localStorage.getItem('userData'))
+
+  const [user, setUser] = useState(userData);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+
+
+  }, [])
+
+
+  const updateUser = async (event) => {
+    event.preventDefault();
+
+    try {
+      setLoading(true)
+      const formData = new FormData();
+      // formData.append('images', images);
+      // formData.append('products', JSON.stringify(user));
+
+
+      const response = await axios.put(`${baseUrl}/user/`, formData);
+      // const response = await axios.post(`http://localhost:5005/product/`,formData);
+
+      console.log(response.data);
+      if (response.status == 200) {
+        setLoading(false);
+        toast.success('Your Profile has been Updated')
+
+      }
+      else if (response.status == 503) {
+        setLoading(false);
+        toast.error('Server is down !')
+      } else {
+        setLoading(false);
+        toast.error('Some thing went wrong !')
+      }
+
+    } catch (error) {
+      console.error(error);
+      setLoading(false);
+      toast.error('Server is down !')
+    }
+  };
+
+  const handleProductsChange = (event) => {
+    const { name, value } = event.target;
+    setUser(prevFormData => ({
+      ...prevFormData,
+      [name]: value
+    }));
+
+  }
   return (
     <>
+      <div className='row mt-3'>
+
+
+        <p className='col'>
+          <header className="cssui-usercard__header">
+
+
+            {(userData.imagePath != null || userData.imagePath != undefined) ? (
+              <div>
+                <img className='sidebarImg' src={userData.imagePath} alt='' />
+
+              </div>
+            ) : (<>
+              <div >
+                <span className="material-symbols-outlined logoSideBar" >account_circle</span>
+
+              </div>
+            </>)}
+            <div className="ml-4">
+              <h5 className="">{userData.firstName} {userData.lastName}</h5>
+              <h5 className="">{userData.profile}</h5>
+              <h5 className="">{userData.role.roleName}</h5>
+            </div>
+
+          </header>
+        </p>
+        <p className='col '>
+          <Link to={'/editProfile'} >
+            <Button variant="outlined" className='pl-4 p-2 bg-info text-light'  startIcon={<EditNote className='' ></EditNote>}>
+              Edit Your Profile
+            </Button>
+          </Link>
+        </p>
+        <p className='col'>
+          <Link to={'/changepassword'} >
+            <Button variant="outlined" className='p-2 bg-danger text-light' startIcon={<EditNote className='' ></EditNote>}>
+              Change Your Password
+            </Button>
+          </Link>
+        </p>
+      </div>
+
       
-      <article className="cssui-usercard">
+
+      <Scrollbars style={{ height: 435 }}>
+        <form className='container' encType="multipart/form-data" action="" onSubmit={updateUser}>
+
+          <Box
+            component="form"
+            sx={{
+              '& .MuiTextField-root': { mt: 1, width: '55ch' },
+            }}
+
+          >
+            <div className='row'>
+              <div className='col'>
+
+                <TextField color="success" size='small' variant="filled" type="text" className="form-control" id="firstName" label='First Name' onChange={handleProductsChange} name='firstName' value={user.firstName} disabled />
+                <TextField color="success" size='small' variant="filled" type="text" className="form-control" id="lastName" label='Last Name' onChange={handleProductsChange} name='lastName' value={user.lastName} disabled />
+                <TextField color="success" size='small' variant="filled" type="text" className="form-control" id="phone" label='Phone No.' onChange={handleProductsChange} name='phone' value={user.phone} disabled />
+                <TextField color="success" size='small' variant="filled" type="text" className="form-control" id="lastName" label='Designation' onChange={handleProductsChange} name='profile' value={user.profile} disabled />
+                <TextField color="success" size='small' variant="filled" type="text" className="form-control" id="role" label='Role Name' onChange={handleProductsChange} name='role' value={user.role.roleName} disabled />
+                <TextField color="success" size='small' variant="filled" type="text" className="form-control" id="institutionName" label='Institution Name' onChange={handleProductsChange} name='institutionName' value={user.institutionName} disabled />
+                <TextField color="success" size='small' variant="filled" type="text" className="form-control" id="documentNumber" label='Document Number' onChange={handleProductsChange} name='documentNumber' value={user.documentNumber} disabled />
+
+              </div>
+              <div className='col'>
+
+                <TextField color="success" size='small' variant="filled" type="email" className="form-control" id="email" value={user.email} name='email' label='Variation Name' onChange={handleProductsChange} disabled />
+                <TextField color="success" size='small' variant="filled" type="text" className="form-control" id="pincode" value={user.pincode} name='pincode' label='Pincode' onChange={handleProductsChange} disabled />
+                <TextField color="success" size='small' variant="filled" type="text" className="form-control" id="city" value={user.city} name='city' label='City' onChange={handleProductsChange} disabled />
+                <TextField color="success" size='small' variant="filled" type="text" className="form-control" id="state" value={user.state} name='state' label='State' onChange={handleProductsChange} disabled />
+                <TextField color="success" size='small' variant="filled" type="text" className="form-control" id="country" value={user.country} name='country' label='Country' onChange={handleProductsChange} disabled />
+                <TextField color="success" size='small' variant="filled" type="text" className="form-control" id="address" value={user.address} name='address' label='Full Address' onChange={handleProductsChange} disabled />
+
+
+                {/* <button className='button mt-3 form-control' onClick={updateUser}>Update Your Data</button> */}
+
+              </div>
+
+            </div>
+
+
+          </Box>
+        </form>
+      </Scrollbars>
+
+      {/* <article className="cssui-usercard">
         <div className="cssui-usercard__body">
           <header className="cssui-usercard__header">
-            {/* <img className='sidebarImg' src='aman.jpg' alt='Aman' /> */}
+            
             {(userData.imagePath != null || userData.imagePath != undefined) ? (
               <div>
                 <img className='sidebarImg' src={userData.imagePath} alt='' />
@@ -130,21 +270,8 @@ function Profilecards() {
             </div>
           </div>
         </div>
-        {/* <footer className="cssui-usercard__footer">
-              <a href="#0" className="cssui-social cssui-usercard__social">
-                <i className="cssui-icon icon-twitter"></i>
-                <span className="cssui-social__name">twitter</span>
-              </a>
-              <a href="#0" className="cssui-social cssui-usercard__social">
-                <i className="cssui-icon icon-linkedin"></i>
-                <span className="cssui-social__name">linkedin</span>
-              </a>
-              <a href="#0" className="cssui-social cssui-usercard__social">
-                <i className="cssui-icon icon-codepen"></i>
-                <span className="cssui-social__name">codepen</span>
-              </a>
-            </footer> */}
-      </article>
+        
+      </article> */}
 
 
 

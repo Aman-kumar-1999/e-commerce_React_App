@@ -3,67 +3,27 @@ import '../css/Sidebar.css';
 import { Link } from 'react-router-dom';
 import Scrollbars from 'react-custom-scrollbars-2';
 
+
+
 export default function Sidebar() {
 
-    // const clickActive = async (event) => {
 
-    //     document.geElementById('butt').style.backgroundColor = 'red';
 
-    // }
-    // var [isLoggedIn, setIsLoggedIn] = useState(false);
-    // var [userData, setUserData] = useState([])
-    // const [data, setData] = useState([]);
+
     var isLoggedIn = JSON.parse(localStorage.getItem('isLoggedIn'));
     var userData = JSON.parse(localStorage.getItem('userData'))
-    // useEffect(() => {)
-    //     // fetchData();
-    //     setIsLoggedIn = localStorage.getItem('isLoggedIn');
-    //     setUserData = JSON.parse(localStorage.getItem('userData'));
-    // }, []);
-
-    // const jsonString1 = '{"key1":"value1","key2":"value2","key3":{"nestedKey1":"nestedValue1","nestedKey2":"nestedValue2"}}';
-
-    // const obj = JSON.parse(jsonString1);
-
-    // console.log('jsonString1'+typeof obj);
-    // var jsonString = JSON.stringify(localStorage.getItem('userData'));
-
-    // console.log('jsonString '+typeof jsonString)
-    // var userData = JSON.parse(jsonString);
-
-
-    // var userData = localStorage.getItem('userData');  
-    // console.log('userData' + typeof userData)
-    // console.log(userData);
-
 
 
 
 
     return (
         <>
-        {/* <Scrollbars style={{ height: 635 }}> */}
-
-
-
-
-
             {
                 isLoggedIn ?
                     <div className='sidenav '>
 
-                        {/* <a data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
-                            <span className="material-symbols-outlined">
-                                menu
-                            </span>
-                        </a> */}
-
-
                         <div className="offcanvas mar-gin side-body" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
-                            {/* <div className="offcanvas-header">
-                                <h5 className="offcanvas-title" id="offcanvasExampleLabel"></h5>
-                                <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                            </div> */}
+                          
                             <div className="offcanvas-body">
                                 <ul className="list-group">
                                     <li className="list-group-item sidebarProfile">
@@ -134,17 +94,13 @@ export default function Sidebar() {
                         </div>
 
 
-                        {/* <Link to={'#'} className='link'><li className="list-group-item sidebar"><span className='material-symbols-outlined sidebarLogo'>k</span>k</li></Link>
-               
-                <Link to={'#'} className='link'><li className="list-group-item sidebar"><span className='material-symbols-outlined sidebarLogo'>settings</span>Settings</li></Link> */}
-
-                    </div>
+                      </div>
                     : (
                         <></>
                     )
 
             }
-            {/* </Scrollbars> */}
+
 
         </>
     )

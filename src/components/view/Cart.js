@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { Scrollbars } from 'react-custom-scrollbars-2';
 import axios from 'axios';
 import { toast } from "react-toastify";
+import { create } from "@mui/material/styles/createTransitions";
 
 
 function Cart() {
@@ -16,6 +17,7 @@ function Cart() {
     const userData = JSON.parse(localStorage.getItem('userData'))
     const [cart, setCart] = useState([]);
     const [tempCart, setTempCart] = useState([]);
+    const [createOr, setCreateOr] = useState([]);
     const navigate = useNavigate();
     const currentItems = [...cart];
     // const total1=[...totalPrice];
@@ -60,6 +62,7 @@ function Cart() {
 
         "productId": '',
         "vendorId": '',
+        "customerName": '',
         "vendorName": null,
         "vendorEmail": null,
         "productName": null,
@@ -120,10 +123,27 @@ function Cart() {
     async function callCheckoutApi(data) {
         axios.post(`${baseUrl}/order/`, data).then(
             (response) => {
-                console.log(response.data);
+                // console.log(response.data);
                 if (response.status == 200) {
                     // toast.success('Order has been Created')
-                    return response.data
+                    console.log("Created Order Details : " + JSON.stringify(response.data));
+                    setCreateOr(JSON.stringify(response.data));
+                    if (response.data.Email_STATUS === 'Failed') {
+                        console.log(response.data)
+                        toast.warning(`Order has been Created. But Email Sent : ${response.data.Email_STATUS}`);
+                    }
+                    if (response.data.WhatsApp_STATUS === 'Failed') {
+                        console.log(response.data)
+                        toast.warning(`Order has been Created. But WhatsApp Msg Sent : ${response.data.WhatsApp_STATUS}`);
+                    }
+                    if (response.data.WhatsApp_STATUS === 'Success.' || response.data.Email_STATUS === 'Success.') {
+                        console.log(response.data)
+                        toast.success(`Order has been Created. Sent Email : ${response.data.Email_STATUS} & Sent WhatsApp : ${response.data.WhatsApp_STATUS}`)
+                    }
+                    else {
+                        console.log(response.data)
+                        toast.warning(`Order has been Created. Sent Email : ${response.data.Email_STATUS} & Sent WhatsApp : ${response.data.WhatsApp_STATUS}`)
+                    } navigate('/checkoutsuccess')
                 }
 
             }).catch((error) => {
@@ -136,17 +156,18 @@ function Cart() {
     const checkout = async (item) => {
         try {
             // startPayment();
-            const response = null;
+
             // const formData = new FormData();
             // formData.append('images', images);
             // formData.append('products',JSON.stringify(products));
             await item.map((items) => {
                 // total += items.totalProductPrice;
                 let cart1 = JSON.stringify(items)
-                console.log('Item : ' + JSON.stringify(items))
+                // console.log('Item : ' + JSON.stringify(items))
                 let item1 = JSON.parse(cart1);
                 cart2.productId = item1.productId;
                 cart2.vendorId = item1.vendorId;
+                cart2.customerName = userData.firstName + " " + userData.lastName;
                 cart2.email = userData.email;
                 cart2.phone = userData.phone;
                 cart2.address = userData.address;
@@ -174,9 +195,11 @@ function Cart() {
                 cart2.containLiquid = item1.containLiquid;
                 cart2.totalProductPrice = (totalPrice + (18 / 100) * totalPrice + deliveryCharge).toFixed(0)
 
-                const data = callCheckoutApi(cart2);
-                navigate('/checkoutsuccess');
-                toast.success('Order has been Created')
+                callCheckoutApi(cart2);
+                
+                
+
+
 
                 // axios.post(`${baseUrl}/order/`, cart2).then(
                 //     (response) => {
@@ -195,7 +218,32 @@ function Cart() {
 
 
 
+            // if (response.data.Email_STATUS === 'Failed') {
+            //     console.log(response.data)
+            //     toast.warning(`Order has been Created. But Email Sent : ${response.data.Email_STATUS}`);
+            //     navigate('/checkoutsuccess')
+            // }
+            // if (response.data.WhatsApp_STATUS === 'Failed') {
+            //     console.log(response.data)
+            //     toast.warning(`Order has been Created. But WhatsApp Msg Sent : ${response.data.WhatsApp_STATUS}`);
+            //     navigate('/checkoutsuccess')
+            // }
+            // if (response.data.WhatsApp_STATUS === 'Success.' || response.data.Email_STATUS === 'Success.') {
+            //     console.log(response.data)
+            //     toast.success(`Order has been Created. Sent Email : ${response.data.Email_STATUS} & Sent WhatsApp : ${response.data.WhatsApp_STATUS}`)
+            //     navigate('/checkoutsuccess')
+            // }
+            // else {
+            //     console.log(response.data)
+            //     toast.warning(`Order can Created. Sent Email : ${response.data.Email_STATUS} & Sent WhatsApp : ${response.data.WhatsApp_STATUS}`)
+            // }
+
+            // navigate('/checkoutsuccess');
+
+
+
         } catch (error) {
+            toast.error("error occoure");
             // console.error(error);
 
         }
@@ -463,7 +511,7 @@ function Cart() {
                                         </div>
 
 
-                                    </div><br/>
+                                    </div><br />
                                     <div className="col mr-5">
                                         <div className="amount">
                                             <span className="material-symbols-outlined">
@@ -526,7 +574,7 @@ function Cart() {
                         {
                             cart.length == 0 ? (
                                 <>
-                                   
+
                                 </>
 
                             ) : (
@@ -537,7 +585,7 @@ function Cart() {
                                             <hr className="hr"></hr>
                                         </div>
                                     </div>
-                                    
+
                                     <div className="row">
 
                                         <div className="col-8">
@@ -548,7 +596,7 @@ function Cart() {
                                         </div>
                                         <div className="col-3">
                                             <div className="total-amount">
-                                                
+
                                                 <span style={{ fontSize: 16 }} className="material-symbols-outlined">
                                                     currency_rupee
                                                 </span>
@@ -569,7 +617,7 @@ function Cart() {
                                         </div>
                                         <div className="col-3">
                                             <div className="total-amount">
-                                               
+
                                                 <span style={{ fontSize: 16 }} className="material-symbols-outlined">
                                                     currency_rupee
                                                 </span>
@@ -590,12 +638,12 @@ function Cart() {
                                         </div>
                                         <div className="col-3">
                                             <div className="total-amount">
-                                                
+
                                                 <span style={{ fontSize: 16 }} className="material-symbols-outlined">
                                                     currency_rupee
                                                 </span>
                                                 {deliveryCharge} &nbsp; /-
-                                               
+
                                             </div>
 
                                         </div>
@@ -640,11 +688,11 @@ function Cart() {
                                             <p></p>
                                         </div>
                                         <div className="col-2 float-end">
-                                           
+
                                         </div>
                                         <div className="col-3">
                                             <div className="total-amount">
-                                               
+
                                                 <button className="button" onClick={() => checkout(cart)}>Checkout</button>
                                             </div>
 
@@ -652,7 +700,7 @@ function Cart() {
 
                                     </div>
 
-                                    
+
 
                                 </>
                             )

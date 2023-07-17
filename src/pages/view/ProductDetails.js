@@ -29,7 +29,7 @@ const ProductDetails = () => {
 
 
     useEffect(() => {
-        
+
         getProductByProductIdForTier();
         getProductByVariationId();
 
@@ -44,6 +44,7 @@ const ProductDetails = () => {
 
         "productId": '',
         "vendorId": '',
+        "customerName": '',
         "vendorName": null,
         "vendorEmail": null,
         "productName": null,
@@ -100,6 +101,7 @@ const ProductDetails = () => {
                 cart.email = userData.email;
                 cart.phone = userData.phone;
                 cart.address = userData.address;
+                cart.customerName = userData.firstName + " " + userData.lastName;
                 cart.vendorName = item1.vendorName;
                 cart.vendorEmail = item1.vendorEmail;
                 cart.productName = item1.productName;
@@ -172,6 +174,7 @@ const ProductDetails = () => {
                 cart.email = userData.email;
                 cart.phone = userData.phone;
                 cart.address = userData.address;
+                cart.customerName = userData.firstName + " " + userData.lastName;
                 cart.vendorName = item1.vendorName;
                 cart.vendorEmail = item1.vendorEmail;
                 cart.productName = item1.productName;
@@ -197,13 +200,32 @@ const ProductDetails = () => {
                 cart.totalProductPrice = item1.totalProductPrice;
                 // console.log("ProductId : " + cart.productId);
 
+                // response = axios.post(`http://localhost:5004/order/`, cart).then(
 
                 response = axios.post(`${baseUrl}/order/`, cart).then(
                     (response) => {
                         if (response.status == 200) {
-                            console.log(response.data)
-                            toast.success('Order has been Created.')
-                            navigate('/checkoutsuccess')
+                            
+
+
+                            //console.log(response.data)
+                            if (response.data.Email_STATUS === 'Failed') {
+                                console.log(response.data)
+                                toast.warning(`Order has been Created. But Email Sent : ${response.data.Email_STATUS}`);
+                            }
+                            if (response.data.WhatsApp_STATUS === 'Failed') {
+                                console.log(response.data)
+                                toast.warning(`Order has been Created. But WhatsApp Msg Sent : ${response.data.WhatsApp_STATUS}`);
+                            }
+                            if (response.data.WhatsApp_STATUS === 'Success.' || response.data.Email_STATUS === 'Success.') {
+                                console.log(response.data)
+                                toast.success(`Order has been Created. Sent Email : ${response.data.Email_STATUS} & Sent WhatsApp : ${response.data.WhatsApp_STATUS}`)
+                            }
+                            else {
+                                console.log(response.data)
+                                toast.warning(`Order has been Created. Sent Email : ${response.data.Email_STATUS} & Sent WhatsApp : ${response.data.WhatsApp_STATUS}`)
+                            } navigate('/checkoutsuccess')
+
 
                         }
                     }
@@ -254,7 +276,7 @@ const ProductDetails = () => {
             console.log("Tier : " + jsonproduct.TIER)
             setTier(jsonproduct.TIER)
             setProducts(jsonproduct.PRODUCT)
-            
+
 
 
         } catch (error) {
@@ -337,7 +359,7 @@ const ProductDetails = () => {
                             </div>
 
                         </div>
-                        
+
                         {
                             tier && tier.map(item => (
                                 <>
@@ -487,58 +509,59 @@ const ProductDetails = () => {
                     {
                         (data.length == 0) ? (<>
 
-                            {/* <p> No Equipments are Present</p> */}
+
                         </>) : (
-                            <><div className="row">
-                                {data.map(item => (
+                            <>
+                                <div className="row">
+                                    {data.map(item => (
 
 
-                                    <div className="col">
-                                        <div className="card-img">
-                                            <img className="productImage" src='https://eqipped.com/productImage.png' alt="...." />
+                                        <div className="col linkHover">
+                                            <Link to={'/productDetails'} className="card-img text-decoration-none ">
+                                                <img className="productImage" src='https://eqipped.com/productImage.png' alt="...." />
 
-                                            <div className='card-body'>
-                                                <p className='productName' >{
-                                                    item.productName.length >= 10 ? (<>{item.productName.toUpperCase().slice(0, 10)} ....</>) : (<>{item.productName.toUpperCase()}</>)
-                                                }</p>
-                                                <p className='offCategory'>{item.discountPercentage} % off</p>
-                                                <p className='natePriceWithDiscount'><span id='productIcon' className="material-symbols-outlined">
-                                                    currency_rupee
-                                                </span> {item.natePriceWithDiscount}</p>
-                                                <p className='brandName'>{item.brandName}</p>
-                                                <p className='individualProductPrice'><span id='productIcon' className="material-symbols-outlined">
-                                                    currency_rupee
-                                                </span> {item.individualProductPrice}</p>
-
-
-
-                                                {
-                                                    (isLoggedIn) ? (
-                                                        <div >
-                                                            <Link onClick={() => addToCart(item)}><div className='col-5 text-decoration-none cart-button-category'>Add to cart</div></Link>
-
-                                                            <Link onClick={() => checkout(item)}><div className='col-4 text-decoration-none cart-button1-category'>Buy now</div></Link>
+                                                <div className='card-body'>
+                                                    <p className='productName' >{
+                                                        item.productName.length >= 10 ? (<>{item.productName.toUpperCase().slice(0, 10)} ....</>) : (<>{item.productName.toUpperCase()}</>)
+                                                    }</p>
+                                                    <p className='offCategory'>{item.discountPercentage} % off</p>
+                                                    <p className='natePriceWithDiscount'><span id='productIcon' className="material-symbols-outlined">
+                                                        currency_rupee
+                                                    </span> {item.natePriceWithDiscount}</p>
+                                                    <p className='brandName'>{item.brandName}</p>
+                                                    <p className='individualProductPrice'><span id='productIcon' className="material-symbols-outlined">
+                                                        currency_rupee
+                                                    </span> {item.individualProductPrice}</p>
 
 
-                                                        </div>
-                                                    ) : (
-                                                        <>
-                                                            <Link to={'/login'} className="cart-btn"><div className='col-5 text-decoration-none cart-button-category'>Add to cart</div></Link>
 
-                                                            <Link to={'/login'} className="cart-btn"><div className='col-4 text-decoration-none cart-button1-category'>Buy now</div></Link>
+                                                    {
+                                                        (isLoggedIn) ? (
+                                                            <div >
+                                                                <Link onClick={() => addToCart(item)}><div className='col-5 text-decoration-none cart-button-category'>Add to cart</div></Link>
+
+                                                                <Link onClick={() => checkout(item)}><div className='col-4 float-end text-decoration-none cart-button1-category'>Buy now</div></Link>
 
 
-                                                        </>
-                                                    )
-                                                }
-                                            </div>
+                                                            </div>
+                                                        ) : (
+                                                            <>
+                                                                <Link to={'/login'} className="cart-btn"><div className='col-5 text-decoration-none cart-button-category'>Add to cart</div></Link>
+
+                                                                <Link to={'/login'} className="cart-btn"><div className='col-4 text-decoration-none cart-button1-category'>Buy now</div></Link>
+
+
+                                                            </>
+                                                        )
+                                                    }
+                                                </div>
+
+                                            </Link>
 
                                         </div>
 
-                                    </div>
-
-                                ))}
-                            </div>
+                                    ))}
+                                </div>
                                 {/* <div className="row row-cols-1 row-cols-md-7 g-8">
                                     {data.map(item => (
                                         <>
