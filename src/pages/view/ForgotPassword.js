@@ -6,102 +6,104 @@ import { Link, useNavigate } from 'react-router-dom';
 import baseUrl from '../../helper/helper';
 
 import axios from 'axios';
+import { Button, FormControl, InputAdornment, InputLabel, OutlinedInput } from '@mui/material';
+import { Email, Send } from '@mui/icons-material';
 
 const ForgotPassword = () => {
 
-    const [formEmailData, setFormEmailData] = useState({
-        recipient:''
-      });
-      
+  const [formEmailData, setFormEmailData] = useState({
+    recipient: ''
+  });
 
-    const handleForgetPasswordSubmit = async (event) => {
-        event.preventDefault();
-    
-        try {
-          if (formEmailData.recipient == null || formEmailData.recipient == '') {
-            toast.error('Kindly Enter Email Id', {
-              position: 'top-center'
-            });
-    
-          }
-          else {
-    
-            const response = await fetch(`${baseUrl}/user/forgetPassword`, {
-              method: 'PUT',
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify(formEmailData)
-            });
-            if (response.status == 503) {
-              toast.error('Server is down now', {
-                position: 'top-center'
-              });
-            } else if (response.status == 500) {
-              toast.error('Email Id is not register', {
-                position: 'top-center'
-              });
-            }
-            else if (response.ok) {
-    
-              const jsonData = await response.json();
-              // localStorage.setItem('userData', jsonData);
-              // Handle successful login response
-    
-              console.log(jsonData);
-              if (jsonData.STATUS == "SUCCESS") {
-                // setIsLoggedIn(true);
-                // isLoggedIn = true
-                // localStorage.setItem('isLoggedIn', isLoggedIn);
-                // console.log('is logged In : ' + localStorage.getItem('isLoggedIn'));
-                // navigate('/dashboard');
-                // window.location.reload();
-                // localStorage.clear();
-                // localStorage.getItem('isLoggedIn');
-                toast.success('congratulations ! You are Successful Reset Your Password. Default Password has been send to your email Id', {
-                  position: 'top-center'
-                });
-    
-              }
-              else {
-                toast('Email Id is not Present in our Data Base', {
-                  position: 'top-center'
-                });
-              }
-            } else {
-    
-              throw new Error('Failed to Reset your password');
-            }
-          }
-        } catch (err) {
-          // Handle error
-          toast('Server is down', {
+
+  const handleForgetPasswordSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      if (formEmailData.recipient == null || formEmailData.recipient == '') {
+        toast.error('Kindly Enter Email Id', {
+          position: 'top-center'
+        });
+
+      }
+      else {
+
+        const response = await fetch(`${baseUrl}/user/forgetPassword`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(formEmailData)
+        });
+        if (response.status == 503) {
+          toast.error('Server is down now', {
             position: 'top-center'
           });
-          console.error(err);
+        } else if (response.status == 500) {
+          toast.error('Email Id is not register', {
+            position: 'top-center'
+          });
+        }
+        else if (response.ok) {
+
+          const jsonData = await response.json();
+          // localStorage.setItem('userData', jsonData);
+          // Handle successful login response
+
+          console.log(jsonData);
+          if (jsonData.STATUS == "SUCCESS") {
+            // setIsLoggedIn(true);
+            // isLoggedIn = true
+            // localStorage.setItem('isLoggedIn', isLoggedIn);
+            // console.log('is logged In : ' + localStorage.getItem('isLoggedIn'));
+            // navigate('/dashboard');
+            // window.location.reload();
+            // localStorage.clear();
+            // localStorage.getItem('isLoggedIn');
+            toast.success('congratulations ! You are Successful Reset Your Password. Default Password has been send to your email Id', {
+              position: 'top-center'
+            });
+
+          }
+          else {
+            toast('Email Id is not Present in our Data Base', {
+              position: 'top-center'
+            });
+          }
+        } else {
+
+          throw new Error('Failed to Reset your password');
         }
       }
-      const handleEmailInputChange = (event) => {
-        const { name, value } = event.target;
-        setFormEmailData(prevFormData => ({
-          ...prevFormData,
-          [name]: value
-        }));
-      }
+    } catch (err) {
+      // Handle error
+      toast('Server is down', {
+        position: 'top-center'
+      });
+      console.error(err);
+    }
+  }
+  const handleEmailInputChange = (event) => {
+    const { name, value } = event.target;
+    setFormEmailData(prevFormData => ({
+      ...prevFormData,
+      [name]: value
+    }));
+  }
 
-  
+
 
 
   return (
     <div>
 
-      <div className='container-fluid '>
+      <div className='container-fluid mt-5'>
 
         <div className='row'>
           <div className='col mt-5'>
-            <img className="mb-4" src='https://eqipped.com/eqippedLogo.png' />
+            <Link to={'/'}><img className="signUpLogo" src='E (14).png' /></Link>
             <h1 className='mb-4'>Welcome to Eqipped </h1>
-            <h6>For Login ? <Link style={{color:'red'}} to={'/login'}>login</Link></h6>
+            <h6>For Login ? <Link style={{ color: 'red' }} to={'/login'}>login</Link></h6>
             <h6>Continue as guest</h6>
           </div>
           {/* <div className='col mr-5 ml-2'>
@@ -110,12 +112,25 @@ const ForgotPassword = () => {
           <div className='col'>
             <form onSubmit={handleForgetPasswordSubmit}>
               <img src='https://eqipped.com/image/defaultProfileImage.png' />
-              <label className="label1" aria-hidden="true">Forgot Your Password</label>
+              <label className="label1" aria-hidden="true"> Forgot Your Password</label>
+              <FormControl fullWidth sx={{ m: 1 }}>
+                <InputLabel htmlFor="outlined-adornment-amount">Email Id</InputLabel>
+                <OutlinedInput
+                required name="recipient"
+                value={formEmailData.recipient} onChange={handleEmailInputChange}
+                  id="outlined-adornment-amount"
+                  startAdornment={<Email className='mr-2'/>}
+                  label="Email Id"
+                />
+              </FormControl>
+              {/* <input required name="recipient" type="text" id="recipient"
+                value={formEmailData.recipient} onChange={handleEmailInputChange} className='form-control' placeholder='Email Id' /> */}
 
-              <input required name="recipient" type="text" id="recipient"
-                value={formEmailData.recipient} onChange={handleEmailInputChange} className='form-control' placeholder='Email Id' />
-              
-              <button className='button mt-5 form-control' onClick={handleForgetPasswordSubmit}>Send New Password</button>
+
+              {/* <Button className='button mt-5 form-control' variant="contained" onClick={handleForgetPasswordSubmit} endIcon={<Send />}> 
+                Send
+              </Button> */}
+              <button className='button mt-5 form-control' onClick={handleForgetPasswordSubmit} >  Send New Password &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <Send /></button>
               <button type="reset" className='button mt-3 form-control'  >Clear</button>
             </form>
           </div>

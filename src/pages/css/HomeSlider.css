@@ -16,16 +16,21 @@
   margin-left: 20px;
 
 }
-@supports (-ms-ime-align:auto) {
+/* @supports (-ms-ime-align:auto) {
   .selector {
       property: searchBoxCSS;
   }
-}
+} */
 .searchBoxCSS{
-  margin-top: -440px;
+  margin-top: -15px;
   /* margin-bottom: 270px; */
-  margin-bottom: 400px;
-  float: initial;
+  margin-right: 0px;
+  margin-left: -250px;
+  /* margin-bottom: 400px; */
+  /* background-color: #116D6E; */
+  /* position: sticky; */
+  display: inline;
+  position: fixed;
   
   
   
@@ -33,6 +38,8 @@
 }
 
 .searchBoxImputNavbar{
+ display: inline;
+
   width: 500px;
 }
 
@@ -404,6 +411,7 @@
   color: black;
 }
 
+
 .carasouldiv h1 {
   font-weight: bold;
   font-size: 50px;
@@ -448,14 +456,29 @@
 
   .searchBoxImputNavbar{
     width: 230px;
-    position: relative;
-    margin-top: 50px;
+    /* position: relative; */
+    /* margin-top: 0px; */
     z-index: 0;
+    /* position: fixed; */
   }
   .searchBoxCSS{
     margin-top: -440px;
+    display: inline;
+    margin-left: -110px;
+    margin-right: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    justify-content: center;
+    align-items: center;
     /* margin-bottom: 270px; */
-    margin-bottom: 370px;  
+    position: absolute;
+    /* margin-bottom: 370px;   */
+    z-index: 0;
+  }
+  .responsivCarosel{
+    /* z-index: -1; */
+  }
+  .carasouldiv{
     z-index: 0;
   }
   

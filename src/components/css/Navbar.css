@@ -135,8 +135,12 @@
 
 .eqippedLogo {
   position: relative;
-  width: 150px;
-  margin-right: -200px;
+  width: 17%;
+  height: 10%;
+  float: left;
+  margin-left: 50px;
+  /* width: 150px; */
+  /* margin-right: -300px; */
   
 }
 
@@ -179,7 +183,7 @@
 
 }
 #logoutIcon{
-  margin-right: 40px;
+  margin-right: 50px;
   margin-top: 5px;
   
 }
@@ -211,13 +215,15 @@
   /* margin-top: -15px;
   margin-left: 130px; */
 
-  background: #FFFFFF;
+  background: #116D6E;
+  color: white;
   border-radius: 8px;
-  color: #222222;
+  
 }
 .navCartResponsive:hover{
   text-decoration: none;
-  color: rgb(255, 72, 0);
+  background: #679192;
+  color: wheat;
 }
 
 #shoppingCart{
@@ -246,22 +252,17 @@
   color: rgb(255, 72, 0);
 }
 .navAccountResponsive{
-  /* position: absolute; */
   width: 103px;
   height: 36px;
-  /* left: 880px;
-  top: 25px;
-  margin-top: -15px;
-  margin-left: 250px; */
-
-  background: #FFFFFF;
+  background: #116D6E;  
+  color: white;
   border-radius: 8px;
-  color: #222222;
   margin-left: 10px;
 }
 .navAccountResponsive:hover{
   text-decoration: none;
-  color: rgb(255, 72, 0);
+  background: #679192;
+  color: wheat;
 }
 
 #navAccount{
@@ -269,8 +270,10 @@
   margin-top: 5px;
  }
  .navAccountText{
-   margin-top: -28px;
-   margin-left: 30px;
+   margin-top: -30px;
+   margin-left: 40px;
+   margin-right: 40px;
+   padding-right: 40px;
  }
 
 .logo {
@@ -292,6 +295,10 @@
   /* border: 1px solid currentColor; */
   border-radius: 10px;
 
+}
+.menuNav{
+  margin-top: 12px;
+  margin-left: 20px;
 }
 
 .navCSS{
@@ -429,60 +436,40 @@ h3 {
 
 @media (max-width: 480px) {
 
-  .navCartResponsive {
-    /* position: absolute; */
+  /* .navCartResponsive {
     width: 65px;
     height: 36px;
     font-size: 17px;
     margin-left: 0px;
-    margin-right:5px;
-    /* top: 25px;
-    margin-top: 120px;
-    /* margin-left: 130px; */
-  
-    background: #FFFFFF;
+    margin-right:5px;   
     border-radius: 8px;
-    color: #222222;
+   
+  } */
+  .menuNav{
+    margin-top: 12px;
+    margin-left: 10px;
+    margin-right: 10px;
   }
-  .navCartResponsive:hover{
-    text-decoration: none;
-    color: rgb(255, 72, 0);
-  }
+  
   .eqippedLogo{
-    width: 140px;
-    margin-left: -40px;
+    width: 70px;
+    margin-left: 0px;
   }
-  #logoutIcon{
+  /* #logoutIcon{
     margin-right: 40px;
     margin-top: 5px;
     font-size: 20px;
     
-  }
-  .navAccountResponsive{
-    /* position: absolute; */
+  } */
+  /* .navAccountResponsive{
     width: 90px;
     height: 36px;
     font-size: 17px;
     margin-left: 0px;
     margin-right: 0px;
-    
-    /* padding-right: 10px; */
-    /* padding-left: 7px; */
-    /* left: 880px;
-    top: 25px;
-    margin-top: -15px;
-    margin-left: 250px; */
-    
-
-  
-    background: #FFFFFF;
     border-radius: 8px;
-    color: #222222;
-  }
-  .navAccountResponsive:hover{
-    text-decoration: none;
-    color: rgb(255, 72, 0);
-  }
+  } */
+  
   
 }
 

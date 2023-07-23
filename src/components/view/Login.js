@@ -64,6 +64,7 @@ const Login = () => {
       else {
         setLoading(true);
 
+        // const response = await axios.post(`http://localhost:5003/user/api/login`,
         const response = await axios.post(`${baseUrl}/user/api/login`,
 
           formData
@@ -148,11 +149,11 @@ const Login = () => {
       }
 
 
-      <div className='container-fluid '>
+      <div className='container-fluid mt-5'>
 
         <div className='row'>
           <div className='col mt-5'>
-            <img className="mb-4" src='https://eqipped.com/eqippedLogo.png' />
+          <Link to={'/'}><img className="signUpLogo" src='E (14).png' /></Link>
             <h1 className='mb-4'>Welcome to Eqipped </h1>
             <h6>Already have an account ? <Link style={{ color: 'red' }} to={'/signup'}>signup</Link></h6>
             <h6>Continue as guest</h6>

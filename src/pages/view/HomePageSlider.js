@@ -2,6 +2,8 @@
 import React, { useEffect } from 'react'
 import { TypeAnimation } from 'react-type-animation';
 import '../css/HomePageSlider.css'
+import { Link } from 'react-router-dom';
+
 const HomePageSlider = () => {
 
   const imgCollection = [
@@ -75,13 +77,14 @@ const HomePageSlider = () => {
                 </div>
               </div>
             </div>
-            <div className="buttons">
-              <button>About Us</button>
+            {/* <div className="buttons">
+              <Link to={'/testimonial'}><button>About Us</button></Link>
               <button>Follow Us</button>
-            </div>
+            </div> */}
           </div>
           <div className='landingPageMicroScop'>
             <img className='landingPageImage' src='microscope-3d-icon-png.png' />
+            
           </div>
         </div>
       </div>

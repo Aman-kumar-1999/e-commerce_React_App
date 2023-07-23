@@ -39,6 +39,7 @@ function EditUserImage() {
         avatar: userData.avatar,
         document: userData.document,
         roleId: userData.roleId,
+        subVendorId: userData.subVendorId,
         imageName: useImagName,
         imagePath: useImagPath
     });

@@ -15,16 +15,17 @@
 
 .text-content {
   position: absolute;
-  top: 2%;
+  top: 1%;
   left: 7%;
   z-index: 0;
+
 }
 
 .name {
   color: #3a665c;
   font-size: 75px;
   font-weight: 600;
-  margin: -20px 0 0 -40px;
+  margin: -20px 0 0 0px;
   /* color: #C346C2; */
 }
 
@@ -261,7 +262,8 @@
 
   .text-content {
     position: absolute;
-    top: 8%;
+    /* top: 8%; */
+    margin-top: 250px;
     left: 7%;
     z-index: 0;
   }
@@ -270,7 +272,7 @@
     color: #2c3350;
     font-size: 35px;
     font-weight: 600;
-    margin-left: -30px;
+    margin-left: -10px;
     z-index: 0;
   }
 

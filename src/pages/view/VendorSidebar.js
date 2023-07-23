@@ -107,8 +107,9 @@ export default function VendorSidebar() {
                                 {(userData.role.roleSideBarOptions.product === 'Yes') ? (
                                     <Link to={'/vendorProduct'} className='link'><li className="list-group-item sidebar" data-bs-dismiss="offcanvas" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"><span className='material-symbols-outlined sidebarLogo'>science</span>Product</li></Link>
                                 ) : (<></>)}
-                                {(userData.role.roleSideBarOptions.vendor === 'Yes') ? (
-                                    <Link to={'/vendors'} className='link'><li className="list-group-item sidebar" data-bs-dismiss="offcanvas" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"><span className='material-symbols-outlined sidebarLogo'>diversity_3</span>Vendor</li></Link>
+                                {((userData.role.roleSideBarOptions.vendor === 'Yes') && (userData.subVendorId === 'No')) ? (
+                                    
+                                    <Link to={'/addvendor'} className='link'><li className="list-group-item sidebar" data-bs-dismiss="offcanvas" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"><span className='material-symbols-outlined sidebarLogo'>diversity_3</span>Add Sub Vendor</li></Link>
                                 ) : (<></>)}
                                 {(userData.role.roleSideBarOptions.user === 'Yes') ? (
                                     <Link to={'/user'} className='link'><li className="list-group-item sidebar" data-bs-dismiss="offcanvas" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"><span className='material-symbols-outlined sidebarLogo'>person</span>User</li></Link>

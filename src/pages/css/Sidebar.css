@@ -4,6 +4,7 @@
 
 .sidenav {
     z-index: 1;
+
 }
 .logoSideBar{
     color: red;
@@ -20,7 +21,7 @@
     background: transparent;   
 }
 .side-body-vendor{
-    margin-bottom: 145px;
+    margin-bottom: 115px;
     margin-left : -30px;
     background: transparent;
 }
@@ -76,6 +77,7 @@
   
     margin-left: -35px;
     position: absolute;
+    
 }
 
 .sidebarImg {
@@ -107,9 +109,10 @@
 @media (max-width: 480px){
     
     .side-body{
-        margin-bottom: 180px;
+        margin-bottom: 120px;
         margin-left : -29px;
-        margin-top: -400px;
+        /* margin-top: -400px; */
+        
        
     
       
@@ -124,7 +127,7 @@
     }
 
     .side-body-vendor{
-        margin-bottom: 345px;
+        margin-bottom: 255px;
         margin-left : -30px;        
         background: transparent;
     
@@ -139,7 +142,78 @@
 
 }
 
-@media (max-width:  740px){
+/* Small devices (landscape phones, 576px and up) */
+
+@media (width:  393px){
+    
+    .side-body{
+        margin-bottom: 280px;
+        margin-left : -29px;
+        margin-top: -400px;
+       
+    
+       
+    }
+}
+@media (width:  360px){
+    
+    .side-body{
+        margin-bottom: 180px;
+        margin-left : -29px;
+        margin-top: -400px;
+       
+    
+       
+    }
+}
+@media (width:  375px){
+    
+    .side-body{
+        margin-bottom: 100px;
+        margin-left : -29px;
+        margin-top: -400px;
+       
+    
+       
+    }
+}
+@media (width:  412px){
+    
+    .side-body{
+        margin-bottom: 280px;
+        margin-left : -29px;
+        margin-top: -400px;
+       
+    
+       
+    }
+}
+@media (width:  414px){
+    
+    .side-body{
+        margin-bottom: 330px;
+        margin-left : -29px;
+        margin-top: -400px;
+       
+    
+       
+    }
+}
+@media (width:  390px){
+    
+    .side-body{
+        margin-bottom: 270px;
+        margin-left : -29px;
+        margin-top: -400px;
+       
+    
+       
+    }
+}
+
+/* Medium devices (tablets, 768px and up) */
+
+/* @media (max-width:  768px){
     
     .side-body{
         margin-bottom: 120px;
@@ -174,6 +248,20 @@
         padding-top: -80px;
     }
 
-}
+} */
+
+ /* Large devices (desktops, 992px and up) */
+
+@media (min-width: 992px) {
 
     
+
+
+}
+    
+/* Extra large devices (large desktops, 1200px and up) */
+
+@media (min-width: 1200px) {
+
+
+}

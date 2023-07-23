@@ -127,23 +127,23 @@ function Profilecards() {
             <div className='row'>
               <div className='col'>
 
-                <TextField color="success" size='small' variant="filled" type="text" className="form-control" id="firstName" label='First Name' onChange={handleProductsChange} name='firstName' value={user.firstName} disabled />
-                <TextField color="success" size='small' variant="filled" type="text" className="form-control" id="lastName" label='Last Name' onChange={handleProductsChange} name='lastName' value={user.lastName} disabled />
-                <TextField color="success" size='small' variant="filled" type="text" className="form-control" id="phone" label='Phone No.' onChange={handleProductsChange} name='phone' value={user.phone} disabled />
-                <TextField color="success" size='small' variant="filled" type="text" className="form-control" id="lastName" label='Designation' onChange={handleProductsChange} name='profile' value={user.profile} disabled />
-                <TextField color="success" size='small' variant="filled" type="text" className="form-control" id="role" label='Role Name' onChange={handleProductsChange} name='role' value={user.role.roleName} disabled />
-                <TextField color="success" size='small' variant="filled" type="text" className="form-control" id="institutionName" label='Institution Name' onChange={handleProductsChange} name='institutionName' value={user.institutionName} disabled />
-                <TextField color="success" size='small' variant="filled" type="text" className="form-control" id="documentNumber" label='Document Number' onChange={handleProductsChange} name='documentNumber' value={user.documentNumber} disabled />
+                <TextField color="success" size='small' variant="filled" type="text" className="form-control profileText" id="firstName" label='First Name' onChange={handleProductsChange} name='firstName' value={user.firstName} disabled />
+                <TextField color="success" size='small' variant="filled" type="text" className="form-control profileText" id="lastName" label='Last Name' onChange={handleProductsChange} name='lastName' value={user.lastName} disabled />
+                <TextField color="success" size='small' variant="filled" type="text" className="form-control profileText" id="phone" label='Phone No.' onChange={handleProductsChange} name='phone' value={user.phone} disabled />
+                <TextField color="success" size='small' variant="filled" type="text" className="form-control profileText" id="lastName" label='Designation' onChange={handleProductsChange} name='profile' value={user.profile} disabled />
+                <TextField color="success" size='small' variant="filled" type="text" className="form-control profileText" id="role" label='Role Name' onChange={handleProductsChange} name='role' value={user.role.roleName} disabled />
+                <TextField color="success" size='small' variant="filled" type="text" className="form-control profileText" id="institutionName" label='Institution Name' onChange={handleProductsChange} name='institutionName' value={user.institutionName} disabled />
+                <TextField color="success" size='small' variant="filled" type="text" className="form-control profileText" id="documentNumber" label='Document Number' onChange={handleProductsChange} name='documentNumber' value={user.documentNumber} disabled />
 
               </div>
               <div className='col'>
 
-                <TextField color="success" size='small' variant="filled" type="email" className="form-control" id="email" value={user.email} name='email' label='Variation Name' onChange={handleProductsChange} disabled />
-                <TextField color="success" size='small' variant="filled" type="text" className="form-control" id="pincode" value={user.pincode} name='pincode' label='Pincode' onChange={handleProductsChange} disabled />
-                <TextField color="success" size='small' variant="filled" type="text" className="form-control" id="city" value={user.city} name='city' label='City' onChange={handleProductsChange} disabled />
-                <TextField color="success" size='small' variant="filled" type="text" className="form-control" id="state" value={user.state} name='state' label='State' onChange={handleProductsChange} disabled />
-                <TextField color="success" size='small' variant="filled" type="text" className="form-control" id="country" value={user.country} name='country' label='Country' onChange={handleProductsChange} disabled />
-                <TextField color="success" size='small' variant="filled" type="text" className="form-control" id="address" value={user.address} name='address' label='Full Address' onChange={handleProductsChange} disabled />
+                <TextField color="success" size='small' variant="filled" type="email" className="form-control profileText" id="email" value={user.email} name='email' label='Variation Name' onChange={handleProductsChange} disabled />
+                <TextField color="success" size='small' variant="filled" type="text" className="form-control profileText" id="pincode" value={user.pincode} name='pincode' label='Pincode' onChange={handleProductsChange} disabled />
+                <TextField color="success" size='small' variant="filled" type="text" className="form-control profileText" id="city" value={user.city} name='city' label='City' onChange={handleProductsChange} disabled />
+                <TextField color="success" size='small' variant="filled" type="text" className="form-control profileText" id="state" value={user.state} name='state' label='State' onChange={handleProductsChange} disabled />
+                <TextField color="success" size='small' variant="filled" type="text" className="form-control profileText" id="country" value={user.country} name='country' label='Country' onChange={handleProductsChange} disabled />
+                <TextField color="success" size='small' variant="filled" type="text" className="form-control profileText" id="address" value={user.address} name='address' label='Full Address' onChange={handleProductsChange} disabled />
 
 
                 {/* <button className='button mt-3 form-control' onClick={updateUser}>Update Your Data</button> */}

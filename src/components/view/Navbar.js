@@ -39,17 +39,17 @@ const Navbar = () => {
 
   return (
     <>
-    
+
       <nav
         // style={{ background: '#116D6E' }}
-        style={{ background: 'azure' }}
+        style={{ background: '#F0FFFF' }}
         className='Container  sticky-top navCSS'>
         {isLoggedIn ? (
           <div>
             {
               userData.role.roleName == 'Admin' ? (
                 <>
-                  <a style={{ color: 'black' }} className='mt-2 float-start' data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
+                  <a style={{ color: '#116D6E' }} className='float-start menuNav' data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
                     <span style={{ background: '' }} className="material-symbols-outlined">
                       menu
                     </span>
@@ -62,7 +62,7 @@ const Navbar = () => {
             {
               userData.role.roleName == 'User' ? (
                 <>
-                  <a style={{ color: 'black' }} className='mt-2 float-start' data-bs-toggle="offcanvas" href="#offcanvasExampleUser" role="button" aria-controls="offcanvasExample">
+                  <a style={{ color: '#116D6E' }} className='float-start menuNav' data-bs-toggle="offcanvas" href="#offcanvasExampleUser" role="button" aria-controls="offcanvasExample">
                     <span style={{ background: '' }} className="material-symbols-outlined">
                       menu
                     </span>
@@ -74,7 +74,7 @@ const Navbar = () => {
             {
               userData.role.roleName == 'Vendor' ? (
                 <>
-                  <a style={{ color: 'white' }} className='mt-2 float-start' data-bs-toggle="offcanvas" href="#offcanvasExampleVendor" role="button" aria-controls="offcanvasExample">
+                  <a style={{ color: '#116D6E' }} className='float-start menuNav' data-bs-toggle="offcanvas" href="#offcanvasExampleVendor" role="button" aria-controls="offcanvasExample">
                     <span style={{ background: '' }} className="material-symbols-outlined">
                       menu
                     </span>
@@ -91,12 +91,14 @@ const Navbar = () => {
         <Link to={'/'}
         >
           <div className='float-start'>
-            <img className='eqippedLogo' src='https://eqipped.com/eqippedLogo.png' />
+          {/* <img className='eqippedLogo' src='E (12).png' /> */}
+          <img className='eqippedLogo' src='https://eqipped.com/E (4).png' />
+            {/* <img className='eqippedLogo' src='https://eqipped.com/eqippedLogo.png' /> */}
           </div>
 
         </Link>
 
-        
+
         {/* <p style={{width:"px"}}></p> */}
 
 
@@ -114,6 +116,10 @@ const Navbar = () => {
 
         {isLoggedIn ? (
           <div className="float-end">
+            {/* <Link className='mt-2 p-4' to={'/cart'}>
+              <span id='' class="material-symbols-outlined">shopping_cart</span>
+            </Link>
+            <Link className='p-3' onClick={handleTagHeat}><span id='' class="material-symbols-outlined">account_circle</span></Link> */}
             <Link className='navAccountResponsive mt-1 mb-1 float-end' onClick={handleTagHeat}>
               <span id='logoutIcon' class="material-symbols-outlined">logout</span>&nbsp;<p className='navAccountText'>Logout</p>
             </Link>
@@ -134,7 +140,7 @@ const Navbar = () => {
 
       </nav>
       {/* <HomePageSlider/> */}
-      
+
       {/* <nav style={{ background: '' }} class="navbar navbar-expand-lg sticky-top navbar1"> */}
       {/* <nav className='navbar navbar-expand-lg sticky-top eqippedNavbar'>
         <div class="navbar-n<av container-fluid">

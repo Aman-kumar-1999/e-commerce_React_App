@@ -272,110 +272,142 @@ function AddProducts() {
                 </div>
             </div>
             <Scrollbars style={{ height: 435 }}>
-            <form className='container' encType="multipart/form-data" action="" onSubmit={createProducts}>
+                <form className='container' encType="multipart/form-data" action="" onSubmit={createProducts}>
 
-                <Box
-                    component="form"
-                    sx={{
-                        '& .MuiTextField-root': { m: 1, width: '55ch' },
-                    }}
+                    <Box
+                        component="form"
+                        sx={{
+                            '& .MuiTextField-root': { m: 1, width: '55ch' },
+                        }}
                     // noValidate
                     // autoComplete="off"
                     // encType="multipart/form-data" action="" onSubmit={createProducts}
-                >
-                    <div className='row'>
-                        <div className='col'>
-                            <TextField
-                                required
-                                color="success" id="productName"
-                                label="Product Name"
-                                onChange={handleProductsChange} name='productName' value={products.productName}
-                                size='small'
-                                variant="filled"
-                            />
+                    >
+                        <div className='row'>
+                            <div className='col'>
+                                <TextField
+                                    required
+                                    color="success" id="productName"
+                                    label="Product Name"
+                                    onChange={handleProductsChange} name='productName' value={products.productName}
+                                    size='small'
+                                    variant="filled"
+                                />
 
-                            <TextField color="success" size='small' variant="filled" type="text" className="form-control" id="productDescription" label='Product Description' onChange={handleProductsChange} name='productDescription' value={products.productDescription} required />
+                                <TextField color="success" size='small' variant="filled" type="text" className="form-control" id="productDescription" label='Product Description' onChange={handleProductsChange} name='productDescription' value={products.productDescription} required />
 
-                            <TextField color="success" size='small' variant="filled" type="text" className="form-control" id="category" name='category' value={products.category} aria-describedby="emailHelp" label='Category' onChange={handleProductsChange} required />
+                                <TextField color="success" size='small' variant="filled" type="text" className="form-control" id="category" name='category' value={products.category} aria-describedby="emailHelp" label='Category' onChange={handleProductsChange} required />
 
-                            <TextField color="success" size='small' variant="filled" type="number" className="form-control" id="productQuantity" value={products.productQuantity} name='productQuantity' label='Product Quantity' onChange={handleProductsChange} required />
+                                <TextField color="success" size='small' variant="filled" type="number" InputLabelProps={{ shrink: true, }} className="form-control" id="productQuantity" value={products.productQuantity} name='productQuantity' label='Product Quantity' onChange={handleProductsChange} required />
 
-                            <TextField color="success" size='small' variant="filled" type="text" className="form-control" id="brandName" value={products.brandName} name='brandName' label='Brand Name' onChange={handleProductsChange} required />
+                                <TextField color="success" size='small' variant="filled" type="text" className="form-control" id="brandName" value={products.brandName} name='brandName' label='Brand Name' onChange={handleProductsChange} required />
 
-                            <TextField color="success" size='small' variant="filled" type="number" className="form-control" id="individualProductPrice" value={products.individualProductPrice} name='individualProductPrice' aria-describedby="emailHelp" label='Individual Product Price' onChange={handleProductsChange} required />
+                                <TextField color="success" size='small' variant="filled" type="number" InputLabelProps={{ shrink: true, }} className="form-control"
+                                    id="individualProductPrice" value={products.individualProductPrice} name='individualProductPrice'
+                                    aria-describedby="emailHelp" label='Marked price of product' onChange={handleProductsChange}
+                                    InputProps={{
+                                        startAdornment: (
+                                            <InputAdornment position="start">
+                                                <span id='' className="material-symbols-outlined">currency_rupee</span>
+                                            </InputAdornment>
+                                        ),
+                                    }}
+                                    required />
 
-                            <TextField color="success" size='small' variant="filled" type="number" className="form-control" id="discountPercentage" value={products.discountPercentage} name='discountPercentage' label='Discount' onChange={handleProductsChange} required />
+                                <TextField color="success" size='small' variant="filled" type="number" InputLabelProps={{ shrink: true, }} className="form-control" id="discountPercentage" value={products.discountPercentage}
+                                    name='discountPercentage'
+                                    onChange={handleProductsChange}
+                                    label='Discount Percentage'
+                                    helperText="Discount will be on Marked Price"
+                                    InputProps={{
+                                        endAdornment: (
+                                            <InputAdornment position="end">
+                                                <span id='' className="material-symbols-outlined">percent</span>
+                                            </InputAdornment>
+                                        ),
+                                    }}
 
-                            <TextField color="success" size='small' variant="filled" type="text" className="form-control" id="bulkCode" value={products.bulkCode} name='bulkCode' label='BulkCode' onChange={handleProductsChange} required />
+                                    required />
 
-                            <TextField color="success" size='small' variant="filled" type="number" className="form-control" id="gst" value={products.gst} name='gst' label='GST' onChange={handleProductsChange} required />
-                            <TextField color="success" size='small' variant="filled" type="text" className="form-control" id="tierNo" value={products.tierNo} name='tierNo' label='Tier No ' onChange={handleProductsChange} required />
+                                <TextField color="success" size='small' variant="filled" type="text" className="form-control" id="bulkCode" value={products.bulkCode} name='bulkCode' label='BulkCode' onChange={handleProductsChange} required />
+
+                                <TextField color="success" size='small' variant="filled" type="number" InputLabelProps={{ shrink: true, }} className="form-control" id="gst" value={products.gst} name='gst' label='GST' onChange={handleProductsChange} required />
+                                <TextField color="success" size='small' variant="filled" type="text" className="form-control" id="tierNo" value={products.tierNo} name='tierNo' label='Tier No ' onChange={handleProductsChange} required />
 
 
 
-                        </div>
-                        <div className='col'>
-                        {/* <label htmlFor='cars'>Variation Id</label> */}
-                            {/* <select onChange={event => handleProductsChange(event)} className="btn-secondary" name="variationId" id="cars">
+                            </div>
+                            <div className='col'>
+                                {/* <label htmlFor='cars'>Variation Id</label> */}
+                                {/* <select onChange={event => handleProductsChange(event)} className="btn-secondary" name="variationId" id="cars">
                                
                                 <option value="Cancelled Order">Cancelled Order</option>
                                 <option value="Confirmed Order">Confirmed Order</option>
                                 <option value="Pending Order">Pending Order</option>
                                 <option value="Recent Order">Recent Order</option>
                             </select> */}
-                            <FormControl variant="filled" sx={{ m: 1, minWidth: 480 }}
-                            >
-                                <InputLabel id="demo-simple-select-filled-label" >Variation Id</InputLabel>
-                                <Select
-
-                                    labelId="demo-simple-select-filled-label"
-                                    id="variationId"
-                                    name='variationId'
-                                    onChange={event => handleProductsChange(event)}
-                                    // onChange={handleProductsChange}
-                                   
-                                    // MenuProps={MenuProps}
+                                <FormControl variant="filled" sx={{ m: 1, minWidth: 480 }}
                                 >
+                                    <InputLabel id="demo-simple-select-filled-label" >Variation Id</InputLabel>
+                                    <Select
 
-                                    {variation.map((name) => (
-                                        <MenuItem
-                                            // key={name}
-                                            value={name.variationId}
-                                       
-                                        >
-                                            {name.variationId}
-                                        </MenuItem>
-                                    ))}
-                                </Select>
-                            </FormControl>
-                            {/* <TextField color="success" size='small' variant="filled" type="text" className="form-control" id="variationId" value={products.variationId} name='variationId' label='variationId' onChange={handleProductsChange} required /> */}
+                                        labelId="demo-simple-select-filled-label"
+                                        id="variationId"
+                                        name='variationId'
+                                        onChange={event => handleProductsChange(event)}
+                                    // onChange={handleProductsChange}
 
-                            <TextField color="success" size='small' variant="filled" type="text" className="form-control" id="variationName" value={products.variationName} name='variationName' label='Variation Name' onChange={handleProductsChange} required />
+                                    // MenuProps={MenuProps}
+                                    >
 
-                            <TextField color="success" size='small' variant="filled" type="text" className="form-control" id="containLiquid" value={products.containLiquid} name='containLiquid' label='Sub Category ' onChange={handleProductsChange} required />
+                                        {variation.map((name) => (
+                                            <MenuItem
+                                                // key={name}
+                                                value={name.variationId}
+
+                                            >
+                                                {name.variationId}
+                                            </MenuItem>
+                                        ))}
+                                    </Select>
+                                </FormControl>
+                                {/* <TextField color="success" size='small' variant="filled" type="text" className="form-control" id="variationId" value={products.variationId} name='variationId' label='variationId' onChange={handleProductsChange} required /> */}
+
+                                <TextField color="success" size='small' variant="filled" type="text" className="form-control" id="variationName" value={products.variationName} name='variationName' label='Variation Name' onChange={handleProductsChange} required />
+
+                                <TextField color="success" size='small' variant="filled" type="text" className="form-control" id="containLiquid" value={products.containLiquid} name='containLiquid' label='Sub Category ' onChange={handleProductsChange} required />
 
 
 
-                            <TextField color="success" size='small' variant="filled" type="text" className="form-control" id="hsn" value={products.hsn} name='hsn' label='HSN ' onChange={handleProductsChange} required />
+                                <TextField color="success" size='small' variant="filled" type="text" className="form-control" id="hsn" value={products.hsn} name='hsn' label='HSN ' onChange={handleProductsChange} required />
 
-                            {/* <TextField color="success" size='small' variant="filled" type="text" className="form-control" id="isVerified" value={products.isVerified} name='isVerified' label='Is Verified ' onChange={handleProductsChange} required /> */}
+                                {/* <TextField color="success" size='small' variant="filled" type="text" className="form-control" id="isVerified" value={products.isVerified} name='isVerified' label='Is Verified ' onChange={handleProductsChange} required /> */}
 
 
-                            <TextField color="success" size='small' variant="filled" type="text" className="form-control" id="companyCode" value={products.companyCode} name='companyCode' label='Company Code ' onChange={handleProductsChange} required />
+                                <TextField color="success" size='small' variant="filled" type="text" className="form-control" id="companyCode" value={products.companyCode} name='companyCode' label='Company Code ' onChange={handleProductsChange} required />
 
-                            <TextField color="success" size='small' variant="filled" type="text" className="form-control" id="bulkPack" value={products.bulkPack} name='bulkPack' label='Bulk Pack' onChange={handleProductsChange} required />
+                                <TextField color="success" size='small' variant="filled" type="text" className="form-control" id="bulkPack" value={products.bulkPack} name='bulkPack' label='Bulk Pack' onChange={handleProductsChange} required />
 
-                            <TextField color="success" size='small' variant="filled" type="text" className="form-control" id="bulkPrice" value={products.bulkPrice} name='bulkPrice' label='Bulk Price' onChange={handleProductsChange} required />
-                            <input type='file' color='success' size='small' variant='filled' name='images' onChange={handleInputChange} label='Chose Product Image' />
-                            {/* <TextField color="success" size='small' variant="filled" type="file" className="form-control" id="bulkPrice" value={products.containLiquid} name='bulkPrice' label='' onChange={handleProductsChange} required/> */}
-                            <button className='button mt-3 form-control' onClick={createProducts}>Create Product</button>
+                                <TextField color="success" size='small' variant="filled" type="text" className="form-control" id="bulkPrice" 
+                                value={products.bulkPrice} name='bulkPrice' label='Bulk Price' onChange={handleProductsChange} 
+                                InputProps={{
+                                    startAdornment: (
+                                        <InputAdornment position="start">
+                                            <span id='' className="material-symbols-outlined">currency_rupee</span>
+                                        </InputAdornment>
+                                    ),
+                                }}
+                                required />
+                                <input type='file' color='success' size='small' variant='filled' name='images' onChange={handleInputChange} label='Chose Product Image' />
+                                {/* <TextField color="success" size='small' variant="filled" type="file" className="form-control" id="bulkPrice" value={products.containLiquid} name='bulkPrice' label='' onChange={handleProductsChange} required/> */}
+                                <button className='button mt-3 form-control' onClick={createProducts}>Create Product</button>
+
+                            </div>
 
                         </div>
 
-                    </div>
 
-
-                </Box>
+                    </Box>
                 </form>
             </Scrollbars>
             {/* <div className=''>

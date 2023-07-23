@@ -13,6 +13,8 @@ function VendorProduct() {
     const [listedProduct, setListedProduct] = useState(0);
     const [unListedProduct, setUnListedProduct] = useState(0);
     const userData = JSON.parse(localStorage.getItem('userData'))
+
+
     const handleSearchProductName = (event) => {
         setSearchTermProduct(event.target.value);
     };
@@ -27,15 +29,24 @@ function VendorProduct() {
     }, []);
 
     const fetchProduct = async () => {
+        let tempVendorId;
+        if (userData.subVendorId === 'No') {
+            tempVendorId = userData.id;
+        }
+        else {
+            tempVendorId = userData.subVendorId;
+        }
+
+
         let dataLimit = 300;
 
         let pageNo = Math.ceil(product.length / dataLimit) + 1
         console.log("Page No : " + pageNo)
-     
+
 
         try {
             // const response = await fetch(`http://localhost:5005/product/vendorId/${userData.id}?pageNo=${pageNo}&dataLimit=${dataLimit}`);
-            const response = await fetch(`${baseUrl}/product/vendorId/${userData.id}?pageNo=${pageNo}&dataLimit=${dataLimit}`);
+            const response = await fetch(`${baseUrl}/product/vendorId/${tempVendorId}?pageNo=${pageNo}&dataLimit=${dataLimit}`);
 
 
 
@@ -52,20 +63,26 @@ function VendorProduct() {
     };
 
     const countProduct = async () => {
+        let tempVendorId;
+        if (userData.subVendorId === 'No') {
+            tempVendorId = userData.id;
+        }
+        else {
+            tempVendorId = userData.subVendorId;
+        }
+
 
         try {
 
-            const response = await fetch(`${baseUrl}/product/countAllVendorId/${userData.id}`);
-
-
+            const response = await fetch(`${baseUrl}/product/countAllVendorId/${tempVendorId}`);
 
             const jsonproduct = await response.json();
 
 
             // listproduct = jsonproduct;
             setCountData(jsonproduct);
-            console.log("Count : "+jsonproduct)
-            console.log("Json : "+countData);
+            console.log("Count : " + jsonproduct)
+            console.log("Json : " + countData);
         } catch (error) {
             console.log('Error:', error);
         }
@@ -93,7 +110,7 @@ function VendorProduct() {
 
                                             </h5>
                                         </>
-                                    ) : 
+                                    ) :
                                     (
                                         <>
                                             <p>{countData}</p>
@@ -134,22 +151,47 @@ function VendorProduct() {
                             <h5>0 </h5>
                         </div>
                     </div>
-                    <Link to={'/addproduct'} className="addproduct col ">
-                        <div>
-                            <div className="card-body">
-                                <i style={{ marginRight: "26px" }} className="ri-add-line"></i>
-                                <h4 className="card-title"> Add Product</h4>
-                            </div>
-                        </div>
-                    </Link>
-                    <Link to={'/addproductinbulk'} className="addbulk col-3 ">
-                        <div>
-                            <div className="card-body">
-                                <i style={{ marginRight: "26px" }} className="ri-add-line"></i>
-                                <h4 className="card-title"> Add In Bulk</h4>
-                            </div>
-                        </div>
-                    </Link>
+                   
+                    {(userData.subVendorId != 'No') ?
+                        (<>
+                            <Link to={'/products'} className="sellerproduct">
+                                <div>
+                                    <div className="card-body">
+                                        <i style={{ marginRight: "26px" }} className="ri-add-line"></i>
+                                        <h4 className="card-title">Seller Product</h4>
+                                    </div>
+                                </div>
+                            </Link>
+                        </>)
+                        : (<>
+                            <Link to={'/addproduct'} className="addproduct col ">
+                                <div>
+                                    <div className="card-body">
+                                        <i style={{ marginRight: "26px" }} className="ri-add-line"></i>
+                                        <h4 className="card-title"> Add Product</h4>
+                                    </div>
+                                </div>
+                            </Link>
+                            <Link to={'/products'} className="sellerproduct">
+                                <div>
+                                    <div className="card-body">
+                                        <i style={{ marginRight: "26px" }} className="ri-add-line"></i>
+                                        <h4 className="card-title">Seller Product</h4>
+                                    </div>
+                                </div>
+                            </Link>
+                            <Link to={'/addproductinbulk'} className="addbulk col-3 ">
+                                <div>
+                                    <div className="card-body">
+                                        <i style={{ marginRight: "26px" }} className="ri-add-line"></i>
+                                        <h4 className="card-title"> Add In Bulk</h4>
+                                    </div>
+                                </div>
+                            </Link>
+                        </>)
+                    }
+
+
                     {/* <Link to={'/addproductinbulk'} className="addproduct col">
 
                         <span className="material-symbols-outlined addIcon" style={{ fontSize: 60 }}>
@@ -160,7 +202,7 @@ function VendorProduct() {
                     </Link> */}
                 </div>
                 <div className=' longdiv1'>
-                    <h5>All Products ({product.length})</h5>
+                    <h5>Your Products</h5>
                     <h5 className='float-end mr-4' style={{ fontFamily: "cursive", color: "#ffff" }}>{product.length}</h5>
                     {/* <select className="form" id="floatingSelect" aria-label="Floating label select example">
                         <option >All</option>
@@ -219,7 +261,7 @@ function VendorProduct() {
 
                                 {filteredProductName.map((item, index) => (
                                     <tr>
-                                        <td>{index + 1}</td>
+                                        <td className='ml-1'>{index + 1}</td>
                                         <td>{item.productId}</td>
                                         <td>{date = new Date(item.date).toDateString()}</td>
                                         <td>{item.vendorName}</td>
@@ -229,11 +271,26 @@ function VendorProduct() {
                                         <td>{item.natePriceWithDiscount}</td>
                                         <td>{item.totalProductPrice}</td>
                                         <td>{item.status}</td>
-                                        <td><Link id="eml" to={'/editProduct/' + item.productId} className="nav-link inactive number"
-                                            aria-current="page" >
-                                            <span className="material-symbols-outlined">
-                                                edit</span>&nbsp;Edit&nbsp;&nbsp;
-                                        </Link></td>
+                                        <td>
+                                            {(userData.subVendorId != 'No') ?
+                                                (<>
+                                                    <Link id="eml" to={'/editSubVendorProduct/' + item.productId} className="nav-link inactive number"
+                                                        aria-current="page" >
+                                                        <span className="material-symbols-outlined">
+                                                            edit</span>&nbsp;Edit&nbsp;&nbsp;
+                                                    </Link>
+                                                </>)
+                                                : (<>
+                                                    <Link id="eml" to={'/editProduct/' + item.productId} className="nav-link inactive number"
+                                                        aria-current="page" >
+                                                        <span className="material-symbols-outlined">
+                                                            edit</span>&nbsp;Edit&nbsp;&nbsp;
+                                                    </Link>
+                                                </>)
+                                            }
+
+
+                                        </td>
 
                                     </tr>
 
@@ -242,6 +299,8 @@ function VendorProduct() {
                         </table>
                     </InfiniteScroll>
                 </div>
+
+                
 
 
                 {/* <div className='largediv1'>

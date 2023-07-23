@@ -18,9 +18,9 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Chip from '@mui/material/Chip';
 import { Button, Icon, IconButton, Input, InputAdornment } from '@mui/material';
-import { AddCircle, Send, Visibility } from '@mui/icons-material';
+import { AddCircle, PriceChange, Send, Visibility } from '@mui/icons-material';
 
-function EditProduct() {
+function EditSubVendorProduct() {
     const { productId } = useParams();
     const userData = JSON.parse(localStorage.getItem('userData'))
     console.log('ProductId : ' + productId)
@@ -159,16 +159,14 @@ function EditProduct() {
         <>
             <ToastContainer />
             <h2>Edit Product</h2>
-            <p className='float-end'>
+            {/* <p className='float-end'>
                 <a class="" data-bs-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">
                     <Button variant="outlined" className='p-2' startIcon={<AddCircle className='' ></AddCircle>}>
                         Create Variation
                     </Button>
                 </a>
-                {/* <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2">Toggle second element</button>
-                <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target=".multi-collapse" aria-expanded="false" aria-controls="multiCollapseExample1 multiCollapseExample2">Toggle both elements</button> */}
-            </p>
-            <div class="row">
+               </p> */}
+            {/* <div class="row">
                 <div class="col">
                     <div class="collapse multi-collapse" id="multiCollapseExample1">
 
@@ -192,53 +190,11 @@ function EditProduct() {
 
                         </FormControl>
 
-                        {/* <FormControl  variant="standard">
-                            <InputLabel htmlFor="outlined-adornment-sent">Variation Name</InputLabel>
-                            <OutlinedInput
-                                id="outlined-adornment-sent"
-                                type='text'
-                                size='small'
-
-
-                                endAdornment={
-                                    <InputAdornment position="end">
-                                        <IconButton
-                                            aria-label=""
-
-                                            edge="end"
-                                        >
-                                            <Send />
-                                        </IconButton>
-                                    </InputAdornment>
-                                }
-                            label="Variation Name"
-                            />
-                        </FormControl> */}
-                        {/* <button className='btn btn-info float-end'>Create</button> */}
-                        {/* <TextField
-                            className='float-end'
-                            required
-                            color="success" id="variationName"
-                            label="Variation Name"
-                            size='small'
-                            variant="filled"
-                            endAdornment={
-                                <InputAdornment position="end">
-                                    <IconButton
-                                        aria-label=""
-
-                                        edge="end"
-                                    >
-                                        <Send />
-                                    </IconButton>
-                                </InputAdornment>
-                            }
-
-                        /> */}
+                        
 
                     </div>
                 </div>
-            </div>
+            </div> */}
             <Scrollbars style={{ height: 435 }}>
                 <form className='container' encType="multipart/form-data" action="" onSubmit={createProducts}>
 
@@ -260,20 +216,19 @@ function EditProduct() {
                                     onChange={handleProductsChange} name='productName' value={products.productName}
                                     size='small'
                                     variant="filled"
+                                    disabled
                                 />
 
-                                <TextField color="success" size='small' variant="filled" type="text" className="form-control" id="productDescription" label='Product Description' onChange={handleProductsChange} name='productDescription' value={products.productDescription} required />
+                                <TextField color="success" size='small' variant="filled" type="text" className="form-control" id="productDescription" label='Product Description' onChange={handleProductsChange} name='productDescription' value={products.productDescription} required disabled />
 
-                                <TextField color="success" size='small' variant="filled" type="text" className="form-control" id="category" name='category' value={products.category} aria-describedby="emailHelp" label='Category' onChange={handleProductsChange} required />
+                                <TextField color="success" size='small' variant="filled" type="text" className="form-control" id="category" name='category' value={products.category} aria-describedby="emailHelp" label='Category' onChange={handleProductsChange} required disabled />
 
-                                <TextField color="success" size='small' variant="filled" type="number" InputLabelProps={{ shrink: true, }} className="form-control" id="productQuantity" value={products.productQuantity} name='productQuantity' label='Product Quantity' onChange={handleProductsChange} required />
+                                <TextField color="success" size='small' variant="filled" type="number" InputLabelProps={{ shrink: true, }} className="form-control" id="productQuantity" value={products.productQuantity} name='productQuantity' label='Product Quantity' onChange={handleProductsChange} required disabled />
 
-                                <TextField color="success" size='small' variant="filled" type="text" className="form-control" id="brandName" value={products.brandName} name='brandName' label='Brand Name' onChange={handleProductsChange} required />
+                                <TextField color="success" size='small' variant="filled" type="text" className="form-control" id="brandName" value={products.brandName} name='brandName' label='Brand Name' onChange={handleProductsChange} required disabled />
 
-                                <TextField color="success" size='small' variant="filled" type="number" InputLabelProps={{ shrink: true, }}
-                                    className="form-control" id="individualProductPrice" value={products.individualProductPrice}
-                                    name='individualProductPrice' aria-describedby="emailHelp" label='Marked price of product'
-                                    onChange={handleProductsChange}
+                                <TextField color="success" size='small' variant="filled" type="number" InputLabelProps={{ shrink: true, }} className="form-control" id="individualProductPrice" value={products.individualProductPrice} name='individualProductPrice' aria-describedby="emailHelp"
+                                    label='Marked price of product' onChange={handleProductsChange}
                                     InputProps={{
                                         startAdornment: (
                                             <InputAdornment position="start">
@@ -281,10 +236,12 @@ function EditProduct() {
                                             </InputAdornment>
                                         ),
                                     }}
-                                    required />
+                                    required disabled />
 
-                                <TextField color="success" size='small' variant="filled" type="number" InputLabelProps={{ shrink: true, }} className="form-control" id="discountPercentage" value={products.discountPercentage} name='discountPercentage' label='Discount Percentage' helperText="Discount will be on Marked Price"
-                                    onChange={handleProductsChange}
+                                <TextField color="success" size='small' variant="filled" type="number" InputLabelProps={{ shrink: true, }} className="form-control" id="discountPercentage"
+                                    value={products.discountPercentage} name='discountPercentage' onChange={handleProductsChange} 
+                                    label='Discount Percentage'
+                                    helperText="Discount will be on Marked Price" 
                                     InputProps={{
                                         endAdornment: (
                                             <InputAdornment position="end">
@@ -294,10 +251,10 @@ function EditProduct() {
                                     }}
                                     required />
 
-                                <TextField color="success" size='small' variant="filled" type="text" className="form-control" id="bulkCode" value={products.bulkCode} name='bulkCode' label='BulkCode' onChange={handleProductsChange} required />
+                                <TextField color="success" size='small' variant="filled" type="text" className="form-control" id="bulkCode" value={products.bulkCode} name='bulkCode' label='BulkCode' onChange={handleProductsChange} required disabled />
 
-                                <TextField color="success" size='small' variant="filled" type="number" InputLabelProps={{ shrink: true, }} className="form-control" id="gst" value={products.gst} name='gst' label='GST' onChange={handleProductsChange} required />
-                                <TextField color="success" size='small' variant="filled" type="text" className="form-control" id="tierNo" value={products.tierNo} name='tierNo' label='Tier No ' onChange={handleProductsChange} required />
+                                <TextField color="success" size='small' variant="filled" type="number" InputLabelProps={{ shrink: true, }} className="form-control" id="gst" value={products.gst} name='gst' label='GST' onChange={handleProductsChange} required disabled />
+                                <TextField color="success" size='small' variant="filled" type="text" className="form-control" id="tierNo" value={products.tierNo} name='tierNo' label='Tier No ' onChange={handleProductsChange} required disabled />
 
 
 
@@ -320,7 +277,8 @@ function EditProduct() {
                                         id="variationId"
                                         name='variationId'
                                         onChange={event => handleProductsChange(event)}
-                                    // onChange={handleProductsChange}
+                                        // onChange={handleProductsChange}
+                                        disabled
 
                                     // MenuProps={MenuProps}
                                     >
@@ -338,32 +296,32 @@ function EditProduct() {
                                 </FormControl>
                                 {/* <TextField color="success" size='small' variant="filled" type="text" className="form-control" id="variationId" value={products.variationId} name='variationId' label='variationId' onChange={handleProductsChange} required /> */}
 
-                                <TextField color="success" size='small' variant="filled" type="text" className="form-control" id="variationName" value={products.variationName} name='variationName' label='Variation Name' onChange={handleProductsChange} required />
+                                <TextField color="success" size='small' variant="filled" type="text" className="form-control" id="variationName" value={products.variationName} name='variationName' label='Variation Name' onChange={handleProductsChange} required disabled />
 
-                                <TextField color="success" size='small' variant="filled" type="text" className="form-control" id="containLiquid" value={products.containLiquid} name='containLiquid' label='Sub Category ' onChange={handleProductsChange} required />
+                                <TextField color="success" size='small' variant="filled" type="text" className="form-control" id="containLiquid" value={products.containLiquid} name='containLiquid' label='Sub Category ' onChange={handleProductsChange} required disabled />
 
 
 
-                                <TextField color="success" size='small' variant="filled" type="text" className="form-control" id="hsn" value={products.hsn} name='hsn' label='HSN ' onChange={handleProductsChange} required />
+                                <TextField color="success" size='small' variant="filled" type="text" className="form-control" id="hsn" value={products.hsn} name='hsn' label='HSN ' onChange={handleProductsChange} required disabled />
 
                                 {/* <TextField color="success" size='small' variant="filled" type="text" className="form-control" id="isVerified" value={products.isVerified} name='isVerified' label='Is Verified ' onChange={handleProductsChange} required /> */}
 
 
-                                <TextField color="success" size='small' variant="filled" type="text" className="form-control" id="companyCode" value={products.companyCode} name='companyCode' label='Company Code ' onChange={handleProductsChange} required />
+                                <TextField color="success" size='small' variant="filled" type="text" className="form-control" id="companyCode" value={products.companyCode} name='companyCode' label='Company Code ' onChange={handleProductsChange} required disabled />
 
-                                <TextField color="success" size='small' variant="filled" type="text" className="form-control" id="bulkPack" value={products.bulkPack} name='bulkPack' label='Bulk Pack' onChange={handleProductsChange} required />
+                                <TextField color="success" size='small' variant="filled" type="text" className="form-control" id="bulkPack" value={products.bulkPack} name='bulkPack' label='Bulk Pack' onChange={handleProductsChange} required disabled />
 
-                                <TextField color="success" size='small' variant="filled" type="text" className="form-control" id="bulkPrice"
-                                 value={products.bulkPrice} name='bulkPrice' label='Bulk Price' onChange={handleProductsChange} 
-                                 InputProps={{
+                                <TextField color="success" size='small' variant="filled" type="text" className="form-control" id="bulkPrice" 
+                                value={products.bulkPrice} name='bulkPrice' label='Bulk Price' onChange={handleProductsChange} 
+                                InputProps={{
                                     startAdornment: (
                                         <InputAdornment position="start">
                                             <span id='' className="material-symbols-outlined">currency_rupee</span>
                                         </InputAdornment>
                                     ),
                                 }}
-                                required />
-                                <input type='file' color='success' size='small' variant='filled' name='images' onChange={handleInputChange} label='Chose Product Image' />
+                                disabled required />
+                                <input type='file' color='success' size='small' variant='filled' name='images' onChange={handleInputChange} label='Chose Product Image' disabled />
                                 {/* <TextField color="success" size='small' variant="filled" type="file" className="form-control" id="bulkPrice" value={products.containLiquid} name='bulkPrice' label='' onChange={handleProductsChange} required/> */}
                                 <button className='button mt-3 form-control' onClick={createProducts}>Update Product</button>
 
@@ -379,4 +337,4 @@ function EditProduct() {
     )
 }
 
-export default EditProduct
+export default EditSubVendorProduct

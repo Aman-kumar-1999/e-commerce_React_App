@@ -10,6 +10,7 @@ function Prcards() {
     const [count, setCount] = useState(0);
     const [listedProduct, setListedProduct] = useState(0);
     const [unListedProduct, setUnListedProduct] = useState(0);
+    const userData = JSON.parse(localStorage.getItem('userData'))
     const handleSearchProductName = (event) => {
         setSearchTermProduct(event.target.value);
     };
@@ -25,16 +26,16 @@ function Prcards() {
 
     const countAllProduct = async () => {
         try {
-          const response = await fetch(`${baseUrl}/product/countAll`);
-    
-    
-          const jsonproduct = await response.json();
-          // listproduct = jsonproduct;
-          setCount(jsonproduct);
+            const response = await fetch(`${baseUrl}/product/countAll`);
+
+
+            const jsonproduct = await response.json();
+            // listproduct = jsonproduct;
+            setCount(jsonproduct);
         } catch (error) {
-          console.log('Error:', error);
+            console.log('Error:', error);
         }
-      };
+    };
 
     const fetchProduct = async () => {
         let dataLimit = 300;
@@ -68,7 +69,11 @@ function Prcards() {
     return (
         <div>
             <>
+                <h4>Seller Product</h4>
                 <div className='container row'>
+
+                    
+
                     <div className="orcard2 col">
                         <div className="card-body">
                             <h4 className="card-title">Recent Products</h4>
@@ -120,22 +125,30 @@ function Prcards() {
                             <h5>0 </h5>
                         </div>
                     </div>
-                    <Link to={'/addproduct'} className="addproduct col ">
-                        <div>
-                            <div className="card-body">
-                                <i style={{ marginRight: "26px" }} className="ri-add-line"></i>
-                                <h4 className="card-title"> Add Product</h4>
-                            </div>
-                        </div>
-                    </Link>
-                    <Link to={'/addproductinbulk'} className="addbulk col-3 ">
-                        <div>
-                            <div className="card-body">
-                                <i style={{ marginRight: "26px" }} className="ri-add-line"></i>
-                                <h4 className="card-title"> Add In Bulk</h4>
-                            </div>
-                        </div>
-                    </Link>
+                    {
+                        (userData.role.roleName != 'Vendor') ?
+                            (<>
+                                <Link to={'/addproduct'} className="addproduct col ">
+                                    <div>
+                                        <div className="card-body">
+                                            <i style={{ marginRight: "26px" }} className="ri-add-line"></i>
+                                            <h4 className="card-title"> Add Product</h4>
+                                        </div>
+                                    </div>
+                                </Link>
+                                <Link to={'/addproductinbulk'} className="addbulk col-3 ">
+                                    <div>
+                                        <div className="card-body">
+                                            <i style={{ marginRight: "26px" }} className="ri-add-line"></i>
+                                            <h4 className="card-title"> Add In Bulk</h4>
+                                        </div>
+                                    </div>
+                                </Link>
+
+                            </>)
+                            : (<></>)
+                    }
+
                     {/* <Link to={'/addproductinbulk'} className="addproduct col">
 
                         <span className="material-symbols-outlined addIcon" style={{ fontSize: 60 }}>
@@ -147,7 +160,7 @@ function Prcards() {
                 </div>
                 <div className=' longdiv1'>
                     <h5>All Products</h5>
-                    <h5 className='float-end mr-4' style={{fontFamily:"cursive", color: "#ffff"}}>{product.length}</h5>
+                    <h5 className='float-end mr-4' style={{ fontFamily: "cursive", color: "#ffff" }}>{product.length}</h5>
                     {/* <select className="form" id="floatingSelect" aria-label="Floating label select example">
                         <option >All</option>
                         <option >Today</option>
@@ -215,11 +228,26 @@ function Prcards() {
                                         <td>{item.natePriceWithDiscount}</td>
                                         <td>{item.totalProductPrice}</td>
                                         <td>{item.status}</td>
-                                        <td><Link id="eml" to={'/editProduct/' + item.productId} className="nav-link inactive number"
-                                            aria-current="page" >
-                                            <span className="material-symbols-outlined">
-                                                edit</span>&nbsp;Edit&nbsp;&nbsp;
-                                        </Link></td>
+                                        <td>
+                                            {
+                                                (userData.role.roleName != 'Vendor') ?
+                                                    (<>
+
+                                                        <Link id="eml" to={'/editProduct/' + item.productId} className="nav-link inactive number"
+                                                            aria-current="page" >
+                                                            <span className="material-symbols-outlined">
+                                                                edit</span>&nbsp;Edit&nbsp;&nbsp;
+                                                        </Link>
+                                                    </>
+                                                    ) : (<>
+                                                    <Link id="eml" to={'/editSubVendorProduct/' + item.productId} className="nav-link inactive number"
+                                                            aria-current="page" >
+                                                            <span className="material-symbols-outlined">
+                                                                edit</span>&nbsp;Edit&nbsp;&nbsp;
+                                                    </Link>
+                                                    </>)
+                                            }
+                                        </td>
 
                                     </tr>
 

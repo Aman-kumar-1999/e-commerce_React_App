@@ -358,7 +358,7 @@ function HomeSlider(props) {
             cart.totalProductPrice = item1.totalProductPrice;
             console.log("ProductId : " + cart.productId);
 
-
+            // const response = axios.post(`http://localhost:5004/order/`, cart).then(
             const response = axios.post(`${baseUrl}/order/`, cart).then(
                 (response) => {
                     if (response.status == 200) {
@@ -521,7 +521,7 @@ function HomeSlider(props) {
             </div>
 
             <hr style={{ paddingTop: 1, background: '#a70cef', marginLeft: '10px' }} />
-            <Carousel autoPlay responsive={responsive}>
+            <Carousel autoPlay responsive={responsive} className='responsivCarosel'>
 
                 {data.map(item => (
                     <>
@@ -645,7 +645,7 @@ function HomeSlider(props) {
 
             <hr style={{ paddingTop: 1, background: '#a70cef', marginLeft: '10px' }} />
 
-            <Carousel autoPlay responsive={responsive}>
+            <Carousel autoPlay responsive={responsive} className='responsivCarosel'>
                 {dataInst.map(item => (
                     <>
 
@@ -720,7 +720,7 @@ function HomeSlider(props) {
             </div>
 
             <hr style={{ paddingTop: 1, background: '#a70cef', marginLeft: '10px' }} />
-            <Carousel autoPlay responsive={responsive}>
+            <Carousel autoPlay responsive={responsive} className='responsivCarosel'>
                 {dataPlastic.map(item => (
                     <>
 
@@ -795,7 +795,7 @@ function HomeSlider(props) {
 
             <hr style={{ paddingTop: 1, background: '#a70cef', marginLeft: '10px' }} />
 
-            <Carousel autoPlay responsive={responsive}>
+            <Carousel autoPlay responsive={responsive} className='responsivCarosel'>
                 {dataGlass.map(item => (
                     <>
 
@@ -870,7 +870,7 @@ function HomeSlider(props) {
             </div>
 
             <hr style={{ paddingTop: 1, background: '#a70cef', marginLeft: '10px' }} />
-            <Carousel autoPlay responsive={responsive}>
+            <Carousel autoPlay responsive={responsive} className='responsivCarosel'>
                 {dataChemical.map(item => (
                     <>
 
@@ -945,7 +945,7 @@ function HomeSlider(props) {
 
             <hr style={{ paddingTop: 1, background: '#a70cef', marginLeft: '10px' }} />
 
-            <Carousel autoPlay responsive={responsive}>
+            <Carousel autoPlay responsive={responsive} className='responsivCarosel'>
                 {dataChart.map(item => (
                     <>
 

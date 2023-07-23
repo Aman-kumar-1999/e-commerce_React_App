@@ -17,6 +17,7 @@ import { Box, LinearProgress } from '@mui/material';
 import SearchSection from './SearchBar';
 
 import { Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
+import Testimonial from '../../pages/view/Testimonial';
 
 
 const Home = () => {
@@ -551,6 +552,9 @@ const Home = () => {
         <HomeSlider/>
        
         <Brands />
+        <Testimonial/>
+
+
 
       </>)
 

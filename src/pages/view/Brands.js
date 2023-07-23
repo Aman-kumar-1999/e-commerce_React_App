@@ -67,7 +67,7 @@ function Brands() {
       </div>
 
       <hr style={{ paddingTop: 1, background: '#a70cef', marginLeft: '10px' }} />
-      <Carousel autoPlay responsive={responsive}>
+      <Carousel autoPlay responsive={responsive} className='responsivCarosel'>
         {
           brandData.map(item => (
             <img style={{width:"200px",height:"50px"}} name={item.name} src={item.imageurl} />

@@ -49,6 +49,7 @@ import ProtectedRoute from './components/view/ProtectedRoute';
 import EditProfile from './pages/view/EditUserProfile';
 import ChangePassword from './pages/view/ChangePassword';
 import Testimonial from './pages/view/Testimonial';
+import EditSubVendorProduct from './pages/view/EditSubVendorProduct';
 
 
 function App() {
@@ -148,7 +149,7 @@ function App() {
                      
                       <Route exact path="/dashboard" element={isLoggedIn && userData.role.roleName === 'Admin' ? (<Dashboard/>):(<Navigate to={'/'}/>)}/>
                       <Route path="/orders" element={ isLoggedIn && userData.role.roleName === 'Admin' ? (<Orders />):(<Navigate to={'/'}/>)} />
-                      <Route path="/products" element={ isLoggedIn && userData.role.roleName === 'Admin' ? (<Products />):(<Navigate to={'/'}/>)} />
+                      <Route path="/products" element={ isLoggedIn && (userData.role.roleName === 'Admin' || userData.role.roleName === 'Vendor') ? (<Products />):(<Navigate to={'/'}/>)} />
                       <Route path="/vendors" element={ isLoggedIn && userData.role.roleName === 'Admin' ? (<Vendors />):(<Navigate to={'/'}/>)} />
                       <Route path="/user" element={ isLoggedIn && userData.role.roleName === 'Admin' ? (<User />):(<Navigate to={'/'}/>)} />
                       <Route path="/setting" element={ isLoggedIn && userData.role.roleName === 'Admin' ? (<Setting />):(<Navigate to={'/'}/>)} />
@@ -156,9 +157,9 @@ function App() {
                       <Route path="/profile" element={ isLoggedIn ? (<Profile />):(<Navigate to={'/'}/>)} />
                       <Route path="/editProfile" element={ isLoggedIn ? (<EditProfile />):(<Navigate to={'/'}/>)} />
                       <Route path="/changepassword" element={ isLoggedIn ? (<ChangePassword />):(<Navigate to={'/'}/>)} />
-                      <Route path="/myorders" element={ isLoggedIn ? (<MyOrders />):(<Navigate to={'/'}/>)} />
+                      <Route path="/myorders" element={ isLoggedIn ? (<MyOrders />):(<Navigate to={'/login'}/>)} />
                       <Route path="/notifications" element={ isLoggedIn ? (<Notifications />):(<Navigate to={'/'}/>)} />
-                      <Route path="/addvendor" element={ isLoggedIn && userData.role.roleName === 'Admin' ? (<Addvendors />):(<Navigate to={'/'}/>)} />
+                      <Route path="/addvendor" element={ isLoggedIn && (userData.role.roleName === 'Admin' || userData.role.roleName === 'Vendor') ? (<Addvendors />):(<Navigate to={'/'}/>)} />
                       <Route path="/adduser" element={ isLoggedIn && (userData.role.roleName === 'Admin' || userData.role.roleName === 'Vendor') ? (<Adduser />):(<Navigate to={'/'}/>)} />
                       <Route path="/addadminuser" element={ isLoggedIn && userData.role.roleName === 'Admin' ? (<Addadminuser />):(<Navigate to={'/'}/>)} />
                       <Route path="/equipments" id="nav-home" element={<Equipments />} />
@@ -172,6 +173,7 @@ function App() {
                       <Route path="/editUserImage" element={ isLoggedIn ? (<EditUserImage />):(<Navigate to={'/'}/>)} />
                       <Route path="/cart" element={ isLoggedIn ? (<Cart />):(<Navigate to={'/'}/>)} />
                       <Route path="editProduct/:productId" element={ isLoggedIn && (userData.role.roleName === 'Admin' || userData.role.roleName === 'Vendor') ? (<EditProduct />):(<Navigate to={'/'}/>)} />
+                      <Route path="editSubVendorProduct/:productId" element={ isLoggedIn && (userData.role.roleName === 'Admin' || userData.role.roleName === 'Vendor') ? (<EditSubVendorProduct />):(<Navigate to={'/'}/>)} />
                       <Route path="productDetails/:productId" element={<ProductDetails />} />
                       <Route path="/checkoutsuccess" element={ isLoggedIn ? (<CheckOutSuccess />):(<Navigate to={'/'}/>)} />
                       <Route path="/vendorProduct" element={ isLoggedIn && userData.role.roleName === 'Vendor' ? (<VendorProduct />):(<Navigate to={'/'}/>)} />
@@ -186,9 +188,9 @@ function App() {
              
 
               <div className="col-1">
-                <ul className="list-group list-group-flush">
+                {/* <ul className="list-group list-group-flush">
 
-                </ul>
+                </ul> */}
               </div>
               
                 <Footer className=''/>

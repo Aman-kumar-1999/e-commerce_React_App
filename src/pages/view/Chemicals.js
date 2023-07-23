@@ -405,7 +405,7 @@ function Chemicals(props) {
 
 
                                     <div className="col linkHover">
-                                        <Link to={'/productDetails'} className="card-img text-decoration-none ">
+                                        <Link to={'/productDetails/' + item.productId} className="card-img text-decoration-none ">
                                             <img className="productImage" src='https://eqipped.com/productImage.png' alt="...." />
 
                                             <div className='card-body'>

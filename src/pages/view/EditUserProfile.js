@@ -48,6 +48,7 @@ function EditProfile() {
         avatar: userData.avatar,
         document: userData.document,
         roleId: userData.roleId,
+        subVendorId: userData.subVendorId,
         imageName: userData.imageName,
         imagePath: userData.imagePath        
       });

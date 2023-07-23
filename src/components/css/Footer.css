@@ -1,48 +1,4 @@
 
-#scroll-container {
-  border: 3px solid black;
-  border-radius: 5px;
-  padding-top: 100px;
-  padding-bottom: 100px;
-  overflow: hidden;
-}
-
-#scroll-text {
-  /* animation properties */
-  -moz-transform: translateX(100%);
-  -webkit-transform: translateX(100%);
-  transform: translateX(100%);
-  
-  
-  -moz-animation: my-animation 15s linear infinite;
-  -webkit-animation: my-animation 15s linear infinite ;
-  animation: my-animation 15s linear infinite ;
-}
-
-/* for Firefox */
-@-moz-keyframes my-animation {
-  from { -moz-transform: translateX(100%); }
-  to { -moz-transform: translateX(-100%); }
-}
-
-/* for Chrome */
-@-webkit-keyframes my-animation {
-  from { -webkit-transform: translateX(100%); }
-  to { -webkit-transform: translateX(-100%); }
-}
-
-@keyframes my-animation {
-  from {
-    -moz-transform: translateX(100%);
-    -webkit-transform: translateX(100%);
-    transform: translateX(100%);
-  }
-  to {
-    -moz-transform: translateX(-100%);
-    -webkit-transform: translateX(-100%);
-    transform: translateX(-100%);
-  }
-}
 
 
 /* --------------------------------------------------------------------------------------------------------------------------------------------- */
@@ -71,7 +27,7 @@
 
 .hrFooter {
   /* color: white; */
-  background-color: #a70cef;
+  background-color: #aeaaaf;
   padding: 1px;
   margin-left: 120px;
   margin-right: 120px;
@@ -115,13 +71,14 @@ h4 {
 
 .footer {
   margin-right: 0px;
-  background-color: #3f4240;
-  color: rgb(226, 223, 218);
+  background-color: #116D6E;
+  color: white;
   padding-top: 0px;
   margin-top: 50px;
   margin-bottom: 0px;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
+  /* z-index: -1; */
 
 }
 
@@ -180,4 +137,19 @@ ul {
 .cardHeader {
   background: linear-gradient(to right, #094263, #20505f, #3b6572, #5b95a7);
   color: wheat;
+}
+
+@media screen and (max-width: 480px){
+  .footer {
+    /* margin-right: 0px;
+    background-color: #116D6E;
+    color: white;
+    padding-top: 0px;
+    margin-top: 50px;
+    margin-bottom: 0px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px; */
+    /* z-index: -1; */
+  
+  }
 }

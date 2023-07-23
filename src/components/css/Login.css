@@ -12,6 +12,10 @@
 	    /* background: linear-gradient(to right ,#98a0a3,#dbe4e7,#d2dee2,#98a0a3); */
 
 	}
+	.signUpLogo{
+		margin-bottom: 10px;
+		width: 50%;
+	}
 	.load{
 		margin-left: -125px;
 	}

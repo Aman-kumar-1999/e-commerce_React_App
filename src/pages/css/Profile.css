@@ -4,6 +4,9 @@
 /*
 * user card
 */
+.profileText{
+  z-index: -1;
+}
 
 .cssui-usercard{
     box-sizing: border-box;
