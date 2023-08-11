@@ -54,54 +54,14 @@ import EditSubVendorProduct from './pages/view/EditSubVendorProduct';
 
 function App() {
 
-  const [loading, setLoading] = useState(false);
-  const [onLoading, setOnLoading] = useState(true);
-  const l1 = true
+  // const [loading, setLoading] = useState(false);
+  // const [onLoading, setOnLoading] = useState(true);
+  // const l1 = true
 
   const userData = JSON.parse(localStorage.getItem('userData'))
   var isLoggedIn = localStorage.getItem('isLoggedIn');
 
-  axios.interceptors.request.use(function (config) {
-    // Do something before request is sent
-
-    // setLoading(true);
-    // setOnLoading(false);
-
-    // document.body.classList.add('loading');
-    // document.getElementById('spinnerLoading').classList.add('spinnerTab')
-
-    return config;
-  }, function (error) {
-    // Do something with request error
-
-    // setLoading(false)
-    // setOnLoading(true)
-
-    // document.body.classList.remove('loading');
-    // document.getElementById('spinnerLoading').classList.remove('spinnerTab')
-    return Promise.reject(error);
-  });
-
-  // Add a response interceptor
-  axios.interceptors.response.use(function (response) {
-    // Any status code that lie within the range of 2xx cause this function to trigger
-    // Do something with response data
-    // document.body.classList.remove('loading');
-    // document.getElementById('spinnerLoading').classList.remove('spinnerTab')
-    // setLoading(false);
-    // setOnLoading(true);
-
-    return response;
-  }, function (error) {
-    // Any status codes that falls outside the range of 2xx cause this function to trigger
-    // Do something with response error
-    // document.body.classList.add('loading');
-    // document.getElementById('spinnerLoading').classList.add('spinnerTab')
-    // setLoading(true);
-    // setOnLoading(false)
-
-    return Promise.reject(error);
-  });
+  
 
 
   return (
@@ -121,6 +81,7 @@ function App() {
             <div className="row">
              
                 <Navbar />
+                
                
               
               

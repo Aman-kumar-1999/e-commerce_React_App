@@ -216,7 +216,7 @@ const SignUp = () => {
           <div className='col mt-5'>
           <Link to={'/'}><img className="signUpLogo" src='E (14).png' /></Link>
             <h1 className='mb-4'>Welcome to Eqipped </h1>
-            <h6>Already have an account ? <Link style={{color:'red'}} to={'/login'}>login</Link></h6>
+            <h6>Already have an account ? <Link style={{color:'red'}} id='SignUpLogin' to={'/login'}>login</Link></h6>
             <h6>Continue as guest</h6>
           </div>
           {/* <div className='col mr-5 ml-2'>
@@ -226,7 +226,7 @@ const SignUp = () => {
             {/* <Scrollbars style={{height : 445, width: 280}}> */}
             <form >
               <img src='https://eqipped.com/image/defaultProfileImage.png' />
-              <label className="label1" aria-hidden="true">Sign Up Page</label>
+              <label id='' className="label1" aria-hidden="true">Sign Up Page</label>
 
               <Scrollbars style={{ height: 435 }}>
             <Box
@@ -469,7 +469,7 @@ const SignUp = () => {
                 type="text" 
                 placeholder='Country' 
                 className="form-control" 
-                id="exampleInputPassword1" 
+                id="country" 
                 onChange={handleInputChange} 
                 value={formData.country} 
                 name='country'                 
@@ -477,7 +477,7 @@ const SignUp = () => {
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
-                      <span id='' className="material-symbols-outlined">location_on</span>
+                      <span className="material-symbols-outlined">location_on</span>
                     </InputAdornment>
                   ),
                 }}
@@ -553,7 +553,7 @@ const SignUp = () => {
               <div className="mb-3">
                 <input type="text" className="form-control" placeholder='Document' id="exampleInputPassword1" onChange={handleInputChange} value={formData.document} name='document' required /> */}
               {/* </div> */}
-              <button className='button mt-5 form-control' onClick={createUser}>Sign Up</button>
+              <button className='button mt-5 form-control' id='signuppagesignupButton' onClick={createUser}>Sign Up</button>
               {/* <button type="reset" className='button mt-3 form-control'  >Clear</button> */}
             </form>
             {/* </Scrollbars> */}

@@ -64,7 +64,7 @@ const Login = () => {
       else {
         setLoading(true);
 
-        // const response = await axios.post(`http://localhost:5003/user/api/login`,
+        // const response = await axios.post(`http://localhost:5002/user/api/login`,
         const response = await axios.post(`${baseUrl}/user/api/login`,
 
           formData
@@ -155,7 +155,7 @@ const Login = () => {
           <div className='col mt-5'>
           <Link to={'/'}><img className="signUpLogo" src='E (14).png' /></Link>
             <h1 className='mb-4'>Welcome to Eqipped </h1>
-            <h6>Already have an account ? <Link style={{ color: 'red' }} to={'/signup'}>signup</Link></h6>
+            <h6>Already have an account ? <Link style={{ color: 'red' }} id='loginPageSignup' to={'/signup'}>signup</Link></h6>
             <h6>Continue as guest</h6>
           </div>
           {/* <div className='col mr-5 ml-2'>
@@ -171,7 +171,7 @@ const Login = () => {
               <input required="" name="password" type="password" id="password" value={formData.password}
                 onChange={handleInputChange} className='form-control' placeholder='Password' />
               <h6><Link style={{ color: 'red' }} to={'/forgotPassword'}>Forgot Password</Link></h6>
-              <button className='button mt-5 form-control'>Login</button>
+              <button id='submitLogin' className='button mt-5 form-control'>Login</button>
               <button type="reset" className='button mt-3 form-control'  >Clear</button>
             </form>
           </div>

@@ -1,34 +1,73 @@
 import React, { useState, useEffect } from 'react'
 import '../css/DashboardGraph.css'
 import baseUrl from '../../helper/helper';
-import { Link } from 'react-router-dom'
+import { Link, json } from 'react-router-dom'
 import axios from 'axios';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import ReactPaginate from 'react-paginate';
+import { Pagination } from '@mui/material';
+import Paper from '@mui/material/Paper';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TablePagination from '@mui/material/TablePagination';
+import TableRow from '@mui/material/TableRow';
+import { Edit } from '@mui/icons-material';
+
+
+
+function createData(name, code, population, size) {
+    const density = population / size;
+    return { name, code, population, size, density };
+}
+
+const rows = [
+    createData('India', 'IN', 1324171354, 3287263),
+    createData('China', 'CN', 1403500365, 9596961),
+    createData('Italy', 'IT', 60483973, 301340),
+    createData('United States', 'US', 327167434, 9833520),
+    createData('Canada', 'CA', 37602103, 9984670),
+    createData('Australia', 'AU', 25475400, 7692024),
+    createData('Germany', 'DE', 83019200, 357578),
+    createData('Ireland', 'IE', 4857000, 70273),
+    createData('Mexico', 'MX', 126577691, 1972550),
+    createData('Japan', 'JP', 126317000, 377973),
+    createData('France', 'FR', 67022000, 640679),
+    createData('United Kingdom', 'GB', 67545757, 242495),
+    createData('Russia', 'RU', 146793744, 17098246),
+    createData('Nigeria', 'NG', 200962417, 923768),
+    createData('Brazil', 'BR', 210147125, 8515767),
+];
+
 function VendorProduct() {
 
 
+
+
+
     const [product, setProduct] = useState([]);
-    const [searchTermProduct, setSearchTermProduct] = useState("");
+    const [searchTermProduct, setSearchTermProduct] = useState(localStorage.getItem('productVendorSearch'));
     const [countData, setCountData] = useState(0);
+    const [loading, setLoading] = useState(false);
     const [listedProduct, setListedProduct] = useState(0);
     const [unListedProduct, setUnListedProduct] = useState(0);
     const userData = JSON.parse(localStorage.getItem('userData'))
 
+    // --------------------------------------------------------------------------------------
 
-    const handleSearchProductName = (event) => {
-        setSearchTermProduct(event.target.value);
-    };
 
-    const filteredProductName = product.filter((item) =>
-        item.productName.toLowerCase().indexOf(searchTermProduct.toLowerCase()) > -1,
-    );
 
-    useEffect(() => {
-        countProduct();
-        fetchProduct();
-    }, []);
 
-    const fetchProduct = async () => {
+
+
+    const [page, setPage] = React.useState(0);
+    const [rowsPerPage, setRowsPerPage] = React.useState(100);
+
+    const handleChangePage = async (event, newPage) => {
+        setPage(newPage);
+        setLoading(true)
         let tempVendorId;
         if (userData.subVendorId === 'No') {
             tempVendorId = userData.id;
@@ -38,25 +77,197 @@ function VendorProduct() {
         }
 
 
-        let dataLimit = 300;
+        let dataLimit = 100;
 
-        let pageNo = Math.ceil(product.length / dataLimit) + 1
+        let pageNo = page;
+        // Math.ceil(product.length / dataLimit) + 1
         console.log("Page No : " + pageNo)
 
 
         try {
-            // const response = await fetch(`http://localhost:5005/product/vendorId/${userData.id}?pageNo=${pageNo}&dataLimit=${dataLimit}`);
-            const response = await fetch(`${baseUrl}/product/vendorId/${tempVendorId}?pageNo=${pageNo}&dataLimit=${dataLimit}`);
+            if (searchTermProduct != "") {
+                // const response = await fetch(`http://localhost:5002/product/vendorIdProductNameOrBrandName/${tempVendorId}/${searchTermProduct}?pageNo=${pageNo}&dataLimit=${dataLimit}`);
+                const response = await fetch(`${baseUrl}/product/vendorIdProductNameOrBrandName/${tempVendorId}/${searchTermProduct}?pageNo=${pageNo}&dataLimit=${dataLimit}`);
 
+                let jsonproduct = await response.json();
+
+                let apidata = [...product, ...jsonproduct];
+                console.log("This is under if")
+
+                // listproduct = jsonproduct;
+                setProduct(apidata);
+                setLoading(false)
+            } else {
+
+                // const response = await fetch(`http://localhost:5002/product/vendorIdProductNameOrBrandName/${tempVendorId}/Test${userData.id}?pageNo=${pageNo}&dataLimit=${dataLimit}`);
+                const response = await fetch(`${baseUrl}/product/vendorId/${tempVendorId}?pageNo=${pageNo}&dataLimit=${dataLimit}`);
+
+                let jsonproduct = await response.json();
+
+                let apidata = [...product, ...jsonproduct];
+
+                // listproduct = jsonproduct;
+                console.log("This is under else")
+                setProduct(apidata);
+                setLoading(false)
+            }
+
+
+
+        } catch (error) {
+            setLoading(false)
+            console.log('Error:', error);
+        }
+
+    };
+
+    const handleChangeRowsPerPage = (event) => {
+        setRowsPerPage(+event.target.value);
+        setPage(0);
+    };
+
+    const onSearchHandle = async (e) => {
+        setLoading(true)
+        let tempVendorId;
+        if (userData.subVendorId === 'No') {
+            tempVendorId = userData.id;
+        }
+        else {
+            tempVendorId = userData.subVendorId;
+        }
+
+
+        let dataLimit = 100;
+
+        let pageNo = page;
+        // Math.ceil(product.length / dataLimit) + 1
+        console.log("Page No : " + pageNo)
+
+        try {
+            // const response = await fetch(`http://localhost:5002/product/vendorIdProductNameOrBrandName/${tempVendorId}/${e}?pageNo=${pageNo}&dataLimit=${dataLimit}`);
+            const response = await fetch(`${baseUrl}/product/vendorIdProductNameOrBrandName/${tempVendorId}/${e}?pageNo=${pageNo}&dataLimit=${dataLimit}`);
 
 
             let jsonproduct = await response.json();
+            const arr = [];
+            for (let s of jsonproduct) {
+                arr.push(JSON.parse(JSON.stringify(s)));
+            }
 
-            let apidata = [...product, ...jsonproduct];
+            // let apidata = [...product, ...jsonproduct];
 
             // listproduct = jsonproduct;
-            setProduct(apidata);
+
+            setProduct(arr);
+
+
+            console.log(" Product  : " + jsonproduct.type);
+            setLoading(false)
         } catch (error) {
+            setLoading(false)
+            console.log('Error:', error);
+        }
+
+    }
+
+
+
+
+    // --------------------------------------------------------------------------------------
+
+
+    const handleSearchProductName = (event) => {
+
+         // setSearchTermProduct(event.target.value);
+        localStorage.setItem('productVendorSearch',event.target.value)
+        setSearchTermProduct(localStorage.getItem('productVendorSearch'));
+    // onSearchHandle(localStorage.getItem('productVendorSearch'));
+    
+        onSearchHandle(localStorage.getItem('productVendorSearch'));
+        if (event.target.value == "") {
+            //setSearchTermProduct();
+            setProduct([]);
+            localStorage.productVendorSearch.clear();
+            //alert("Product : "+product.length)
+            fetchProduct();
+            //window.location.reload();
+        }
+
+    };
+
+    // const filteredProductName = product.filter((item) =>
+    //     item.productName.toLowerCase().indexOf(searchTermProduct.toLowerCase()) > -1,
+    // );
+
+    useEffect(() => {
+        countProduct();
+        // if(searchTermProduct !== '')
+        // {
+        //     onSearchHandle(searchTermProduct);
+        // }else{
+
+        //     fetchProduct();
+        // }
+        fetchProduct();
+    }, []);
+
+    const fetchProduct = async () => {
+        setLoading(true)
+        let tempVendorId;
+        if (userData.subVendorId === 'No') {
+            tempVendorId = userData.id;
+        }
+        else {
+            tempVendorId = userData.subVendorId;
+        }
+
+
+        let dataLimit = 100;
+
+        let pageNo = page;
+        // Math.ceil(product.length / dataLimit) + 1
+        console.log("Page No : " + pageNo)
+
+
+        try {
+
+            if(searchTermProduct){
+                const response = await fetch(`${baseUrl}/product/vendorIdProductNameOrBrandName/${tempVendorId}/${searchTermProduct}?pageNo=${pageNo}&dataLimit=${dataLimit}`);
+
+
+            let jsonproduct = await response.json();
+            const arr = [];
+            for (let s of jsonproduct) {
+                arr.push(JSON.parse(JSON.stringify(s)));
+            }
+
+            // let apidata = [...product, ...jsonproduct];
+
+            // listproduct = jsonproduct;
+
+            setProduct(arr);
+
+
+            console.log(" Product  : " + jsonproduct.type);
+            setLoading(false)
+            }else{
+
+                // const response = await fetch(`http://localhost:5002/product/vendorIdProductNameOrBrandName/${tempVendorId}/${searchTermProduct}?pageNo=${pageNo}&dataLimit=${dataLimit}`);
+                const response = await fetch(`${baseUrl}/product/vendorId/${tempVendorId}?pageNo=${pageNo}&dataLimit=${dataLimit}`);
+    
+    
+    
+                let jsonproduct = await response.json();
+    
+                //let apidata = [...product, ...jsonproduct];
+    
+                // listproduct = jsonproduct;
+                setProduct(jsonproduct);
+                setLoading(false)
+            }
+
+        } catch (error) {
+            setLoading(false)
             console.log('Error:', error);
         }
 
@@ -91,6 +302,94 @@ function VendorProduct() {
 
     console.log(product)
     var date;
+
+    const columns = [
+
+        { id: 'index', label: 'No.', align: 'center', minWidth: 170 },
+
+        {
+            id: 'action',
+            label: 'Action',
+            minWidth: 10,
+            align: 'center',
+            // format: (value) => value.toFixed(2),
+        },
+        { id: 'productId', label: 'Product Id', align: 'center', minWidth: 100 },
+
+        {
+            id: 'vendorName',
+            label: 'Vendor Name',
+            minWidth: 170,
+            align: 'center',
+            format: (value) => value.toLocaleString('en-US'),
+        },
+        {
+            id: 'brandName',
+            label: 'Brand Name',
+            minWidth: 170,
+            align: 'center',
+            format: (value) => value.toLocaleString('en-US'),
+        },
+        {
+            id: 'productName',
+            label: 'Product Name',
+            minWidth: 270,
+            align: 'center',
+            // format: (value) => value.toFixed(2),
+        },
+        {
+            id: 'category',
+            label: 'Product Type',
+            minWidth: 170,
+            align: 'center',
+            // format: (value) => value.toFixed(2),
+        },
+
+        {
+            id: `date`,
+            label: 'Date',
+            minWidth: 170,
+            align: 'center',
+            // date : new Date(value).toDateString(),
+            format: (value) => value.toLocaleString('en-US'),
+        },
+        {
+            id: 'productQuantity',
+            label: 'Quantity',
+            minWidth: 170,
+            align: 'center',
+            // format: (value) => value.toFixed(2),
+        },
+        {
+            id: 'discountPercentage',
+            label: 'Discount ( % )',
+            minWidth: 170,
+            align: 'center',
+            // format: (value) => value.toFixed(2),
+        },
+        {
+            id: 'natePriceWithDiscount',
+            label: 'Price ( Rs )',
+            minWidth: 170,
+            align: 'center',
+            format: (value) => value.toFixed(2),
+        },
+        {
+            id: 'totalProductPrice',
+            label: 'Total Price ( Rs )',
+            minWidth: 170,
+            align: 'center',
+            format: (value) => value.toFixed(2),
+        },
+        {
+            id: 'status',
+            label: 'Status',
+            minWidth: 170,
+            align: 'center',
+            // format: (value) => value.toFixed(2),
+        },
+
+    ];
 
 
     return (
@@ -151,7 +450,7 @@ function VendorProduct() {
                             <h5>0 </h5>
                         </div>
                     </div>
-                   
+
                     {(userData.subVendorId != 'No') ?
                         (<>
                             <Link to={'/products'} className="sellerproduct">
@@ -203,7 +502,7 @@ function VendorProduct() {
                 </div>
                 <div className=' longdiv1'>
                     <h5>Your Products</h5>
-                    <h5 className='float-end mr-4' style={{ fontFamily: "cursive", color: "#ffff" }}>{product.length}</h5>
+                    {/* <h5 className='float-end mr-4' style={{ fontFamily: "cursive", color: "#ffff" }}>{product.length}</h5> */}
                     {/* <select className="form" id="floatingSelect" aria-label="Floating label select example">
                         <option >All</option>
                         <option >Today</option>
@@ -224,7 +523,125 @@ function VendorProduct() {
                     onChange={handleSearchProductName} />
 
                 </div>
-                <div className="col-md-12 container table-responsive">
+
+                <Paper style={{ background: 'azure' }} sx={{ width: '100%', overflow: 'hidden' }}>
+                    <TableContainer sx={{ maxHeight: 440 }}>
+                        <Table stickyHeader aria-label="sticky table">
+                            <TableHead className='zIndexTablecell'>
+                                <TableRow >
+                                    {columns.map((column) => (
+                                        <TableCell
+                                            className='bg-dark text-light'
+                                            
+                                            key={column.id}
+                                            align={column.align}
+                                            style={{ minWidth: column.minWidth }}
+                                        >
+                                            {column.label}
+                                        </TableCell>
+                                    ))}
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {loading ? (<>
+                                    <div className='text-center loadingProduct'>
+
+                                        <img style={{ width: 50, height: 50 }} src='spinner.gif' />
+
+                                    </div>
+                                </>) : (<>
+                                    {product
+                                        .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                        .map((row, index) => {
+                                            return (
+                                                <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
+                                                    {columns.map((column) => {
+                                                        const value = row[column.id];
+                                                        return (<>
+
+                                                            {
+                                                                column.id === 'action' ? (<>
+                                                                    {((userData.subVendorId != 'No')) ?
+                                                                        (<>
+                                                                            <TableCell key={column.id} align={column.align}>
+                                                                                {/* <Link id="eml" to={'/editSubVendorProduct/' + row.productId} className="nav-link inactive"
+                                                                                aria-current="page" >
+                                                                                <span className="material-symbols-outlined">
+                                                                                    edit</span>&nbsp;Edit&nbsp;&nbsp;
+                                                                            </Link> */}
+                                                                                <Link className='navAccountResponsive float-end  float-end' to={'/editSubVendorProduct/' + row.productId}>
+                                                                                    <span id='logoutIcon' class="material-symbols-outlined">edit</span>&nbsp;<p className='navAccountText'>Edit</p>
+                                                                                </Link>
+                                                                            </TableCell>
+                                                                        </>)
+                                                                        : (<>
+                                                                            <TableCell key={column.id} align={column.align}>
+                                                                                {/* <Link id="eml" to={'/editProduct/' + row.productId} className="nav-link inactive"
+                                                                            aria-current="page" >
+                                                                                <Edit/> Edit
+                                                                           
+                                                                        </Link> */}
+                                                                                <Link className='navAccountResponsive float-end float-end' to={'/editProduct/' + row.productId}>
+                                                                                    <span id='logoutIcon' class="material-symbols-outlined">edit</span>&nbsp;<p className='navAccountText'>Edit</p>
+                                                                                </Link>
+                                                                            </TableCell>
+                                                                        </>)
+                                                                    }
+                                                                </>) : (<>
+                                                                    {column.id === 'index' ? (<>
+                                                                        <TableCell key={column.id} align={column.align}>{index + 1}</TableCell>
+
+                                                                    </>) : (<>
+                                                                        <TableCell key={column.id} align={column.align}>
+                                                                            {column.format && typeof value === 'number'
+                                                                                ? column.format(value)
+                                                                                : value}
+
+                                                                        </TableCell>
+                                                                    </>)}
+
+                                                                </>)
+                                                            }
+                                                        </>
+                                                        );
+                                                    })}
+                                                </TableRow>
+                                            );
+                                        })}
+                                </>)
+                                }
+
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                    <TablePagination
+                        rowsPerPageOptions={[100]}
+                        component="div"
+                        count={countData}
+                        rowsPerPage={rowsPerPage}
+                        page={page}
+                        onPageChange={handleChangePage}
+                        onRowsPerPageChange={handleChangeRowsPerPage}
+                    />
+                </Paper>
+
+
+
+
+                {/* <ReactPaginate
+                        breakLabel="..."
+                        nextLabel="next >"
+                        onPageChange={handlePageClick}
+                        pageRangeDisplayed={10}
+                        pageCount={pageCount}
+                        previousLabel="< previous"
+                        renderOnZeroPageCount={null}
+                    >
+                        
+
+                    </ReactPaginate> */}
+
+                {/* <div className="col-md-12 container table-responsive">
 
                     <InfiniteScroll
                         dataLength={product.length}
@@ -298,9 +715,9 @@ function VendorProduct() {
                             </tbody>
                         </table>
                     </InfiniteScroll>
-                </div>
+                </div> */}
 
-                
+
 
 
                 {/* <div className='largediv1'>

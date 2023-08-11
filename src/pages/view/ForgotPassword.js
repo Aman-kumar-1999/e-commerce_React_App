@@ -103,7 +103,7 @@ const ForgotPassword = () => {
           <div className='col mt-5'>
             <Link to={'/'}><img className="signUpLogo" src='E (14).png' /></Link>
             <h1 className='mb-4'>Welcome to Eqipped </h1>
-            <h6>For Login ? <Link style={{ color: 'red' }} to={'/login'}>login</Link></h6>
+            <h6>For Login ? <Link style={{ color: 'red' }} id='forgotPasswordLogin' to={'/login'}>login</Link></h6>
             <h6>Continue as guest</h6>
           </div>
           {/* <div className='col mr-5 ml-2'>
@@ -130,7 +130,7 @@ const ForgotPassword = () => {
               {/* <Button className='button mt-5 form-control' variant="contained" onClick={handleForgetPasswordSubmit} endIcon={<Send />}> 
                 Send
               </Button> */}
-              <button className='button mt-5 form-control' onClick={handleForgetPasswordSubmit} >  Send New Password &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <Send /></button>
+              <button id='sendNewPassword' className='button mt-5 form-control' onClick={handleForgetPasswordSubmit} >  Send New Password &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <Send /></button>
               <button type="reset" className='button mt-3 form-control'  >Clear</button>
             </form>
           </div>

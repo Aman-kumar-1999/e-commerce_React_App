@@ -401,7 +401,18 @@ function Chart(props) {
 
                                     <div className="col linkHover">
                                         <Link to={'/productDetails/' + item.productId} className="card-img text-decoration-none ">
-                                            <img className="productImage" src='https://eqipped.com/productImage.png' alt="...." />
+                                            {
+                                                (item.imagePath != "No") ? (
+                                                    <div>
+                                                        <img className="productImage" src={item.imagePath} alt="...." />
+
+                                                    </div>
+                                                ) : (
+                                                    <div>
+                                                        <img className="productImage" src='https://eqipped.com/productImage.png' alt="..." />
+                                                    </div>
+                                                )
+                                            }
 
                                             <div className='card-body'>
                                                 <p className='productName' >{

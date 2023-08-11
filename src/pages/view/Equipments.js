@@ -525,12 +525,23 @@ function Equipments(props) {
 
             >
                 <div className="row">
-                    {data.map(item => (
+                    {data.map((item,index) => (
 
 
-                        <div className="col linkHover">
+                        <div className="col linkHover" key={index}>
                             <Link to={'/productDetails/' + item.productId} className="card-img text-decoration-none ">
-                                <img className="productImage" src='https://eqipped.com/productImage.png' alt="...." />
+                            {
+                                        (item.imagePath != "No") ? (
+                                            <div>
+                                                <img className="productImage" src={item.imagePath} alt="...." />
+
+                                            </div>
+                                        ) : (
+                                            <div>
+                                                <img className="productImage" src='https://eqipped.com/productImage.png' alt="..." />
+                                            </div>
+                                        )
+                                    }
 
                                 <div className='card-body'>
                                     <p className='productName' >{

@@ -6,9 +6,30 @@ import baseUrl from "../../helper/helper";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import InfiniteScroll from "react-infinite-scroll-component";
+import Carousel from "react-multi-carousel";
 
 
 const ProductDetails = () => {
+
+    const responsive = {
+        superLargeDesktop: {
+            // the naming can be any, depends on you.
+            breakpoint: { max: 4000, min: 3000 },
+            items: 5
+        },
+        desktop: {
+            breakpoint: { max: 3000, min: 1024 },
+            items: 4
+        },
+        tablet: {
+            breakpoint: { max: 1024, min: 464 },
+            items: 2
+        },
+        mobile: {
+            breakpoint: { max: 464, min: 0 },
+            items: 1
+        }
+    };
     const imgCollection = [
         {
             image: 'eqippedImg3.png',
@@ -26,10 +47,11 @@ const ProductDetails = () => {
     const [data, setData] = useState([]);
     const [product, setProducts] = useState([]);
     const [tier, setTier] = useState([]);
+    const [variationData, setvariationData] = useState([]);
 
 
     useEffect(() => {
-
+        window.scrollTo(0, 0);
         getProductByProductIdForTier();
         getProductByVariationId();
 
@@ -38,6 +60,7 @@ const ProductDetails = () => {
 
     const userData = JSON.parse(localStorage.getItem('userData'))
     var isLoggedIn = localStorage.getItem('isLoggedIn');
+
 
     const cart =
     {
@@ -205,7 +228,7 @@ const ProductDetails = () => {
                 response = axios.post(`${baseUrl}/order/`, cart).then(
                     (response) => {
                         if (response.status == 200) {
-                            
+
 
 
                             //console.log(response.data)
@@ -297,10 +320,33 @@ const ProductDetails = () => {
 
             let jsonproduct = await response.json();
 
-            let apidata = [...data, ...jsonproduct];
+            let apidata = [...variationData, ...jsonproduct];
 
-            setData(apidata);
-            console.log('Veriation : ' + data);
+            setvariationData(apidata);
+            console.log('Veriation : ' + variationData);
+        } catch (error) {
+            console.log('Error:', error);
+        }
+
+    }
+    const getProductByVariationIdScroll = async () => {
+        //window.location.reload();
+        let dataLimit = 10;
+
+        let pageNo = Math.ceil(data.length / dataLimit) + 1
+        console.log("Page No : " + pageNo)
+        try {
+            // const response = await fetch(`http://localhost:5005/product/variationId/${product.variationId}/${pageNo}/${dataLimit}`);
+
+            const response = await fetch(`${baseUrl}/product/variationId/${product.variationId}?pageNo=${pageNo}&dataLimit=${dataLimit}`);
+
+
+            let jsonproduct = await response.json();
+
+            let apidata = [...variationData, ...jsonproduct];
+
+            setvariationData(apidata);
+            console.log('Veriation : ' + variationData);
         } catch (error) {
             console.log('Error:', error);
         }
@@ -338,10 +384,12 @@ const ProductDetails = () => {
 
                 </div>
                 <div className="col mb-5 float-start">
-                    <h4 className="">{product.productName} ({product.containLiquid})</h4>
+                    <h4 className="">{product.productName} </h4>
 
                     <p> Brand: {product.brandName}</p>
-                    <p> Quantity: {product.productQuantity}</p>
+                    
+                    <p> Quantity of Products in a Packet : {product.productQuantity}</p>
+                    <p>Company Code: {product.companyCode} </p>
                     <p>Price :
                         <span style={{ fontSize: '15px' }} className="material-symbols-outlined">
                             currency_rupee
@@ -352,7 +400,7 @@ const ProductDetails = () => {
                         <div className="col-4 table-responsive">
 
                             <div className="row">
-                                <p><b>Quantity : </b></p>
+                                <p><b>Packet : </b></p>
                             </div>
                             <div className="row">
                                 <p><b>Price : </b></p>
@@ -496,7 +544,7 @@ const ProductDetails = () => {
 
 
                 <InfiniteScroll
-                    dataLength={data.length}
+                    dataLength={variationData.length}
                     next={getProductByVariationId}
                     hasMore={true}
                     loader={<div className='text-center loading1'>
@@ -506,130 +554,70 @@ const ProductDetails = () => {
                     </div>}
 
                 >
-                    {
-                        (data.length == 0) ? (<>
+                    <div className="row">
+                        {variationData.map((item,index) => (
 
 
-                        </>) : (
-                            <>
-                                <div className="row">
-                                    {data.map(item => (
+                            <Link key={index} to={'/productDetails/' + item.productId} className="col linkHover">
+                                <div className="card-img text-decoration-none ">
 
+                                    {
+                                        (item.imagePath != "No") ? (
+                                            <div>
+                                                <img className="productImage" src={item.imagePath} alt="...." />
 
-                                        <div className="col linkHover">
-                                            <Link to={'/productDetails'} className="card-img text-decoration-none ">
-                                                <img className="productImage" src='https://eqipped.com/productImage.png' alt="...." />
-
-                                                <div className='card-body'>
-                                                    <p className='productName' >{
-                                                        item.productName.length >= 10 ? (<>{item.productName.toUpperCase().slice(0, 10)} ....</>) : (<>{item.productName.toUpperCase()}</>)
-                                                    }</p>
-                                                    <p className='offCategory'>{item.discountPercentage} % off</p>
-                                                    <p className='natePriceWithDiscount'><span id='productIcon' className="material-symbols-outlined">
-                                                        currency_rupee
-                                                    </span> {item.natePriceWithDiscount}</p>
-                                                    <p className='brandName'>{item.brandName}</p>
-                                                    <p className='individualProductPrice'><span id='productIcon' className="material-symbols-outlined">
-                                                        currency_rupee
-                                                    </span> {item.individualProductPrice}</p>
-
-
-
-                                                    {
-                                                        (isLoggedIn) ? (
-                                                            <div >
-                                                                <Link onClick={() => addToCart(item)}><div className='col-5 text-decoration-none cart-button-category'>Add to cart</div></Link>
-
-                                                                <Link onClick={() => checkout(item)}><div className='col-4 float-end text-decoration-none cart-button1-category'>Buy now</div></Link>
-
-
-                                                            </div>
-                                                        ) : (
-                                                            <>
-                                                                <Link to={'/login'} className="cart-btn"><div className='col-5 text-decoration-none cart-button-category'>Add to cart</div></Link>
-
-                                                                <Link to={'/login'} className="cart-btn"><div className='col-4 text-decoration-none cart-button1-category'>Buy now</div></Link>
-
-
-                                                            </>
-                                                        )
-                                                    }
-                                                </div>
-
-                                            </Link>
-
-                                        </div>
-
-                                    ))}
-                                </div>
-                                {/* <div className="row row-cols-1 row-cols-md-7 g-8">
-                                    {data.map(item => (
-                                        <>
-
-
-                                            <Link to={'/productDetails/' + item.productId} className="col text-decoration-none">
-
-                                                <div className="" key={item.id} >
-                                                    {
-                                                        (item.imagePath != "No") ? (
-                                                            <div>
-                                                                <img className="productImage" src={item.imagePath} alt="...." />
-
-                                                            </div>
-                                                        ) : (<><div>
-                                                            <img className="productImage" src='https://eqipped.com/productImage.png' alt="...." />
-                                                        </div>
-                                                        </>)
-                                                    }
-
-                                                    <div className='card-body'>
-                                                        <p className='productName' >{
-                                                            item.productName.length >= 10 ? (<>{item.productName.toUpperCase().slice(0, 10)} ....</>) : (<>{item.productName.toUpperCase()}</>)
-                                                        }</p>
-                                                        <p className='offCategory'>{item.discountPercentage} % off</p>
-                                                        <p className='natePriceWithDiscount'><span id='productIcon' className="material-symbols-outlined">
-                                                            currency_rupee
-                                                        </span> {item.natePriceWithDiscount}</p>
-                                                        <p className='brandName'>{item.brandName}</p>
-                                                        <p className='individualProductPrice'><span id='productIcon' className="material-symbols-outlined">
-                                                            currency_rupee
-                                                        </span> {item.individualProductPrice}</p>
-                                                        
-
-
-                                                        {
-                                                            (isLoggedIn) ? (
-                                                                <div >
-                                                                    <Link onClick={() => addToCart(item)}><div className='col-5 text-decoration-none cart-button-category'>Add to cart</div></Link>
-
-                                                                    <Link onClick={() => checkout(item)}><div className='col-4 text-decoration-none cart-button1-category'>Buy now</div></Link>
-
-
-                                                                </div>
-                                                            ) : (
-                                                                <>
-                                                                    <Link to={'/login'} className="cart-btn"><div className='col-5 text-decoration-none cart-button-category'>Add to cart</div></Link>
-
-                                                                    <Link to={'/login'} className="cart-btn"><div className='col-4 text-decoration-none cart-button1-category'>Buy now</div></Link>
-
-
-                                                                </>
-                                                            )
-                                                        }
-                                                    </div>
-                                                </div>
-                                            </Link>
-                                        </>
-                                    )
-                                    )
-
+                                            </div>
+                                        ) : (
+                                            <div>
+                                                <img className="productImage" src='https://eqipped.com/productImage.png' alt="..." />
+                                            </div>
+                                        )
                                     }
 
-                                </div> */}
+                                    
 
-                            </>
-                        )
-                    }
+                                    <div className='card-body'>
+                                        <p className='productName' >{
+                                            item.productName.length >= 10 ? (<>{item.productName.toUpperCase().slice(0, 10)} ....</>) : (<>{item.productName.toUpperCase()}</>)
+                                        }</p>
+                                        <p className='offCategory'>{item.discountPercentage} % off</p>
+                                        <p className='natePriceWithDiscount'><span id='productIcon' className="material-symbols-outlined">
+                                            currency_rupee
+                                        </span> {item.natePriceWithDiscount}</p>
+                                        <p className='brandName'>{item.brandName}</p>
+                                        <p className='individualProductPrice'><span id='productIcon' className="material-symbols-outlined">
+                                            currency_rupee
+                                        </span> {item.individualProductPrice}</p>
+
+
+
+                                        {
+                                            (isLoggedIn) ? (
+                                                <div >
+                                                    <Link onClick={() => addToCart(item)}><div className='col-5 text-decoration-none cart-button-category'>Add to cart</div></Link>
+
+                                                    <Link onClick={() => checkout(item)}><div className='col-4 float-end text-decoration-none cart-button1-category'>Buy now</div></Link>
+
+
+                                                </div>
+                                            ) : (
+                                                <>
+                                                    <Link to={'/login'} className="cart-btn"><div className='col-5 text-decoration-none cart-button-category'>Add to cart</div></Link>
+
+                                                    <Link to={'/login'} className="cart-btn"><div className='col-4 text-decoration-none cart-button1-category'>Buy now</div></Link>
+
+
+                                                </>
+                                            )
+                                        }
+                                    </div>
+
+                                </div>
+
+                            </Link>
+
+                        ))}
+                    </div>
 
                 </InfiniteScroll>
             </div>

@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react'
 import HomePageSlider from '../../pages/view/HomePageSlider';
 import HomeCategory from '../../pages/view/HomeCategory';
 import HomeSlider from '../../pages/view/HomeSlider';
+
 import Suggestion from '../../pages/view/Suggestion';
 import Brands from '../../pages/view/Brands';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, unstable_HistoryRouter, useNavigate } from 'react-router-dom';
 import baseUrl from '../../helper/helper';
 import axios from 'axios';
 import { toast } from 'react-toastify';
@@ -13,11 +14,25 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 import Autocomplete from '@mui/material/Autocomplete';
-import { Box, LinearProgress } from '@mui/material';
+// import { Box, FormControl, InputLabel, LinearProgress, OutlinedInput } from '@mui/material';
 import SearchSection from './SearchBar';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
+import InputLabel from '@mui/material/InputLabel';
+import OutlinedInput from '@mui/material/OutlinedInput';
+// import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
 import { Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
+
+
 import Testimonial from '../../pages/view/Testimonial';
+import { FilterList, Search } from '@mui/icons-material';
 
 
 const Home = () => {
@@ -36,7 +51,7 @@ const Home = () => {
     }
   ];
 
-  const [searchData, setSearchData] = useState('');
+  const [searchData, setSearchData] = useState(localStorage.getItem('homeSearch'));
   const [product, setProduct] = useState([]);
   const [searchNeeded, setSearchNeeded] = useState(false);
   const [changeData, setChangeData] = useState(false);
@@ -45,6 +60,8 @@ const Home = () => {
   var isLoggedIn = localStorage.getItem('isLoggedIn');
 
   const [loading, setLoading] = useState(false);
+
+
 
   const cart =
   {
@@ -78,14 +95,23 @@ const Home = () => {
   }
 
   useEffect(() => {
+    localStorage.removeItem("homeSearch")
     // fetchProductData();
+    //console.log('Search Data : '+searchData.length)
+    if (searchData) {
+      window.scrollTo(100, 200);
+      setSearchNeeded(true);
+    } else {
+      setSearchNeeded(false);
+    }
+
   }, [])
 
   const handleSearchInputChange = (event) => {
     setSearchNeeded(true)
-    setSearchData(event.target.value);
-    onSearchHandle(event.target.value);
-
+    localStorage.setItem('homeSearch', event.target.value)
+    setSearchData(localStorage.getItem('homeSearch'));
+    onSearchHandle(localStorage.getItem('homeSearch'));
     if (event.target.value == "")
       setSearchNeeded(false)
   }
@@ -94,6 +120,27 @@ const Home = () => {
   //     item.productName.toLowerCase().includes(searchData.toLowerCase())
 
   // );
+
+  // ----------Start Search--------------------------------------------------------------------
+
+  const [open, setOpen] = React.useState(false);
+  const [age, setAge] = React.useState('');
+
+  const handleChange = (event) => {
+    setAge((event.target.value) || '');
+  };
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason !== 'backdropClick') {
+      setOpen(false);
+    }
+  };
+
+  // ----------End Search------------------------------------------------------------------------
 
   const onSearchHandle = async (e) => {
 
@@ -281,19 +328,19 @@ const Home = () => {
             if (response.data.Email_STATUS === 'Failed') {
               console.log(response.data)
               toast.warning(`Order has been Created. But Email Sent : ${response.data.Email_STATUS}`);
-          }
-          if (response.data.WhatsApp_STATUS === 'Failed') {
+            }
+            if (response.data.WhatsApp_STATUS === 'Failed') {
               console.log(response.data)
               toast.warning(`Order has been Created. But WhatsApp Msg Sent : ${response.data.WhatsApp_STATUS}`);
-          }
-          if (response.data.WhatsApp_STATUS === 'Success.' || response.data.Email_STATUS === 'Success.') {
+            }
+            if (response.data.WhatsApp_STATUS === 'Success.' || response.data.Email_STATUS === 'Success.') {
               console.log(response.data)
               toast.success(`Order has been Created. Sent Email : ${response.data.Email_STATUS} & Sent WhatsApp : ${response.data.WhatsApp_STATUS}`)
-          }
-          else {
+            }
+            else {
               console.log(response.data)
               toast.warning(`Order has been Created. Sent Email : ${response.data.Email_STATUS} & Sent WhatsApp : ${response.data.WhatsApp_STATUS}`)
-          } navigate('/checkoutsuccess')
+            } navigate('/checkoutsuccess')
 
           }
         }
@@ -433,34 +480,94 @@ const Home = () => {
 
 
 
-     
-
-      
-      <HomePageSlider/>
 
 
-      <div className='searchBoxCSS sticky-top'>
 
-        <input type="" style={{ border: "1px solid black" }} className='searchBoxImputNavbar' size="lg"
+      <HomePageSlider />
+
+
+      <div id='home-search-div' className='searchBoxCSS sticky-top'>
+        <FormControl variant="filled" fullWidth sx={{ mt: 3 }} className='home-search'>
+          {/* <InputLabel className='ml-5' htmlFor="outlined-adornment-amount">Search Product Name ...</InputLabel> */}
+          <OutlinedInput className='m-0 searchBoxImputNavbar'
+
+            required name="recipient"
+            size='small'
+            value={searchData} onChange={handleSearchInputChange}
+            id="outlined-adornment-amount"
+            endAdornment={<Search />}
+            startAdornment={
+              // <Link><FilterList /></Link>
+              <div>
+                {/* <Button onClick={handleClickOpen}> */}
+                <Link><FilterList onClick={handleClickOpen}/></Link>
+                  {/* </Button> */}
+                <Dialog disableEscapeKeyDown open={open} onClose={handleClose}>
+                  <DialogTitle>Select one</DialogTitle>
+                  <DialogContent>
+                    <Box component="form" sx={{ display: 'flex', flexWrap: 'wrap' }}>
+                      <FormControl sx={{ m: 1, minWidth: 120 }}>
+                        <InputLabel htmlFor="demo-dialog-native">Filter</InputLabel>
+                        <Select
+                          native
+                          value={age}
+                          onChange={handleChange}
+                          input={<OutlinedInput label="Age" id="demo-dialog-native" />}
+                        >
+                          <option aria-label="None" value="" />
+                          <option value="Product Name">Product Name</option>
+                          <option value="Brand Name">Brand Name</option>                          
+                        </Select>
+                      </FormControl>
+                      {/* <FormControl sx={{ m: 1, minWidth: 120 }}>
+                        <InputLabel id="demo-dialog-select-label">Age</InputLabel>
+                        <Select
+                          labelId="demo-dialog-select-label"
+                          id="demo-dialog-select"
+                          value={age}
+                          onChange={handleChange}
+                          input={<OutlinedInput label="Age" />}
+                        >
+                          <MenuItem value="">
+                            <em>None</em>
+                          </MenuItem>
+                          <MenuItem value={10}>Ten</MenuItem>
+                          <MenuItem value={20}>Twenty</MenuItem>
+                          <MenuItem value={30}>Thirty</MenuItem>
+                        </Select>
+                      </FormControl> */}
+                    </Box>
+                  </DialogContent>
+                  <DialogActions>
+                    <Button onClick={handleClose}>Cancel</Button>
+                    <Button onClick={handleClose}>Ok</Button>
+                  </DialogActions>
+                </Dialog>
+              </div>
+
+            }
+          // label="Search Product Name ..."
+          />
+        </FormControl>
+        {/* <input id='home-search' type="" style={{ border: "1px solid black" }} className='searchBoxImputNavbar' size="lg"
           bordered
           clearable
           placeholder="Search Product Name ..."
-          value={searchData} onChange={handleSearchInputChange} />
+          value={searchData} onChange={handleSearchInputChange} /> */}
       </div>
-
 
 
 
       {searchNeeded ? (<>
 
-        <div className="row row-cols-1 row-cols-md-7 g-8">
+        <div id='home-div-scrollbody' className="row row-cols-1 row-cols-md-7 g-8">
           <InfiniteScroll
             dataLength={product.length}
             next={fetchProductData}
             hasMore={true}
-            loader={<div className='text-center loading1'>
+            loader={<div id='home-infinity-scroll-loading' className='text-center loading1'>
 
-              <img style={{ width: 50, height: 50 }} src='spinner.gif' />
+              <img id='home-infinity-scroll-loading-img' style={{ width: 50, height: 50 }} src='spinner.gif' />
 
             </div>}
 
@@ -471,23 +578,23 @@ const Home = () => {
 
               </>) : (
                 <>
-                  <div className="row row-cols-1 ">
+                  <div id='home-infinity-scroll-div-body' className="row row-cols-1 ">
                     {product.map((item, index) => (
                       <>
 
 
 
-                        <Link to={'/productDetails/' + item.productId} className="col text-decoration-none linkHover">
+                        <Link id='home-infinity-scroll-link' to={'/productDetails/' + item.productId} className="col text-decoration-none linkHover">
 
                           <div className="" key={index} >
                             {
                               (item.imagePath != "No") ? (
                                 <div>
-                                  <img className="productImage" src={item.imagePath} alt="...." />
+                                  <img id='home-infinity-scroll-Link-img' className="productImage" src={item.imagePath} alt="...." />
 
                                 </div>
                               ) : (<><div>
-                                <img className="productImage" src='productImage.png' alt="...." />
+                                <img id='home-infinity-scroll-Link-img' className="productImage" src='productImage.png' alt="...." />
                               </div>
                               </>)
                             }
@@ -510,17 +617,17 @@ const Home = () => {
                               {
                                 (isLoggedIn) ? (
                                   <div >
-                                    <Link onClick={() => addToCart(item)}><div className='col-5 text-decoration-none cart-button-category'>Add to cart</div></Link>
+                                    <Link id='home-infinity-scroll-add-to-cart' onClick={() => addToCart(item)}><div className='col-5 text-decoration-none cart-button-category'>Add to cart</div></Link>
 
-                                    <Link onClick={() => checkout(item)}><div className='col-4 text-decoration-none cart-button1-category'>Buy now</div></Link>
+                                    <Link id='home-infinity-scroll-buy-now' onClick={() => checkout(item)}><div className='col-4 text-decoration-none cart-button1-category'>Buy now</div></Link>
 
 
                                   </div>
                                 ) : (
                                   <>
-                                    <Link to={'/login'} className="cart-btn"><div className='col-5 text-decoration-none cart-button-category'>Add to cart</div></Link>
+                                    <Link id='home-infinity-scroll-add-to-cart' to={'/login'} className="cart-btn"><div className='col-5 text-decoration-none cart-button-category'>Add to cart</div></Link>
 
-                                    <Link to={'/login'} className="cart-btn"><div className='col-4 text-decoration-none cart-button1-category'>Buy now</div></Link>
+                                    <Link id='home-infinity-scroll-buy-now' to={'/login'} className="cart-btn"><div className='col-4 text-decoration-none cart-button1-category'>Buy now</div></Link>
 
 
                                   </>
@@ -546,13 +653,13 @@ const Home = () => {
         </div>
 
       </>) : (<>
-        
+
         <HomeCategory />
-       
-        <HomeSlider/>
-       
+
+        <HomeSlider />
+
         <Brands />
-        <Testimonial/>
+        <Testimonial />
 
 
 

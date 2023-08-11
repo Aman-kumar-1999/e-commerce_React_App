@@ -17,12 +17,13 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Chip from '@mui/material/Chip';
-import { Button, Icon, IconButton, Input, InputAdornment } from '@mui/material';
+import { Autocomplete, createFilterOptions , Button, Icon, IconButton, Input, InputAdornment } from '@mui/material';
 import { AddCircle, Send, Visibility } from '@mui/icons-material';
 
 function EditProduct() {
     const { productId } = useParams();
     const userData = JSON.parse(localStorage.getItem('userData'))
+    const filter = createFilterOptions();
     console.log('ProductId : ' + productId)
     useEffect(() => {
         getProductByProductId();
@@ -98,7 +99,12 @@ function EditProduct() {
     const [images, setImages] = useState(null);
 
     const handleInputChange = (event) => {
-        setImages(event.target.files[0]);
+        if (event.target.files.length == 0 || event.target.files == null) {
+            setImages('https://eqipped.com/productImage.png')
+        } else {
+
+            setImages(event.target.files[0]);
+        }
         console.log('file name' + event.target.file)
 
     };
@@ -311,7 +317,7 @@ function EditProduct() {
                                 <option value="Pending Order">Pending Order</option>
                                 <option value="Recent Order">Recent Order</option>
                             </select> */}
-                                <FormControl variant="filled" sx={{ m: 1, minWidth: 480 }}
+                                {/* <FormControl variant="filled" sx={{ m: 1, minWidth: 480 }}
                                 >
                                     <InputLabel id="demo-simple-select-filled-label" >Variation Id</InputLabel>
                                     <Select
@@ -331,11 +337,55 @@ function EditProduct() {
                                                 value={name.variationId}
 
                                             >
-                                                {name.variationId}
+                                                {name.variationId} ({name.variationName})
                                             </MenuItem>
                                         ))}
                                     </Select>
-                                </FormControl>
+                                </FormControl> */}
+                                <Autocomplete
+                                   
+                                    onChange={event => handleProductsChange(event)}
+                                    filterOptions={(options, params) => {
+                                        const filtered = filter(options, params);
+
+                                        const { inputValue } = params;
+                                        // Suggest the creation of a new value
+                                        const isExisting = options.some((option) => inputValue === option.variationId);
+                                        if (inputValue !== '' && !isExisting) {
+                                            filtered.push({
+                                                inputValue,
+                                                title: `Add "${inputValue}"`,
+                                            });
+                                        }
+
+                                        return filtered;
+                                    }}
+                                    selectOnFocus
+                                    clearOnBlur
+                                    handleHomeEndKeys
+                                    id="free-solo-with-text-demo"
+                                    options={variation}
+                                    getOptionLabel={(option) => {
+                                        // Value selected with enter, right from the input
+                                        if (typeof option === 'string') {
+                                            return option.variationId;
+                                        }
+                                        // Add "xxx" option created dynamically
+                                        if (option.inputValue) {
+                                            return option.inputValue;
+                                        }
+                                        // Regular option
+                                        return option.variationId;
+                                    }}
+                                    renderOption={(props, option) => <li {...props}>{option.variationId} ({option.variationName})</li>}
+                                    sx={{
+                                        '& .MuiTextField-root': { m: 1, width: '55ch' },
+                                    }}
+                                    freeSolo
+                                    renderInput={(params) => (
+                                        <TextField {...params} variant="filled" label="Variation Id" />
+                                    )}
+                                />
                                 {/* <TextField color="success" size='small' variant="filled" type="text" className="form-control" id="variationId" value={products.variationId} name='variationId' label='variationId' onChange={handleProductsChange} required /> */}
 
                                 <TextField color="success" size='small' variant="filled" type="text" className="form-control" id="variationName" value={products.variationName} name='variationName' label='Variation Name' onChange={handleProductsChange} required />
@@ -354,15 +404,15 @@ function EditProduct() {
                                 <TextField color="success" size='small' variant="filled" type="text" className="form-control" id="bulkPack" value={products.bulkPack} name='bulkPack' label='Bulk Pack' onChange={handleProductsChange} required />
 
                                 <TextField color="success" size='small' variant="filled" type="text" className="form-control" id="bulkPrice"
-                                 value={products.bulkPrice} name='bulkPrice' label='Bulk Price' onChange={handleProductsChange} 
-                                 InputProps={{
-                                    startAdornment: (
-                                        <InputAdornment position="start">
-                                            <span id='' className="material-symbols-outlined">currency_rupee</span>
-                                        </InputAdornment>
-                                    ),
-                                }}
-                                required />
+                                    value={products.bulkPrice} name='bulkPrice' label='Bulk Price' onChange={handleProductsChange}
+                                    InputProps={{
+                                        startAdornment: (
+                                            <InputAdornment position="start">
+                                                <span id='' className="material-symbols-outlined">currency_rupee</span>
+                                            </InputAdornment>
+                                        ),
+                                    }}
+                                    required />
                                 <input type='file' color='success' size='small' variant='filled' name='images' onChange={handleInputChange} label='Chose Product Image' />
                                 {/* <TextField color="success" size='small' variant="filled" type="file" className="form-control" id="bulkPrice" value={products.containLiquid} name='bulkPrice' label='' onChange={handleProductsChange} required/> */}
                                 <button className='button mt-3 form-control' onClick={createProducts}>Update Product</button>

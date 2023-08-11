@@ -4,25 +4,151 @@ import baseUrl from '../../helper/helper';
 import { Link } from 'react-router-dom'
 import axios from 'axios';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import ReactPaginate from 'react-paginate';
+import { Pagination } from '@mui/material';
+import Paper from '@mui/material/Paper';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TablePagination from '@mui/material/TablePagination';
+import TableRow from '@mui/material/TableRow';
+import { Edit } from '@mui/icons-material';
 function Prcards() {
     const [product, setProduct] = useState([]);
-    const [searchTermProduct, setSearchTermProduct] = useState("");
+    const [searchTermProduct, setSearchTermProduct] = useState(localStorage.getItem('productSearch'));
     const [count, setCount] = useState(0);
+    const [loading, setLoading] = useState(false);
     const [listedProduct, setListedProduct] = useState(0);
     const [unListedProduct, setUnListedProduct] = useState(0);
     const userData = JSON.parse(localStorage.getItem('userData'))
+
     const handleSearchProductName = (event) => {
-        setSearchTermProduct(event.target.value);
+        // setSearchTermProduct(event.target.value);
+        localStorage.setItem('productSearch',event.target.value)
+        setSearchTermProduct(localStorage.getItem('productSearch'));
+    // onSearchHandle(localStorage.getItem('productSearch'));
+    
+        onSearchHandle(localStorage.getItem('productSearch'));
+        if (event.target.value == "") {
+            //setSearchTermProduct();
+            setProduct([]);
+            //alert("Product : "+product.length)
+            fetchProduct();
+            //window.location.reload();
+        }
     };
 
-    const filteredProductName = product.filter((item) =>
-        item.productName.toLowerCase().indexOf(searchTermProduct.toLowerCase()) > -1,
-    );
+    // const filteredProductName = product.filter((item) =>
+    //     item.productName.toLowerCase().indexOf(searchTermProduct.toLowerCase()) > -1,
+    // );
 
     useEffect(() => {
         countAllProduct();
         fetchProduct();
     }, []);
+
+
+    // ----------------------------------------------------------------
+
+
+
+
+
+    const [page, setPage] = React.useState(0);
+    const [rowsPerPage, setRowsPerPage] = React.useState(100);
+
+    const handleChangePage = async (event, newPage) => {
+
+        setPage(newPage);
+        setLoading(true)
+
+        let dataLimit = 100;
+
+        let pageNo = page;
+        // Math.ceil(product.length / dataLimit) + 1
+        console.log("Page No : " + pageNo)
+
+        try {
+
+            if (searchTermProduct !== "") {
+                const response = await fetch(`${baseUrl}/product/productNameOrBrandName/${searchTermProduct}?pageNo=${newPage}&dataLimit=${dataLimit}`);
+
+                let jsonproduct = await response.json();
+
+                let apidata = [...product, ...jsonproduct];
+
+                // listproduct = jsonproduct;
+                setProduct(apidata);
+                setLoading(false)
+
+            }
+            else {
+                const response = await fetch(`${baseUrl}/product/?pageNo=${pageNo}&dataLimit=${dataLimit}`);
+
+
+                let jsonproduct = await response.json();
+
+                let apidata = [...product, ...jsonproduct];
+
+                // listproduct = jsonproduct;
+                setProduct(apidata);
+                setLoading(false)
+
+            }
+            
+
+        } catch (error) {
+            setLoading(false)
+            console.log('Error:', error);
+        }
+
+    };
+
+    const handleChangeRowsPerPage = (event) => {
+        setRowsPerPage(+event.target.value);
+        setPage(0);
+    };
+
+    const onSearchHandle = async (e) => {
+        setLoading(true)
+        let dataLimit = 100;
+
+        let pageNo = page
+        // Math.ceil(product.length / dataLimit) + 1
+        console.log("Page No : " + pageNo)
+
+        try {
+            // const response = await fetch(`http://localhost:5005/product/?pageNo=${pageNo}&dataLimit=${dataLimit}`);
+            const response = await fetch(`${baseUrl}/product/productNameOrBrandName/${e}?pageNo=${pageNo}&dataLimit=${dataLimit}`);
+
+
+            let jsonproduct = await response.json();
+            const arr = [];
+            for (let s of jsonproduct) {
+                arr.push(JSON.parse(JSON.stringify(s)));
+            }
+
+            // let apidata = [...product, ...jsonproduct];
+
+            // listproduct = jsonproduct;
+
+            setProduct(arr);
+
+
+            console.log(" Product  : " + jsonproduct.type);
+            setLoading(false)
+        } catch (error) {
+            setLoading(false)
+            console.log('Error:', error);
+        }
+
+    }
+
+
+
+    // ----------------------------------------------------------------
 
     const countAllProduct = async () => {
         try {
@@ -38,23 +164,50 @@ function Prcards() {
     };
 
     const fetchProduct = async () => {
-        let dataLimit = 300;
+        
+        setLoading(true)
+        let dataLimit = 100;
 
-        let pageNo = Math.ceil(product.length / dataLimit) + 1
+        let pageNo = page
+        // Math.ceil(product.length / dataLimit) + 1
         console.log("Page No : " + pageNo)
 
         try {
-            // const response = await fetch(`http://localhost:5005/product/filter/${pageNo}/${dataLimit}`);
-            const response = await fetch(`${baseUrl}/product/?pageNo=${pageNo}&dataLimit=${dataLimit}`);
+            if(searchTermProduct){
+                const response = await fetch(`${baseUrl}/product/productNameOrBrandName/${searchTermProduct}?pageNo=${pageNo}&dataLimit=${dataLimit}`);
 
 
-            let jsonproduct = await response.json();
+                let jsonproduct = await response.json();
+                const arr = [];
+                for (let s of jsonproduct) {
+                    arr.push(JSON.parse(JSON.stringify(s)));
+                }
+    
+                // let apidata = [...product, ...jsonproduct];
+    
+                // listproduct = jsonproduct;
+    
+                setProduct(arr);
+    
+    
+                console.log(" Product  : " + jsonproduct.type);
+                setLoading(false)
+            }else{
 
-            let apidata = [...product, ...jsonproduct];
-
-            // listproduct = jsonproduct;
-            setProduct(apidata);
+                // const response = await fetch(`http://localhost:5005/product/filter/${pageNo}/${dataLimit}`);
+                const response = await fetch(`${baseUrl}/product/?pageNo=${pageNo}&dataLimit=${dataLimit}`);
+    
+    
+                let jsonproduct = await response.json();
+    
+                // let apidata = [...product, ...jsonproduct];
+    
+                // listproduct = jsonproduct;
+                setProduct(jsonproduct);
+                setLoading(false);
+            }
         } catch (error) {
+            setLoading(false)
             console.log('Error:', error);
         }
 
@@ -63,6 +216,93 @@ function Prcards() {
     var date;
 
 
+    const columns = [
+
+        { id: 'index', label: 'No.', align: 'center', minWidth: 170 },
+
+        {
+            id: 'action',
+            label: 'Action',
+            minWidth: 10,
+            align: 'center',
+            // format: (value) => value.toFixed(2),
+        },
+        { id: 'productId', label: 'Product Id', align: 'center', minWidth: 100 },
+
+        {
+            id: 'vendorName',
+            label: 'Vendor Name',
+            minWidth: 170,
+            align: 'center',
+            format: (value) => value.toLocaleString('en-US'),
+        },
+        {
+            id: 'brandName',
+            label: 'Brand Name',
+            minWidth: 170,
+            align: 'center',
+            format: (value) => value.toLocaleString('en-US'),
+        },
+        {
+            id: 'productName',
+            label: 'Product Name',
+            minWidth: 270,
+            align: 'center',
+            // format: (value) => value.toFixed(2),
+        },
+        {
+            id: 'category',
+            label: 'Product Type',
+            minWidth: 170,
+            align: 'center',
+            // format: (value) => value.toFixed(2),
+        },
+
+        {
+            id: `date`,
+            label: 'Date',
+            minWidth: 170,
+            align: 'center',
+            // date : new Date(value).toDateString(),
+            format: (value) => value.toLocaleString('en-US'),
+        },
+        {
+            id: 'productQuantity',
+            label: 'Quantity',
+            minWidth: 170,
+            align: 'center',
+            // format: (value) => value.toFixed(2),
+        },
+        {
+            id: 'discountPercentage',
+            label: 'Discount ( % )',
+            minWidth: 170,
+            align: 'center',
+            // format: (value) => value.toFixed(2),
+        },
+        {
+            id: 'natePriceWithDiscount',
+            label: 'Price ( Rs )',
+            minWidth: 170,
+            align: 'center',
+            format: (value) => value.toFixed(2),
+        },
+        {
+            id: 'totalProductPrice',
+            label: 'Total Price ( Rs )',
+            minWidth: 170,
+            align: 'center',
+            format: (value) => value.toFixed(2),
+        },
+        {
+            id: 'status',
+            label: 'Status',
+            minWidth: 170,
+            align: 'center',
+            // format: (value) => value.toFixed(2),
+        },
+
+    ];
 
 
 
@@ -72,7 +312,7 @@ function Prcards() {
                 <h4>Seller Product</h4>
                 <div className='container row'>
 
-                    
+
 
                     <div className="orcard2 col">
                         <div className="card-body">
@@ -160,7 +400,7 @@ function Prcards() {
                 </div>
                 <div className=' longdiv1'>
                     <h5>All Products</h5>
-                    <h5 className='float-end mr-4' style={{ fontFamily: "cursive", color: "#ffff" }}>{product.length}</h5>
+                    {/* <h5 className='float-end mr-4' style={{ fontFamily: "cursive", color: "#ffff" }}>{product.length}</h5> */}
                     {/* <select className="form" id="floatingSelect" aria-label="Floating label select example">
                         <option >All</option>
                         <option >Today</option>
@@ -181,7 +421,110 @@ function Prcards() {
                     onChange={handleSearchProductName} />
 
                 </div>
-                <div className="col-md-12 container table-responsive">
+                <Paper style={{ background: 'azure' }} sx={{ width: '100%', overflow: 'hidden' }}>
+                    <TableContainer sx={{ maxHeight: 440 }}>
+                        <Table stickyHeader aria-label="sticky table">
+                            <TableHead >
+                                <TableRow >
+                                    {columns.map((column) => (
+                                        <TableCell
+                                            className='bg-dark text-light'
+                                            key={column.id}
+                                            align={column.align}
+                                            style={{ minWidth: column.minWidth }}
+                                        >
+                                            {column.label}
+                                        </TableCell>
+                                    ))}
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {loading ? (<>
+                                    <div className='text-center loadingProduct'>
+
+                                        <img style={{ width: 50, height: 50 }} src='spinner.gif' />
+
+                                    </div>
+                                </>) : (<>
+                                    {
+                                        product
+                                            .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                            .map((row, index) => {
+                                                return (
+                                                    <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
+                                                        {columns.map((column) => {
+                                                            const value = row[column.id];
+                                                            return (<>
+
+                                                                {
+                                                                    column.id === 'action' ? (<>
+                                                                        {(userData.role.roleName != 'Vendor') ?
+                                                                            (<>
+                                                                                <TableCell key={column.id} align={column.align}>
+                                                                                    {/* <Link id="eml" to={'/editSubVendorProduct/' + row.productId} className="nav-link inactive"
+                                                                                aria-current="page" >
+                                                                                <span className="material-symbols-outlined">
+                                                                                    edit</span>&nbsp;Edit&nbsp;&nbsp;
+                                                                            </Link> */}
+                                                                                    <Link className='navAccountResponsive float-end  float-end' to={'/editProduct/' + row.productId}>
+                                                                                        <span id='logoutIcon' class="material-symbols-outlined">edit</span>&nbsp;<p className='navAccountText'>Edit</p>
+                                                                                    </Link>
+                                                                                </TableCell>
+                                                                            </>)
+                                                                            : (<>
+                                                                                <TableCell key={column.id} align={column.align}>
+                                                                                    {/* <Link id="eml" to={'/editProduct/' + row.productId} className="nav-link inactive"
+                                                                            aria-current="page" >
+                                                                                <Edit/> Edit
+                                                                           
+                                                                        </Link> */}
+                                                                                    <Link className='navAccountResponsive float-end float-end' to={'/editSubVendorProduct/' + row.productId}>
+                                                                                        <span id='logoutIcon' class="material-symbols-outlined">edit</span>&nbsp;<p className='navAccountText'>Edit</p>
+                                                                                    </Link>
+                                                                                </TableCell>
+                                                                            </>)
+                                                                        }
+                                                                    </>) : (<>
+                                                                        {column.id === 'index' ? (<>
+                                                                            <TableCell key={column.id} align={column.align}>{index + 1}</TableCell>
+
+                                                                        </>) : (<>
+                                                                            <TableCell key={column.id} align={column.align}>
+                                                                                {column.format && typeof value === 'number'
+                                                                                    ? column.format(value)
+                                                                                    : value}
+
+                                                                            </TableCell>
+                                                                        </>)}
+
+                                                                    </>)
+                                                                }
+                                                            </>
+                                                            );
+                                                        }
+                                                        )}
+                                                    </TableRow>
+                                                );
+                                            }
+                                            )
+                                    }
+                                </>)}
+
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                    <TablePagination
+                        rowsPerPageOptions={[100]}
+                        component="div"
+                        count={count}
+                        rowsPerPage={rowsPerPage}
+                        page={page}
+                        onPageChange={handleChangePage}
+                        onRowsPerPageChange={handleChangeRowsPerPage}
+                    />
+                </Paper>
+
+                {/* <div className="col-md-12 container table-responsive">
 
                     <InfiniteScroll
                         dataLength={product.length}
@@ -255,7 +598,7 @@ function Prcards() {
                             </tbody>
                         </table>
                     </InfiniteScroll>
-                </div>
+                </div> */}
 
                 {/* <div className='largediv1'>
                     <nav className='navdiv'>
