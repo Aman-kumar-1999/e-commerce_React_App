@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.css": "/e-commerce_React_App/static/css/main.d9672f7a.css",
+    "main.js": "/e-commerce_React_App/static/js/main.e5d088a3.js",
+    "static/js/787.f5b44600.chunk.js": "/e-commerce_React_App/static/js/787.f5b44600.chunk.js",
+    "static/media/Physics Lab Equipments.gif": "/e-commerce_React_App/static/media/Physics Lab Equipments.7c77bffbbcaeb206bdbf.gif",
+    "static/media/revicons.eot": "/e-commerce_React_App/static/media/revicons.a77de540a38981833f9e.eot",
+    "static/media/revicons.ttf": "/e-commerce_React_App/static/media/revicons.57fd05d4ae650374c8de.ttf",
+    "static/media/revicons.woff": "/e-commerce_React_App/static/media/revicons.e8746a624ed098489406.woff",
+    "index.html": "/e-commerce_React_App/index.html",
+    "main.d9672f7a.css.map": "/e-commerce_React_App/static/css/main.d9672f7a.css.map",
+    "main.e5d088a3.js.map": "/e-commerce_React_App/static/js/main.e5d088a3.js.map",
+    "787.f5b44600.chunk.js.map": "/e-commerce_React_App/static/js/787.f5b44600.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.d9672f7a.css",
+    "static/js/main.e5d088a3.js"
+  ]
+}
